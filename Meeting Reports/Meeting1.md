@@ -44,20 +44,3 @@ The goal of our meeting was to find ideas for the project and discuss about them
 
 ### Agenda for next meeting : 
 We are going to meet again on the 26/02/2026, where we are going to view the feasibility study of the ideas discussed during this meeting and prepare for the first project presentation. 
-
-
-## Meeting 2 : 
-
-**Date** : 26/02/2026
-
-**Time** : 14:00 - 15:30
-
-**Location** : University 
-
-### Participants : 
-* Katché Paule-Iris Djeni
-* Pauline Aquilina Malalo-an
-* Sandrya SANDANASSAMY
-* Yasmine ZERAIDI
-
-### Meeting objective : 
