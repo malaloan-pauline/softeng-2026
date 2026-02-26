@@ -20,6 +20,7 @@ The goal of our meeting was to find ideas for the project and discuss about them
 #### Ideas/questions : 
 * How to make it attractive for young people ? 
 * Application or website ? if app : python, website : javascript 
+    * website vs app: website will be easy to launch when app needs phone or something 
 * How to promote Computer Science (CS) ? 
 * Application in python 
 * Include a tutorial "To Get Started"
@@ -31,7 +32,15 @@ The goal of our meeting was to find ideas for the project and discuss about them
 * Game (to be determined) with voluntary "crashes" where the player has to debug in order to continue the game  
 * Quiz that based on the personnality and preferences (choices) determines which outlet/job corresponds to them
 * 2 parts : programming and test to see the product of the code 
-* 2 main themes : programming and OS 
+* 2 main themes :
+  * programming:
+    * different languages to show that theyre not that different
+    * console: code, navigation terminal (tuto of coding, or do some coding where you can see what you did) 
+    * language (compare) : languages are used in where etc etc 
+    * can be skipped 
+    
+  * operating systems:
+    *  how your machine works
 * Webapp with QR code, accessible for all from the phone 
 
 #### Application Overview : 
