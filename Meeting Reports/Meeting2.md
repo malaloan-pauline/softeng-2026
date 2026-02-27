@@ -31,13 +31,18 @@
 |What are the risks (risk analysis)?| The risks are that we won’t be able to finish the website on time, or that it’s not attractive enough to the targeted audience.  | The student does not want to install and test the app. The app might not be finished in due time.
 |
 
-<p> Go for a Web App. No-go for a mobile application. </p>
+<p> Conclusion: Go for a Web App. No-go for a mobile application. </p>
 
 |               | Interactive Game     | Quiz            |
 |:------------- | :-------------:      | :-------------: |
-|What is the scope of the planned project?|  |  |
-|Is it technically feasible (possible)?              |  |  |
-|WWhat are the benefits?|  |  |
-|What are the expected costs? Timetable?|  |  |
-|Are needed resources available?|  |  |
-|What are the risks (risk analysis)?|  |  |
+|What is the scope of the planned project?| The project must be done within the given time and constraints : 13 weeks, it has to work correctly and not crash. The website should be attractive to young people and interest them into the CS bachelor. | Idem |
+|Is it technically feasible (possible)?              | Yes, it is technically feasible within the group’s capabilities thanks to past projects (Programming 1 and 2) in previous semesters.  | It might not be  technically feasible , the user’s knowledge on the subject is unknown, meaning that they could have a strong foundation or none at all. This could lead to the user finishing the quiz feeling unsatisfied or the user will skip most if not all of the questions. |
+|WWhat are the benefits?| A game could be very attractive to young people : they are used to games and interactive content. This will implicate them more than a static informative website. | A quiz will provide information easily to the user.  |
+|What are the expected costs? Timetable?| We are limited in time, the project must be achieved in 13 weeks. | Idem |
+|Are needed resources available?| The group shares experience from previous semesters in developing games. No additional financial cost is needed to do so. | There are open source test makers templates online that the group can take inspiration on. |
+|What are the risks (risk analysis)?| The risks are that we won’t be able to finish on time, or making a game too complex or too simple for the final user. | The user’s knowledge on the subject is unknown, meaning that they could have a strong foundation or none at all. This could lead to the user finishing the quiz feeling unsatisfied or the user will skip most if not all of the questions.  |
+
+<p> Conclusion: Go for a mix of an Interactive Game and Quiz(zes). </p>
+
+### Agenda for next meeting : 
+We are going to meet again after the presentation (date undecided yet) to discuss details and decisions.
