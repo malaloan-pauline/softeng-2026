@@ -9,7 +9,6 @@
 **Location** : University 
 
 ### Participants : 
-* Katché Paule-Iris Djeni
 * Pauline Aquilina Malalo-an
 * Sandrya SANDANASSAMY
 * Yasmine ZERAIDI
