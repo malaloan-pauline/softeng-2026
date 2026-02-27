@@ -21,3 +21,21 @@
 <p> We spun a wheel to choose at random. It landed on Sandrya and Pauline. </p>
 
 ### Feasibility Studies
+
+|               | Website         | Application     |
+|:------------- | :-------------: | :-------------: |
+|What is the scope of the planned project?|  |  |
+|Is it technically feasible (possible)?              |  |  |
+|WWhat are the benefits?|  |  |
+|What are the expected costs? Timetable?|  |  |
+|Are needed resources available?|  |  |
+|What are the risks (risk analysis)?|  |  |
+
+|               | Interactive Game     | Quiz            |
+|:------------- | :-------------:      | :-------------: |
+|What is the scope of the planned project?|  |  |
+|Is it technically feasible (possible)?              |  |  |
+|WWhat are the benefits?|  |  |
+|What are the expected costs? Timetable?|  |  |
+|Are needed resources available?|  |  |
+|What are the risks (risk analysis)?|  |  |
