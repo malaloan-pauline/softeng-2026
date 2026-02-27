@@ -4,7 +4,7 @@
 
 **Date** : 26/02/2026
 
-**Time** : 14:00 - 15:30
+**Time** : 14:05 - 15:05
 
 **Location** : University 
 
@@ -15,3 +15,4 @@
 * Yasmine ZERAIDI
 
 ### Meeting objective : 
+<p> Determine who will be the one presenting the idea next week. As well as creating the feasibility studies to determine what is feasible. </p>
