@@ -15,4 +15,4 @@
 * Yasmine ZERAIDI
 
 ### Meeting objective : 
-<p> Determine who will be the one presenting the idea next week. As well as creating the feasibility studies to determine what is feasible. </p>
+<p> Determine who will be the one presenting the report next week. As well as creating the feasibility studies to determine what is feasible and what is not. </p>
