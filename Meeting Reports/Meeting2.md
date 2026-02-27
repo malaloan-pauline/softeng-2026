@@ -16,3 +16,6 @@
 
 ### Meeting objective : 
 <p> Determine who will be the one presenting the report next week. As well as creating the feasibility studies to determine what is feasible and what is not. </p>
+
+### People who will present:
+<p> We spun a wheel to choose at random. It landed on Sandrya and Pauline. </p>
