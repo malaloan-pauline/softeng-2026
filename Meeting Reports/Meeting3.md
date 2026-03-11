@@ -34,7 +34,7 @@
   
 ### Project's name :
 
-<p> The group spent some time and settled on IT Match. This might be changed in the future. </p>
+<p> The group spent some time and settled on "IT Match". This might be changed in the future. </p>
 
 ### Website's content :
 
