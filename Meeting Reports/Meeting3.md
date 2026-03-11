@@ -48,7 +48,7 @@
 
 <p> The game section will multiple mini-games that are inspired by simple games that already exist. </p>
 
-Content:  
+**Content** :  
 - Programming: 
   -  Snake (made of electric cables)
      	- experience from prog3
@@ -70,11 +70,11 @@ Content:
 
 <p> Quiz, based on skills and personality, that will determine which courses at UL you will most likely enjoy the most. For the results, we thought of having a similar layout as to "Love Testers" that can be found online. </p>
 
-<p> i.e. If the user prefers logic, they will enjoy Algorithm classes. If they enjoy Mathematics, they will enjoy the Math classes as well as the database ones, etc...
+<p> i.e. If the user prefers logic, they will enjoy Algorithm classes. If they enjoy Mathematics, they will enjoy the Math classes as well as the database ones, etc... </p>
 
 ### Agenda for next meeting :
 
-<p> We are going to hold our weekly meeting on the 12/03/2026. Each group member will have the following tasks to complete:
+<p> We are going to hold our weekly meeting on the 12/03/2026. Each group member will have the following tasks to complete: </p>
 
 - Brainstorm on potential other Project Name
   - if none are found, the original name will be kept
