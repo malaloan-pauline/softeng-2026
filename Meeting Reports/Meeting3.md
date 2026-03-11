@@ -1,101 +1,87 @@
-Software Engineering - Project Meeting 3: 
+# Software Engineering - Project
 
-**Date** :05/03/2026 
+## Meeting 3 : 
 
-**Time:** 14:00 - 15:00 
+**Date** : 05/03/2026 
 
-**Location:** University of Luxembourg Participants: 
+**Time** : 14:00 - 15:00 
 
-• Pauline Aquilina Malalo-an 
+**Location** : University of Luxembourg
 
-• Sandrya SANDANASSAMY 
+### Participants :
+* Pauline Aquilina Malalo-an 
+* Paule-Iris Djeni 
+* Sandrya SANDANASSAMY 
+* Yasmine ZERAIDI 
 
-• Yasmine ZERAIDI 
+### Meeting objective :  
 
-• Paule-Iris Djeni 
+<p> Brainstorm about the content of the Game, Quiz and the project's name. As well as researching the tools that will be used and the recommendations given after the first presentation. </p>
 
-Meeting objective: 
+### People who will present: 
 
-Brainstorm about the different part of the Game – Quiz, the tools that will be used and the Teachers recommendations after the first presentation. 
+<p> The next presentation wil be done by Yasmine ZERAIDI and Paule-Iris Djeni. </p> 
 
-People who will present: 
+### Questions :
+- Website Hosting?. 
+  - Research if the UL can provide free hosting. 
+- Tools to use? 
+  - GitHub 
+  - Docker 
+  - Unity 
+  - Trello 
 
-The next presentation wil be done by Yasmine ZERAIDI and Paule-Iris Djeni Brainstorming 
+  
+### Project's name :
 
+<p> The group spent some time and settled on IT Match. This might be changed in the future. </p>
 
+### Website's content :
 
-Website Hosting: - decide later. 
+- Home page with the mini-games & the quiz
+  - the latter is already available for users who wish not to play any games
+- Fun facts
+- Easter Eggs
+- Feedback on the IT bachelor
 
-- ask the university to provide free hosting. 
+### Game :
 
+<p> The game section will multiple mini-games that are inspired by simple games that already exist. </p>
 
+Content:  
+- Programming: 
+  -  Snake (made of electric cables)
+     	- experience from prog3
+   	- Join Five
+     	- experience from prog1 & prog3
+   	- Four in a row
+   	- Platform game (i.e.: "Super Mario")
+   	- Candy Crush (with hardware instead of candies)
+   	- Googe Feud (what do CS students google?)
+   	- Spot the Difference
+   	- Djikstra Algorithm
+   	- Coding Game (i.e.: "The Farmer was replaced")
 
-Tools to use: - GitHub 
-
-- Docker 
-
-- Unity or another alternative 
-
-- Trello 
-
-- Python \(QR code \+ libraries\) \+ JavaScript \+ HTML \+ CSS 
-
-
-
-**Game – Quiz** Name Idea: IT Match 
-
-Placement quiz based on personality \(what subject\(s\) you are more likely to love\) 
-
-- Logic? Algorithm 
-
-- Work alone/in a group 
-
-- Math? Math, database 
-
-- Creating games? Programming Fun facts, easter eggs, feedback on the Bachelor Games inspired by simple games that already exist: 
-
-- Hardware assembly game \(puzzle\) 
-
-- Snake \(made of electric cables\) 
-
-- Noughts and crosses 
-
-- Power 4 
-
-- Simple Mario type game 
-
-- IT Candy Crush 
-
-- Google Feud \(Search for CS student on Google\) 
-
-- Spot the difference game 
-
-- Dijkstra's theorem 
-
-- Farmer is replaced \(programming part\) Home page with mini-games and quiz section **Agenda for next meeting - 12/03 10:00 11:00** 
-
-Find a name for the game: everyone thinks about it on their own. 
-
-Think about how to make the mini-games relevant to IT. 
-
-Imagine the website \(colour palette, etc.\). 
-
-Get more information about the University of Luxemburg server host. 
-
-Learn about other game engines such as Unity, Unreal Engine, Godot \(teacher recommendation\), Cave. 
+- Operating Systems:    
+  - Hardware assembly game (puzzle game)
 
 
+### Quiz :
 
+<p> Quiz, based on skills and personality, that will determine which courses at UL you will most likely enjoy the most. For the results, we thought of having a similar layout as to "Love Testers" that can be found online. </p>
 
+<p> i.e. If the user prefers logic, they will enjoy Algorithm classes. If they enjoy Mathematics, they will enjoy the Math classes as well as the database ones, etc...
 
-# Document Outline
+### Agenda for next meeting :
 
-+ Software Engineering - Project  
-	+ Meeting 3:  
-		+ Participants: 
-		+ Meeting objective: 
-		+ People who will present: 
-		+ Brainstorming
+<p> We are going to hold our weekly meeting on the 12/03/2026. Each group member will have the following tasks to complete:
+
+- Brainstorm on potential other Project Name
+  - if none are found, the original name will be kept
+- Think of how to connect the mini-games to the CS department in UL
+- Imagine the website (colour palette, layout, etc...) 
+- Research on UL's server host
+- Learn about other game engines such as Unity, Unreal Engine, Godot (recommended), Cave. 
 
 
 
