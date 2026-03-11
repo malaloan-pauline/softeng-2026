@@ -9,8 +9,8 @@
 **Location** : University of Luxembourg
 
 ### Participants :
-* Pauline Aquilina Malalo-an 
-* Paule-Iris Djeni 
+* Pauline Aquilina MALALO-AN
+* Paule-Iris DJENI 
 * Sandrya SANDANASSAMY 
 * Yasmine ZERAIDI 
 
