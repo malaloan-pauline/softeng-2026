@@ -16,7 +16,7 @@
 
 ### Meeting objective :  
 
-<p> Define more precisely the website's features and functionalities, define which are a must and which are optional. Brainstorm about the visual identity and provide a rough idea of the graphical interface. Define whhich tools will be used throughout the project. Define the objectives and goals to meet by the end of the first Sprint. </p>
+<p> Define more precisely the website's features and functionalities, define which are a must and which are optional. Brainstorm about the visual identity and provide a rough idea of the graphical interface. Define which tools will be used throughout the project. Define the objectives and goals to meet by the end of the first Sprint. </p>
 
 ### Presenters : 
 
@@ -36,7 +36,7 @@
 * Games : focus on games that have already been done in past classes to save time (Morpion, Clicker, Snake, Hangman, etc…)
 
 **Name and visual identity**
-<p> The app is confirmed to be named "Match IT". The quiz will be named "Love Tester". </p>
+<p> The app is confirmed to be named "Match IT". </p>
 
 **Logo:** Matcha cup with eyes and a smile
 **Colour palette:** 
@@ -52,10 +52,10 @@
 ->  Sources : https://www.canva.com/qr-code-generator/ & https://www.qr-code-generator.com/
 The layout of the QR code on the TV will be a QR code on a side and a description on the side to attract people. On the description, there will be the Project’s name as well as the slogan “Not to mistake with Matcha Tea”.
 - **Language for the software :**
-  - HTML (bone structure website)
-  - CSS (website)
+  - HTML (website bone structure)
+  - CSS (website visuals)
   - Javascript (for the games)
-  - React (Graphic interface)
+  - React (graphic interface)
 
 ### Sprint 1 | Objectives and goals : 
 - 4 games coded and ready to go
@@ -70,12 +70,13 @@ The layout of the QR code on the TV will be a QR code on a side and a descriptio
 - Update/Changes : ~~Python~~ --> Javascipt, HTML, CSS, React
 - Tools : GitHub, IntelliJ/VS Code, Docker, Trello (add screenshot of the board)
 - What’s next : separate tasks (who will do what part of the app —> Trello) and start with working
-- Next presentation: we’re hoping to have coded 4 games and have a precise mockup of the website (we have to think about it while working on the games, logo included)
+- Next presentation: we’re hoping to have coded 4 games and have a precise mockup of the website (must be thought about alongside working on the games, logo included)
 
 ### To-do | Deadline : 18/03 (Presentation)
 * Sandrya & Pauline gather the games that were realised in the previous courses
 * Yasmine & Iris work on the slides and presentation
-* Website interface approx (just a drawing)
+* Website interface approx (sketches)
+* Trello board
 
 
 
