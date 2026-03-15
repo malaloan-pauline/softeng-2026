@@ -38,7 +38,7 @@
 **Name and visual identity**
 <p> The app is confirmed to be named "Match IT". </p>
 
-**Logo:** Matcha cup with eyes and a smile
+**Logo:** Matcha cup with eyes and a smile  
 **Colour palette:** 
 * Pastel green
 * Pastel pink
@@ -49,7 +49,7 @@
 - Trello : for project management
 - UL’s server will be most likely used when the product needs to be delivered.
 - QR code 
-->  Sources : https://www.canva.com/qr-code-generator/ & https://www.qr-code-generator.com/
+->  Sources : https://www.canva.com/qr-code-generator/ & https://www.qr-code-generator.com/  
 The layout of the QR code on the TV will be a QR code on a side and a description on the side to attract people. On the description, there will be the Project’s name as well as the slogan “Not to mistake with Matcha Tea”.
 - **Language for the software :**
   - HTML (website bone structure)
