@@ -20,7 +20,7 @@
 
 ### People who will present: 
 
-<p> The next presentation wil be done by Yasmine ZERAIDI and Paule-Iris Djeni. </p> 
+<p> The next presentation will be done by Yasmine ZERAIDI and Paule-Iris Djeni. </p> 
 
 ### Questions :
 - Website Hosting?. 
