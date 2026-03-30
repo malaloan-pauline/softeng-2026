@@ -1,0 +1,49 @@
+# docker-compose.yml
+
+services:
+
+  # ── Front-end (React + Vite) ──────────────────────────
+  client:
+    build: ./client
+    container_name: webapp-client
+    ports:
+      - "5173:5173"        # localhost:5173 --> React app
+    volumes:
+      - ./client:/app      # Live reload: code changes appear instantly
+      - /app/node_modules  # To not overwrite node_modules inside container
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - server
+
+  # ── Back-end (Node.js + Express) ─────────────────────
+  server:
+    build: ./server
+    container_name: webapp-server
+    ports:
+      - "3000:3000"        # localhost:3000 = API
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    environment:
+      - DATABASE_URL=postgresql://webapp_user:webapp_pass@db:5432/webapp_db
+      - PORT=3000
+    depends_on:
+      - db
+
+  # ── Database (PostgreSQL) ─────────────────────────────
+  db:
+    image: postgres:16-alpine    # Uses the official Postgres image, no Dockerfile needed
+    container_name: webapp-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=webapp_user
+      - POSTGRES_PASSWORD=webapp_pass
+      - POSTGRES_DB=webapp_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data   # Data persists even if container restarts
+
+# Named volume so your database data is saved
+volumes:
+  postgres_data:
