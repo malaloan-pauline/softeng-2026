@@ -39,9 +39,7 @@
 | Tic Tac Toe | Clicker | One-stroke puzzle | Hangman |
 
 ### Next meeting :
-<p> The Next Meetings will be conducted on Tuesday 07/04 on Discord. </p>
-
-### To do list before next meeting
+<p> The next Meeting will be conducted on Tuesday 07/04 on Discord. </p>
 
 ### Agenda :
 * Review Meeting report 6 
