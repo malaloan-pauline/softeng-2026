@@ -29,9 +29,9 @@
 
 | Elements       | Decisions |
 | :------:       | :-------: |
-| Colour Palette | Keep a similar colour palette as the one in Presentation 2, but with a more neutral cream. Possibly grey/brown |
-| Logo           | Have a simplified logo (the one used in Presentation 2) and a more detailed one (if possible) |
-| Font           | Still in discussion but a simple font was decided to be the best | 
+| Colour Palette | Keep a similar colour palette as the one in Presentation 2 <br> -> opt for a neutral cream (grey/brown) |
+| Logo           | Simplified logo (the one used in Presentation 2) <br> + detailed one (if possible) |
+| Font           | A simple font was decided to be the best  | 
 |
 
 <p> During the discussion, we also thought that it would be smart to get input from other people. This would be to check whether the colours are not too flashy.</p>
@@ -40,8 +40,8 @@
 
 | Themes | Courses |
 | :----: | :-----: |
-| Mathematics | Database, Statistics |
-| Programming | Programming 1-2, Introduction to Graphics |
+| Mathematics | Database, <br> Statistics |
+| Programming | Programming 1-2, <br> Introduction to Graphics |
 | Math + logic| Algorithms |
 | Hardware/Software | Operating Systems |
 
