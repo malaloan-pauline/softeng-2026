@@ -101,7 +101,7 @@ PostgreSQL is configured automatically by Docker with these default credentials 
 ## Development Status
 
 - [x] Docker environment (client + server + database)
-- [ ] React Router + Tailwind CSS setup
+- [x] React Router + Tailwind CSS setup
 - [ ] Sliding navigation bar
 - [ ] Mini-games (Tic-tac-toe, Hangman, ...)
 - [ ] Personality quiz
