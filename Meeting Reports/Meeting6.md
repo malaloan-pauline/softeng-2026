@@ -14,7 +14,7 @@
 | Discussion + note taking, <br>task attribution, <br>updated Trello | Discussion + note taking, <br>task attribution, <br>updated Trello | Discussion, <br>task attribution </br> |
 
 ### Absent(s) :
-* Yasmine ZERAIDI
+* Yasmine ZERAIDI, could not attend due to being sick
 
 ### **Meeting objectives :**
 * [x] Distribute a game per person for parallel development
@@ -32,7 +32,6 @@
 | Colour Palette | Keep a similar colour palette as the one in Presentation 2 <br> -> opt for a neutral cream (grey/brown) |
 | Logo           | Simplified logo (the one used in Presentation 2) <br> + detailed one (if possible) |
 | Font           | A simple font was decided to be the best  | 
-|
 
 <p> During the discussion, we also thought that it would be smart to get input from other people. This would be to check whether the colours are not too flashy.</p>
 
