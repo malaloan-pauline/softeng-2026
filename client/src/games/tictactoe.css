@@ -1,0 +1,6 @@
+
+/*the tile "Tict'IT" */ 
+h1{
+    font-size: 10vw; /* here i made a font the size responsive (so it shanges with the window width), of course the size is arbitrary for now 10 % , like the color */ 
+    color: black; /*for now in black will later apply website color */
+}
