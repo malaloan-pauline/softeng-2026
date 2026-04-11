@@ -11,7 +11,7 @@
 ### Participants & Contribution : 
 | Pauline Aquilina MALALO-AN | Sandrya SANDANASSAMY | Paule-Iris DJENI | Yasmine ZERAIDI |
 | :------------------------: | :------------------: | :--------------: | :--------------:|
-| Discussion + note taking | Discussion + note taking  + updated Trello | Discussion | Discussion + note taking  + updated Trello|
+| Discussion + note taking  + updated Trello | Discussion + note taking  + updated Trello | Discussion | Discussion + note taking  + updated Trello|
 
 
 ### **Meeting objective :**
