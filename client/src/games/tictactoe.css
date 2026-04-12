@@ -4,17 +4,28 @@ h1{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10vw; /* here i made a font the size responsive (so it shanges with the window width), of course the size is arbitrary for now 10 % , like the color */ 
     color: black; /*for now in black will later apply website color */
-
 }
 
 hr{
     width: 20vw;
     height: 0.1vw;
 }
-
+ 
 body{
-    background-color: aquamarine; /*obviously temporary color*/
+    background-color: aquamarine; /*obviously temporary colors for all*/
     font-family: Arial, Helvetica, sans-serif;
     color: brown;
     text-align: center;
+}
+
+/*ID reference*/ 
+#game-board-3x3{ 
+    width: 50vw;
+    height: 50vw;
+    margin: 0 auto; /*centers horizontally*/ 
+
+    background-color: palevioletred;
+    border-color: rgb(0, 4, 233);
+    color:red;
+    border-radius: 5vw;
 }
