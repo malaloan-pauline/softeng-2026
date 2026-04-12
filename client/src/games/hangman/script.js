@@ -129,19 +129,51 @@ function pickWord() {
     currentHint = randomItem.def;
 }
 
+function updateDisplay() {
+
+    const splitWord = currentWord.split("");
+    const letters = splitWord.map(letter => {
+        if(guessedLetters.includes(letter)){
+            return `<li class="letter correct">${letter}</li>`;
+        } else {
+            return `<li class="letter"></li>`;
+        }
+    })
+    wordDisplay.innerHTML = letters.join("");
+    hintDisplay.textContent = currentHint;
+
+}
+
+function generateKeyboard() {
+
+    keyboardDiv.innerHTML = "";
+    for (let i = 65; i <= 90; i++){
+        const button = document.createElement("button");
+        button.textContent = String.fromCharCode(i);
+        keyboardDiv.appendChild(button);
+    }
+}
+
 function startGame(difficulty) {
 
     currentDifficulty = difficulty;
-    let currentWord = "";
-    let guessedLetters = [];
-    let errors = 0;
-    let score = 0;
-    let skipUsed = 0;
-    let usedWord = [];
-    let skipCost = 0;
+    hangmanImage.src = "images/0.png"
+    currentWord = "";
+    guessedLetters = [];
+    errors = 0;
+    score = 0;
+    skipUsed = 0;
+    usedWord = [];
+    skipCost = 0;
 
+    pickWord();
+    updateDisplay();
+    generateKeyboard();
+}
 
-
+function handleGuess() {
+    
+    if ()
 
 }
 
