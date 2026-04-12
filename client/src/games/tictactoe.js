@@ -1,7 +1,7 @@
 ///Players: parameters related to players    
-    let playerI ="I" ;
-    let playerT ="T" ;
-    let currentPlayer = playerI ;
+    const playerI ="I" ; /// const as these variables will never changed
+    const playerT ="T" ;
+    let currentPlayer = playerI ; /// it will change at each turn so use let
 
 /// Others: Other parameters will be here ( unless a category is created for them later)
 
