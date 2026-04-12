@@ -8,7 +8,11 @@
     <title>Tict'IT</title>  <!-- tictactoe version IT -->
 
     <link rel="stylesheet" href="tictactoe.css"> <!-- piont to external css file -->
-    <script src="tictactoe.js"></script> <!-- point to external css file -->   
+    <!-- 
+         i use "defer" so that .js loads last and doesn't delay the loading of html and css.
+        i could put it last in the body but it won't be clean for me at least
+    --> 
+    <script src="tictactoe.js" defer></script> <!-- point to external css file -->   
 
 </head>
 
@@ -16,7 +20,7 @@
 <body>
 
     <h1>Tict'IT</h1> <!-- main title -->
-
+    <hr>
     <p>Welcome to the tictactoe game version IT ! </p>
 
 
@@ -27,9 +31,71 @@
                 <option value="4x4 grid">4x4</option>
                 <option value="5x5 grid">5x5</option>
             </select>
-    
+    <br>
+
+    <div id="game-board-3x3">
+                <div data-cell-index="0" class="game-cell">X</div>
+                <div data-cell-index="1" class="game-cell">X</div>
+                <div data-cell-index="2" class="game-cell">X</div>
+                <div data-cell-index="3" class="game-cell">X</div>
+                <div data-cell-index="4" class="game-cell">X</div>
+                <div data-cell-index="5" class="game-cell">X</div>
+                <div data-cell-index="6" class="game-cell">X</div>
+                <div data-cell-index="7" class="game-cell">X</div>
+                <div data-cell-index="8" class="game-cell">X</div>
+    </div>
+
+    <button id="restart-game-button">Restart Game</button>
+
+<!-- for now ill focus on 3by 3 to see how it works
+    <div id="game-board-4x4"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
 
 
+
+    <div id="game-board-5x5"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+                <div data-cell-index="0" class="game-cell"></div>
+
+ -->
 
 </body>
 
