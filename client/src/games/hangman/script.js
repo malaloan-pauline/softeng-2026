@@ -172,6 +172,18 @@ function startGame(difficulty) {
     generateKeyboard();
 }
 
+function checkWin() {
+    if(currentWord.split("").every(letter => guessedLetters.includes(letter))){
+        endGame("win");
+    }
+}
+
+function checkLoss() {
+    if(errors === 6) {
+        endGame("loss");
+    }
+}
+
 function handleGuess(letter) {
 
     guessedLetters.push(letter);
