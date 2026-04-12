@@ -14,7 +14,7 @@
 // Grid: parameters and winning conditions for our 3x3 grid
  
     // Winning cobinations
-        const winningCombination = [
+        const winningCombinations = [
                 //horizontal: from top to down
                 [0, 1, 2],
                 [3, 4, 5],
