@@ -20,8 +20,8 @@ body{
 
 /*ID reference*/ 
 #game-board-3x3{ 
-    width: 50vw;
-    height: 50vw;
+    width: 40vw;
+    height: 40vw;
     margin:  0 auto; /*centers horizontally*/ 
 
     background-color: palevioletred;
