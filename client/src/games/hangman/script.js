@@ -150,6 +150,7 @@ function generateKeyboard() {
     for (let i = 65; i <= 90; i++){
         const button = document.createElement("button");
         button.textContent = String.fromCharCode(i);
+        button.dataset.letter = String.fromCharCode(i);
         keyboardDiv.appendChild(button);
     }
 }
@@ -171,10 +172,20 @@ function startGame(difficulty) {
     generateKeyboard();
 }
 
-function handleGuess() {
-    
-    if ()
+function handleGuess(letter) {
 
+    guessedLetters.push(letter);
+    const button = keyboardDiv.querySelector(`button[data-letter="${letter}"]`);
+    button.disabled = true;
+
+    if(currentWord.includes(letter)) {
+        updateDisplay();
+        checkWin();
+    } else {
+        errors ++;
+        hangmanImage.src = `images/${errors}.png`;
+        checkLoss();
+    }
 }
 
 // ----</functions>----
