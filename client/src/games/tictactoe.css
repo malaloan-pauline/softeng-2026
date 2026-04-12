@@ -1,40 +1,48 @@
+/*
+other stuff
+*/ 
 
-/*the tile "Tict'IT" */ 
-h1{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10vw; /* here i made a font the size responsive (so it shanges with the window width), of course the size is arbitrary for now 10 % , like the color */ 
-    color: black; /*for now in black will later apply website color */
-}
+    /*the tile "Tict'IT" */ 
+    h1{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10vw; /* here i made a font the size responsive (so it shanges with the window width), of course the size is arbitrary for now 10 % , like the color */ 
+        color: black; /*for now in black will later apply website color */
+    }
 
-hr{
-    width: 20vw;
-    height: 0.1vw;
-}
+    hr{ /* line under title*/ 
+        width: 20vw;
+        height: 0.1vw;
+    }
  
-body{
-    background-color: aquamarine; /*obviously temporary colors for all*/
-    font-family: Arial, Helvetica, sans-serif;
-    color: brown;
-    text-align: center;
-}
+    body{ /* The general appearance */ 
+        background-color: aquamarine; /*obviously temporary colors for all*/
+        font-family: Arial, Helvetica, sans-serif;
+        color: brown;
+        text-align: center;
+    }
+
+
+/*
+Everything on the grig here
+*/ 
 
 /*ID reference , the game board for 3x3*/ 
-#game-board-3x3{ 
-    width: 45vw;
-    height: 45vw;
-    margin:  0 auto; /*centers horizontally*/ 
+    #game-board-3x3{ 
+        width: 45vw;
+        height: 45vw;
+         margin:  0 auto; /*centers horizontally*/ 
 
-    background-color: palevioletred;
-    color:red;
-    border: 0.1vw solid aquamarine;
-    border-radius: 0,3vw;
+        background-color: palevioletred;
+        color:red;
+        border: 0.1vw solid aquamarine;
+        border-radius: 0,3vw;
 
-    display: grid;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr); /*set rows and columns in grid, 3cells 1 fractionnal unit*/ 
-}
+        display: grid;
+         grid-template: repeat(3, 1fr) / repeat(3, 1fr); /*set rows and columns in grid, 3cells 1 fractionnal unit*/ 
+    }
 
-/*class reference*/ 
-.game-cell{
+    /*class reference*/ 
+    .game-cell{
             border: 0.7vw solid aquamarine;
             border-radius: 0.05vw;
             font-size: 10vw;
@@ -42,16 +50,19 @@ body{
             display: flex;
             justify-content: center; /*center txt hlorizontally*/ 
             align-items: center ;/*align txt vertically*/ 
-}
+    }
 
-.winning-game-cell {
+    .winning-game-cell {
         background-color: beige;
         color: yellow;
-}
+    }
 
 
+/*
+All the buttons should be here 
+*/ 
 
-#restart-game-button{
+    #restart-game-button{
             color: black;
             background-color: blue;
             height: auto; /*temporary*/ 
@@ -59,11 +70,11 @@ body{
             border: 0.1vw solid rgb(255, 0, 191);
             margin-top: 1vw ;
 
-}
+    }
 
 
-#restart-game-button:hover {
+    #restart-game-button:hover {
             color: black;
             background-color: rgb(255, 0, 0);
 
-}
+    }
