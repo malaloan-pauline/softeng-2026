@@ -22,10 +22,24 @@ body{
 #game-board-3x3{ 
     width: 50vw;
     height: 50vw;
-    margin: 0 auto; /*centers horizontally*/ 
+    margin:  0 auto; /*centers horizontally*/ 
 
     background-color: palevioletred;
-    border-color: rgb(0, 4, 233);
     color:red;
-    border-radius: 5vw;
+    border: 0.1vw solid blue;
+    border-radius: 0,2vw;
+
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr); /*set rows and columns in grid, 3cells 1 fractionnal unit*/ 
+}
+
+/*class reference*/ 
+.game-cell{
+            border: 0.7vw solid purple;
+            border-radius: 0.1vw;
+            font-size: 10vw;
+
+            display: flex;
+            justify-content: center; /*center txt hlorizontally*/ 
+            align-items: center ;/*align txt vertically*/ 
 }
