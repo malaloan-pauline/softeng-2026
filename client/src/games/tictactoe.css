@@ -26,8 +26,8 @@ body{
 
     background-color: palevioletred;
     color:red;
-    border: 0.1vw solid blue;
-    border-radius: 0,2vw;
+    border: 0.1vw solid aquamarine;
+    border-radius: 0,3vw;
 
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr); /*set rows and columns in grid, 3cells 1 fractionnal unit*/ 
@@ -35,8 +35,8 @@ body{
 
 /*class reference*/ 
 .game-cell{
-            border: 0.7vw solid purple;
-            border-radius: 0.1vw;
+            border: 0.7vw solid aquamarine;
+            border-radius: 0.05vw;
             font-size: 10vw;
 
             display: flex;
