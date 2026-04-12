@@ -9,9 +9,21 @@
     </head>
 
     <body>
+        <div class="rules-modal" id="rules-modal">
+            <div class="modal-content">
+                <h2>Rules</h2>
+                <p>Guess the hidden CS word letter by letter.
+                    You have 6 attempts. Each wrong guess draws
+                    the hangman closer to his fate.
+                    Use the hint wisely!
+                </p>
+                <button class="close-modal">Close</button>
+            </div>
+        </div>
+
         <div class="screen-intro" id="screen-intro">
             <h1>Hangman Game</h1>
-            <!--<img> yet to insert-->
+            <!--<img class="intro-img" src=".png" alt="hangman illustration">-->
             <h2>Rules</h2>
             <p>Guess the hidden CS word letter by letter.
                 You have 6 attempts. Each wrong guess draws the hangman closer to his fate.
@@ -31,7 +43,7 @@
                 <button class="button-exit">Exit</button>
             </div>
             <div class="game-left">
-                <!-- <img >-->
+                <!-- <img class="hangman-img" src=".png" alt="hangman">-->
                 <p class="attempts">Left attempts: <b>6</b></p>
                 <p class="score">Points: <b>0</b></p>
             </div>
