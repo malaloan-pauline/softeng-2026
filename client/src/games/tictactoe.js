@@ -16,15 +16,15 @@
     // Winning cobinations
         const winningCombination = [
                 //horizontal: from top to down
-                [0, 1, 2]
+                [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
                 // vertical : from left to right
-                [0, 3, 6]
-                [1, 4, 7]
-                [2, 5, 8]
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
                 //diagonal: from top left to down right 
-                [0, 4, 8]
+                [0, 4, 8],
                 //diagonal: from top right to down left
                 [2, 4, 6]
 
