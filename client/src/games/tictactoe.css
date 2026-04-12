@@ -18,7 +18,7 @@ body{
     text-align: center;
 }
 
-/*ID reference*/ 
+/*ID reference , the game board for 3x3*/ 
 #game-board-3x3{ 
     width: 45vw;
     height: 45vw;
@@ -49,10 +49,21 @@ body{
         color: yellow;
 }
 
+
+
 #restart-game-button{
+            color: black;
+            background-color: blue;
             height: auto; /*temporary*/ 
             width: auto;
             border: 0.1vw solid rgb(255, 0, 191);
             margin-top: 1vw ;
+
+}
+
+
+#restart-game-button:hover {
+            color: black;
+            background-color: rgb(255, 0, 0);
 
 }
