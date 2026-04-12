@@ -43,3 +43,16 @@ body{
             justify-content: center; /*center txt hlorizontally*/ 
             align-items: center ;/*align txt vertically*/ 
 }
+
+.winning-game-cell {
+        background-color: beige;
+        color: yellow;
+}
+
+#restart-game-button{
+            height: auto; /*temporary*/ 
+            width: auto;
+            border: 0.1vw solid rgb(255, 0, 191);
+            margin-top: 3vw ;
+
+}
