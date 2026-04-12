@@ -33,19 +33,54 @@
 
 
 
+
+
+        /// Check win or draw
+
+            /// Here to check win
+
+                function checkWin( ) {
+
+                }
+
+            /// Here to tie/draw?
+
+                function checkTie( ) {
+                
+                }
+
+
+
      /// here for ending the game
-          
-        /// Here to check win
+        
 
-        /// Here to tie/draw?
-
+     function endGame( ) {
+                
+            }
+    
 
      
 
      /// here for what happens when the game ends
 
+      function gameEnded( ) {
+                
+            }
+
 
      /// Here for the restart button (works everytime, before, during and after the game)
+
+             /// Here to check win
+
+            function checkWin( ) {
+
+            }
+
+        /// Here to tie/draw?
+
+         function restartGame( ) {
+                
+            }
 
 
 
