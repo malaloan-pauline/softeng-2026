@@ -1,4 +1,5 @@
-///Players: parameters related to players    
+/// Players: parameters related to players  
+  
     const playerI ="I" ; /// const as these variables will never changed
     const playerT ="T" ;
     let currentPlayer = playerI ; /// it will change at each turn so use let
@@ -10,13 +11,7 @@
 
 
 
-///Grid: parameters and winning conditions related to each grid size
-
-    ///3x3
-
-    ///4x4
-
-    ///5x5
+///Grid: parameters and winning conditions for our 3x3 grid
 
 
 
