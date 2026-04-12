@@ -1,6 +1,6 @@
 /// Players: parameters related to players  
   
-    const playerI ="I" ; /// const as these variables will never changed
+    const playerI ="I" ; // const as these variables will never changed
     const playerT ="T" ;
     let currentPlayer = playerI ; /// it will change at each turn so use let
 
@@ -11,34 +11,51 @@
 
 
 
-///Grid: parameters and winning conditions for our 3x3 grid
+// Grid: parameters and winning conditions for our 3x3 grid
+ 
+    // Winning cobinations
+        const winningCombination = [
+                //horizontal: from top to down
+                [0, 1, 2]
+                [3, 4, 5],
+                [6, 7, 8],
+                // vertical : from left to right
+                [0, 3, 6]
+                [1, 4, 7]
+                [2, 5, 8]
+                //diagonal: from top left to down right 
+                [0, 4, 8]
+                //diagonal: from top right to down left
+                [2, 4, 6]
+
+        ]
 
 
 
     
-/// BOT: the AI playing against the the player will be coded here
+// BOT: the AI playing against the the player will be coded here
 
 
 
-/// Here will be all the fuctions
-    ///here for before the game starts 
+// Here will be all the fuctions
+    // here for before the game starts 
 
 
-    /// here for during the game 
+    // here for during the game 
 
 
 
 
 
-        /// Check win or draw
+        // Check win or draw
 
-            /// Here to check win
+            // Here to check win
 
                 function checkWin( ) {
 
                 }
 
-            /// Here to tie/draw?
+            // Here to tie/draw?
 
                 function checkTie( ) {
                 
@@ -46,7 +63,7 @@
 
 
 
-     /// here for ending the game
+     // here for ending the game
         
 
      function endGame( ) {
@@ -56,22 +73,22 @@
 
      
 
-     /// here for what happens when the game ends
+     // here for what happens when the game ends
 
       function gameEnded( ) {
                 
             }
 
 
-     /// Here for the restart button (works everytime, before, during and after the game)
+     // Here for the restart button (works everytime, before, during and after the game)
 
-             /// Here to check win
+             // Here to check win
 
             function checkWin( ) {
 
             }
 
-        /// Here to tie/draw?
+        // Here to tie/draw?
 
          function restartGame( ) {
                 
@@ -79,5 +96,5 @@
 
 
 
-/// Message: here will be all the messages, i'll probably use a for loop to check each state of the game and print a message accordingly
+// Message: here will be all the messages, i'll probably use a for loop to check each state of the game and print a message accordingly
 
