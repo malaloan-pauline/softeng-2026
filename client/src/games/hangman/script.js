@@ -123,10 +123,21 @@ let skipCost = 0;
 // ----<functions>----
 
 function pickWord() {
+
     const wordList = words[currentDifficulty];
-    const randomItem = wordList[Math.floor(Math.random() * wordList.length)]
+
+    const available = wordList.filter(item => !usedWord.includes(item.word));
+
+    if (available.length === 0) {
+        usedWord = [];
+        available.push(...wordList);
+    }
+
+    const randomItem = available[Math.floor(Math.random() * available.length)];
     currentWord = randomItem.word;
     currentHint = randomItem.def;
+
+    usedWord.push(currentWord);
 }
 
 function updateDisplay() {
@@ -141,7 +152,6 @@ function updateDisplay() {
     })
     wordDisplay.innerHTML = letters.join("");
     hintDisplay.textContent = currentHint;
-skipUsed
 }
 
 function generateKeyboard() {
@@ -162,13 +172,15 @@ function startGame(difficulty) {
     currentWord = "";
     guessedLetters = [];
     errors = 0;
+    scoreDisplay.textContent = score;
     score = 0;
     skipsUsed = 0;
-    usedWord = [];
     skipCost = 0;
 
+    showScreen("screen-game");
     pickWord();
     updateDisplay();
+    attemptsDisplay.textContent = MAX_ATTEMPTS;
     generateKeyboard();
 }
 
@@ -186,6 +198,7 @@ function checkLoss() {
 
 function handleGuess(letter) {
 
+    if (guessedLetters.includes(letter)) return;
     guessedLetters.push(letter);
     const button = keyboardDiv.querySelector(`button[data-letter="${letter}"]`);
     button.disabled = true;
@@ -193,8 +206,11 @@ function handleGuess(letter) {
     if(currentWord.includes(letter)) {
         updateDisplay();
         checkWin();
+        score = (MAX_ATTEMPTS - errors) * SCORE_MULTIPLIERS[currentDifficulty];
+        scoreDisplay.textContent = score;
     } else {
         errors ++;
+        attemptsDisplay.textContent = MAX_ATTEMPTS - errors;
         hangmanImage.src = `images/${errors}.png`;
         checkLoss();
     }
@@ -239,8 +255,12 @@ function hideModal() {
 function skipWord() {
 
     if(skipsUsed <= 1) {
+        errors = 0;
+        guessedLetters = [];
+        hangmanImage.src = "images/0.png";
         pickWord();
         updateDisplay();
+        attemptsDisplay.textContent = MAX_ATTEMPTS;
         generateKeyboard();
         skipsUsed++;
     } else if(skipsUsed > 1) {
@@ -250,8 +270,13 @@ function skipWord() {
             return;
         } else {
             score = score - skipCost;
+            scoreDisplay.textContent = score;
+            errors = 0;
+            guessedLetters = [];
+            hangmanImage.src = "images/0.png";
             pickWord();
             updateDisplay();
+            attemptsDisplay.textContent = MAX_ATTEMPTS;
             generateKeyboard();
             skipsUsed++;
         }
@@ -259,7 +284,7 @@ function skipWord() {
 }
 // ----</functions>----
 
-// ----</event listeners>----
+// ----<event listeners>----
 
 btnEasy.addEventListener("click", () => startGame("easy"));
 btnMedium.addEventListener("click", () => startGame("medium"));
@@ -267,11 +292,12 @@ btnHard.addEventListener("click", () => startGame("hard"));
 
 keyboardDiv.addEventListener("click", (event) => {
     if(event.target.tagName === "BUTTON") {
-        handleGuess(event.target.textContent);
+        handleGuess(event.target.dataset.letter);
     }
 });
 
 document.addEventListener("keydown", (event) => {
+    if (screenGame.style.display === "none") return;
     const letter = event.key.toUpperCase();
     if(letter >= "A" && letter <= "Z" && letter.length === 1) {
         handleGuess(letter);
