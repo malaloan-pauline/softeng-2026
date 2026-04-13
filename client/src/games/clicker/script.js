@@ -4,5 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let score = 0;
   let clickPower = 1;
+  const scoreElement = document.getElementById("score");
+  const clickerBtn = document.getElementById("clicker-btn");
+  //const upgradeBtns = document.querySelectorAll(".upgrade");
 
 })
