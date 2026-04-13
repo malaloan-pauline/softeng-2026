@@ -1,11 +1,8 @@
-const state = {
-  score: 0,
-  clickPower: 1,
-  cps: 0,         
-};
+document.addEventListener("DOMContentLoaded", () => {
+//waits for the entire HTML page to finish loading before running any code inside
+//Prevents errors from trying to grab elements that do not exist, yet
 
-document.getElementById("clicker-btn").addEventListener("click", () => {
-  state.score += state.clickPower;
-  updateUI();
-  spawnFloatingText(`+${state.clickPower}`);
-});
+  let score = 0;
+  let clickPower = 1;
+
+})
