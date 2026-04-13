@@ -66,7 +66,7 @@ We decided to use a clear and consistent format for our Git branches to have a b
 <p> Continue coding the games </p>
 
 ### Next meeting :
-The next meeting is scheduled for 10/04/2026 at 10:00 AM (online).
+To determine...
 
 **Agenda:**
 - Discuss the progress of game coding.
