@@ -113,7 +113,7 @@ let currentHint = "";
 let guessedLetters = [];
 let errors = 0;
 let score = 0;
-let skipUsed = 0;
+let skipsUsed = 0;
 let currentDifficulty = "";
 let usedWord = [];
 let skipCost = 0;
@@ -141,7 +141,7 @@ function updateDisplay() {
     })
     wordDisplay.innerHTML = letters.join("");
     hintDisplay.textContent = currentHint;
-
+skipUsed
 }
 
 function generateKeyboard() {
@@ -163,7 +163,7 @@ function startGame(difficulty) {
     guessedLetters = [];
     errors = 0;
     score = 0;
-    skipUsed = 0;
+    skipsUsed = 0;
     usedWord = [];
     skipCost = 0;
 
@@ -200,9 +200,100 @@ function handleGuess(letter) {
     }
 }
 
+function endGame(result){
+    showScreen("screen-end");
+    endWord.textContent = currentWord;
+    score = (MAX_ATTEMPTS - errors) * SCORE_MULTIPLIERS[currentDifficulty];
+    endScore.textContent = score;
+
+    if(result === "win"){
+        endTitle.textContent = "Success!";
+        btnPlayAgain.style.display = "block";
+        btnNextLevel.style.display = "block";
+        btnTryAgain.style.display = "none";
+        btnExitEnd.style.display = "block";
+    } else if (result === "loss"){
+        endTitle.textContent = "You lost!";
+        btnPlayAgain.style.display = "none";
+        btnNextLevel.style.display = "none";
+        btnTryAgain.style.display = "block";
+        btnExitEnd.style.display = "block";
+    }
+}
+
+function showScreen(screenId) {
+
+    screenIntro.style.display = screenId === "screen-intro" ? "block" : "none";
+    screenGame.style.display = screenId === "screen-game" ? "block" : "none";
+    screenEnd.style.display = screenId === "screen-end" ? "block" : "none";
+}
+
+function showModal() {
+    rulesModal.style.display = "block";
+}
+
+function hideModal() {
+    rulesModal.style.display = "none";
+}
+
+function skipWord() {
+
+    if(skipsUsed <= 1) {
+        pickWord();
+        updateDisplay();
+        generateKeyboard();
+        skipsUsed++;
+    } else if(skipsUsed > 1) {
+        skipCost = skipCost + 2;
+        if (score < skipCost) {
+            btnSkip.style.display = "none";
+            return;
+        } else {
+            score = score - skipCost;
+            pickWord();
+            updateDisplay();
+            generateKeyboard();
+            skipsUsed++;
+        }
+    }
+}
 // ----</functions>----
 
 // ----</event listeners>----
+
+btnEasy.addEventListener("click", () => startGame("easy"));
+btnMedium.addEventListener("click", () => startGame("medium"));
+btnHard.addEventListener("click", () => startGame("hard"));
+
+keyboardDiv.addEventListener("click", (event) => {
+    if(event.target.tagName === "BUTTON") {
+        handleGuess(event.target.textContent);
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    const letter = event.key.toUpperCase();
+    if(letter >= "A" && letter <= "Z" && letter.length === 1) {
+        handleGuess(letter);
+    }
+});
+
+btnSkip.addEventListener("click", () => skipWord());
+btnExitEnd.addEventListener("click", () => showScreen('screen-intro'));
+btnPlayAgain.addEventListener("click", () => startGame(currentDifficulty));
+btnTryAgain.addEventListener("click", () => startGame(currentDifficulty));
+btnNextLevel.addEventListener("click", () => {
+    if(currentDifficulty === "easy") {
+        startGame("medium");
+    } else if(currentDifficulty === "medium") {
+        startGame("hard");
+    }
+});
+
+btnRules.addEventListener("click", () => showModal());
+btnCloseModal.addEventListener("click", () => hideModal());
+btnExit.addEventListener("click", () => showScreen("screen-intro"));
+btnBack.addEventListener("click", () => showScreen("screen-intro"));
 
 // ----</event listeners>----
 
