@@ -84,15 +84,22 @@
                             endGame(); // end the game
                             return; // exit the function
                         }
-                    
                     }
 
+                      checkTie(); // if no win found, check for tie
                 }
 
             // Here to tie/draw?
 
                 function checkTie( ) {
-                
+                     for (let box of boxes) {
+                        if (box.innerText === "") {
+                                  return; // at least one empty cell → not a tie
+                        }
+                     }
+
+                 // if we reach here, no empty cells exist
+                    endGame();
                 }
 
 
