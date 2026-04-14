@@ -109,7 +109,8 @@ function botAction() {
 
                   if (!turnI) {
                   gameMessage.innerText = `Player ${currentPlayer}'s turn`; 
-                  setTimeout(botAction, 1000);
+                  const delay = Math.floor(Math.random() * 1000) + 500; // random delay, at least half a second and at most 1.5 seconds
+                  setTimeout(botAction, delay);
                 } 
                     
              });
