@@ -92,6 +92,10 @@ const hintDisplay = document.querySelector(".hint b");
 const wordDisplay = document.querySelector(".word-display");
 const keyboardDiv = document.querySelector(".keyboard");
 const btnSkip = document.querySelector(".skip");
+const skipCostSpan = document.querySelector(".skip-cost");
+const skipModal = document.querySelector("#skip-modal");
+const btnSkipCancel = document.querySelector(".skip-cancel");
+const btnSkipConfirm = document.querySelector(".skip-confirm");
 
 const endTitle = document.querySelector("#end-title");
 const endWord = document.querySelector("#end-word");
@@ -116,7 +120,9 @@ let score = 0;
 let skipsUsed = 0;
 let currentDifficulty = "";
 let usedWord = [];
-let skipCost = 0;
+let skipCost = SKIP_BASE_COST;
+let gameActive = false;
+let skipExplained = false;
 
 // ----</game state>----
 
@@ -165,6 +171,16 @@ function generateKeyboard() {
     }
 }
 
+function updateSkipInfo() {
+    if (!skipCostSpan) return;
+    if (skipsUsed < FREE_SKIPS) {
+        const freeLeft = FREE_SKIPS - skipsUsed;
+        skipCostSpan.textContent = `Free (${freeLeft} left)`;
+    } else {
+        skipCostSpan.textContent = `${skipCost} pts`;
+    }
+}
+
 function startGame(difficulty) {
 
     currentDifficulty = difficulty;
@@ -172,16 +188,17 @@ function startGame(difficulty) {
     currentWord = "";
     guessedLetters = [];
     errors = 0;
+    // keep session score intact across rounds
     scoreDisplay.textContent = score;
-    score = 0;
-    skipsUsed = 0;
-    skipCost = 0;
+    // preserve skipsUsed and skipCost across the session so skips/costs persist
+    gameActive = true;
 
     showScreen("screen-game");
     pickWord();
     updateDisplay();
     attemptsDisplay.textContent = MAX_ATTEMPTS;
     generateKeyboard();
+    updateSkipInfo();
 }
 
 function checkWin() {
@@ -191,23 +208,22 @@ function checkWin() {
 }
 
 function checkLoss() {
-    if(errors === 6) {
+    if(errors === MAX_ATTEMPTS) {
         endGame("loss");
     }
 }
 
 function handleGuess(letter) {
 
+    if (!gameActive) return;
     if (guessedLetters.includes(letter)) return;
     guessedLetters.push(letter);
     const button = keyboardDiv.querySelector(`button[data-letter="${letter}"]`);
-    button.disabled = true;
+    if (button) button.disabled = true;
 
     if(currentWord.includes(letter)) {
         updateDisplay();
         checkWin();
-        score = (MAX_ATTEMPTS - errors) * SCORE_MULTIPLIERS[currentDifficulty];
-        scoreDisplay.textContent = score;
     } else {
         errors ++;
         attemptsDisplay.textContent = MAX_ATTEMPTS - errors;
@@ -219,8 +235,13 @@ function handleGuess(letter) {
 function endGame(result){
     showScreen("screen-end");
     endWord.textContent = currentWord;
-    score = (MAX_ATTEMPTS - errors) * SCORE_MULTIPLIERS[currentDifficulty];
-    endScore.textContent = score;
+    const points = (MAX_ATTEMPTS - errors) * SCORE_MULTIPLIERS[currentDifficulty];
+    if (result === "win") {
+        score += points;
+    }
+    // update both in-game score display and end-screen score
+    scoreDisplay.textContent = score;
+    endScore.textContent = `Score: ${score} pts`;
 
     if(result === "win"){
         endTitle.textContent = "Success!";
@@ -235,6 +256,7 @@ function endGame(result){
         btnTryAgain.style.display = "block";
         btnExitEnd.style.display = "block";
     }
+    gameActive = false;
 }
 
 function showScreen(screenId) {
@@ -252,9 +274,9 @@ function hideModal() {
     rulesModal.style.display = "none";
 }
 
-function skipWord() {
-
-    if(skipsUsed <= 1) {
+function performSkipAction() {
+    if (skipsUsed < FREE_SKIPS) {
+        // free skip
         errors = 0;
         guessedLetters = [];
         hangmanImage.src = "images/0.png";
@@ -263,24 +285,41 @@ function skipWord() {
         attemptsDisplay.textContent = MAX_ATTEMPTS;
         generateKeyboard();
         skipsUsed++;
-    } else if(skipsUsed > 1) {
-        skipCost = skipCost + 2;
-        if (score < skipCost) {
-            btnSkip.style.display = "none";
-            return;
-        } else {
-            score = score - skipCost;
-            scoreDisplay.textContent = score;
-            errors = 0;
-            guessedLetters = [];
-            hangmanImage.src = "images/0.png";
-            pickWord();
-            updateDisplay();
-            attemptsDisplay.textContent = MAX_ATTEMPTS;
-            generateKeyboard();
-            skipsUsed++;
-        }
+        updateSkipInfo();
+        return;
     }
+
+    // paid skip
+    if (score < skipCost) {
+        // not enough points; inform user (do not disable permanently)
+        alert(`Not enough points to skip. Need ${skipCost} pts.`);
+        return;
+    }
+
+    // deduct cost, perform skip, then increase future skip cost
+    score -= skipCost;
+    scoreDisplay.textContent = score;
+
+    errors = 0;
+    guessedLetters = [];
+    hangmanImage.src = "images/0.png";
+    pickWord();
+    updateDisplay();
+    attemptsDisplay.textContent = MAX_ATTEMPTS;
+    generateKeyboard();
+    skipsUsed++;
+
+    // increase cost for next paid skip and update UI
+    skipCost += SKIP_BASE_COST;
+    updateSkipInfo();
+}
+
+function skipWord() {
+    if (!skipExplained) {
+        if (skipModal) skipModal.style.display = "block";
+        return;
+    }
+    performSkipAction();
 }
 // ----</functions>----
 
@@ -297,7 +336,7 @@ keyboardDiv.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-    if (screenGame.style.display === "none") return;
+    if (!gameActive) return;
     const letter = event.key.toUpperCase();
     if(letter >= "A" && letter <= "Z" && letter.length === 1) {
         handleGuess(letter);
@@ -322,4 +361,17 @@ btnExit.addEventListener("click", () => showScreen("screen-intro"));
 btnBack.addEventListener("click", () => showScreen("screen-intro"));
 
 // ----</event listeners>----
+
+// initialize UI
+showScreen("screen-intro");
+rulesModal.style.display = "none";
+scoreDisplay.textContent = score;
+updateSkipInfo();
+
+// skip modal listeners
+if (btnSkipCancel && btnSkipConfirm && skipModal) {
+    btnSkipCancel.addEventListener("click", () => { skipModal.style.display = "none"; skipExplained = true; });
+    btnSkipConfirm.addEventListener("click", () => { skipModal.style.display = "none"; skipExplained = true; performSkipAction(); });
+    skipModal.style.display = "none";
+}
 
