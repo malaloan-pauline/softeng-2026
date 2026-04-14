@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const UPGRADES = [
   { id: 1, name: "Mechanical Keyboard", cost: 25,  power: 10 },
@@ -7,8 +7,8 @@ const UPGRADES = [
 ];
 
 const POWERUPS = [
-  { id: 1, name: "Iced Latte Matcha",       cost: 15,  cps: 0.5 },
-  { id: 2, name: "Ube Matcha Cheesecake",   cost: 100,  cps: 3  },
+  { id: 1, name: "Iced Latte Matcha",       cost: 300,  cps: 17 },
+  { id: 2, name: "Ube Matcha Cheesecake",   cost: 4561,  cps: 126  },
 ];
 
 function ClickerGame() {
@@ -31,6 +31,14 @@ function ClickerGame() {
     setScore(prev => prev - powerup.cost);
     setCps(prev => prev + powerup.cps);
   }
+
+  useEffect(() => {
+    if (cps === 0) return;
+    const id = setInterval(() => {
+      setScore(prev => prev + cps / 10);
+    }, 100);
+    return () => clearInterval(id);
+  }, [cps]);
 
   return (
     <div id="container">
