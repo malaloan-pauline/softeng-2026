@@ -112,7 +112,7 @@ function botAction() {
                    
                      checkWin(); 
 
-                  if (!turnI) {
+                  if (!turnI && !gameOver) { // if it's bot's turn and the game is not over, let the bot play 
                   gameMessage.innerText = playerNames[currentPlayer] + "'s turn";
                   const delay = Math.floor(Math.random() * 1000) + 500; // random delay, at least half a second and at most 1.5 seconds
                   setTimeout(botAction, delay);
