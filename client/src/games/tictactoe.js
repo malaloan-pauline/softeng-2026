@@ -11,8 +11,8 @@
 
 
 // Grid: parameters and winning conditions for our 3x3 grid
- const boxes = document.querySelectorAll(".game-cell"); // make a list of all our 9 elements with the class "game-cell"
-
+ const boxes = document.querySelectorAll(".gameCell"); // make a list of all our 9 elements with the class "gameCell"
+ restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
     // Winning cobinations
         const winningCombinations = [
                 //horizontal: from top to down
@@ -46,20 +46,21 @@
         boxes.forEach((box) => { // this function will be applied to each of the 9 "boxes"
             box.addEventListener('click', function ()  {
                     // prevents clicking again on the same cell/box
-                     if (box.innerText !== "") return;
-                     
+                if (box.innerText !== "") return;
+
                 if (turnI){
                    box.innerText = 'I'; // make I appear in the box
                    turnI = false; 
-                    checkWin(); // called after each play
+                   
                 } else {
                     box.innerText = 'T'; // make T appear in the box
-                    turnI = true; 
-                    checkWin(); // called after each play
+                    turnI = true;    
                 }
             
-
-                    });
+                box.style.pointerEvents = "none"; // disable THIS box
+                 checkWin(); // called after each play
+                    
+             });
 
 
 
@@ -110,9 +111,15 @@
 
         // Here to tie/draw?
 
-         function restartGame( ) {
-                
-            }
+         function restartGame() {
+            turnI = true; // I starts again
+
+            boxes.forEach(box => { // applied to each of the 9 cells
+            box.innerText = "";          // clear the cell
+            box.style.pointerEvents = "auto"; // make it clickable again
+            });
+
+        }
 
 
 
