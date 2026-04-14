@@ -108,16 +108,6 @@
             }
     
 
-     
-
-     // here for what happens when the game ends
-
-      function gameEnded( ) {
-                
-         $("#message").text("Player " + cellA) + " Won!"; // display the winner message
-                $("#message").show()
-            }
-
 
      // Here for the restart button (works everytime, before, during and after the game)
 
