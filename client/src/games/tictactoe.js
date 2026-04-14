@@ -1,7 +1,7 @@
 // Players: parameters related to players  
     let turnI= true; // the game always start with the player I 
     const playerI ="I" ; // create varables containing the letter for inside the cells (const as these variables will never changed)
-    const playerT ="T" ;
+    const AI ="T" ;
     let currentPlayer = playerI ; /// it will change at each turn so use let
 
 
@@ -54,8 +54,31 @@
 
     
 // BOT: the AI playing against the the player will be coded here
+function botAction() {
+    const emptyCells = getEmptyCells(); // get the list of empty cells
+    
+    if (emptyCells.length === 0) return; // exit function if no empty cells
 
+    // choose a random index from the list of empty cells
+    const randomIndex = Math.floor(Math.random() * emptyCells.length); // .floor round doun to the nearest integer and.random gives a random number between 0 and 1
 
+    // get the index of the chosen cell from the list of empty cells
+    const chosenCellIndex = emptyCells[randomIndex]; 
+    // get the Actual box element (from list of all indexes) using the index 
+    const chosenBox = boxes[chosenCellIndex]; 
+
+    // bot plays
+    chosenBox.innerText = "T";
+    chosenBox.style.pointerEvents = "none";// BOT PLAYS DIRECTLY
+   
+    checkWin();
+
+    // switch turn back to human
+    turnI = true;
+    currentPlayer = playerI;
+    gameMessage.innerText = "Player " + currentPlayer + "'s turn";
+
+    }
 
 // Here will be all the fuctions
     // here for before the game starts 
@@ -65,24 +88,24 @@
 
         boxes.forEach((box) => { // this function will be applied to each of the 9 "boxes"
             box.addEventListener('click', function ()  {
-                    // prevents clicking again on the same cell/box
+                // prevents clicking again on the same cell/box
                 if (box.innerText !== "") return;
 
-                if (turnI){
+                 // prevents clicking during bots turn
+                 if (!turnI) return;
+
+                  // human plays
                    box.innerText = playerI; // make I appear in the box
                    turnI = false; 
-                   currentPlayer = playerT;  // update the current player to T
-                } else {
-                    box.innerText = playerT; // make T appear in the box
-                    turnI = true;    
-                    currentPlayer = playerI; // -------- to I
-                }
-            
-                box.style.pointerEvents = "none"; // disable THIS box
+                   box.style.pointerEvents = "none"; // disable THIS box
+                   currentPlayer = AI;  // update the current player to AI
+                   
+                     checkWin(); 
 
-                gameMessage.innerText = `Player ${currentPlayer}'s turn`; // update the message to indicate the next player's turn
-
-                 checkWin(); // called after each play
+                  if (!turnI) {
+                  gameMessage.innerText = `Player ${currentPlayer}'s turn`; 
+                  setTimeout(botAction, 500);
+                } 
                     
              });
          });
@@ -106,7 +129,6 @@
                            return; // exit the function
                         }
                     }
-
                       checkTie(); // if no win found, check for tie
                 }
 
