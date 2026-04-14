@@ -7,11 +7,14 @@
 
 
 // Others: Other parameters will be here ( unless a category is created for them later)
+ let gameOver = false; // will be used in endgame and restart dame function
+
+
  const restartGameButton = document.getElementById("restartGameButton"); // get the restart button by its id 
- restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
+    restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
 
  const gameMessage = document.getElementById("gameMessage"); // used const as it always points to the same thing
- gameMessage.innerText = "Player " + currentPlayer + "'s turn"; // set the initial message to indicate that player I starts and will be modified depending on the state of the game
+    gameMessage.innerText = "Player " + currentPlayer + "'s turn"; // set the initial message to indicate that player I starts and will be modified depending on the state of the game
 
 
 // here i'll code an empty cell function so later the Bot will know where it can play 
@@ -73,6 +76,8 @@ function botAction() {
    
     checkWin();
 
+     if (gameOver) return; // bot stop id game ends
+
     // switch turn back to human
     turnI = true;
     currentPlayer = playerI;
@@ -104,7 +109,7 @@ function botAction() {
 
                   if (!turnI) {
                   gameMessage.innerText = `Player ${currentPlayer}'s turn`; 
-                  setTimeout(botAction, 500);
+                  setTimeout(botAction, 1000);
                 } 
                     
              });
@@ -151,6 +156,8 @@ function botAction() {
         
 
     function endGame(result) { // put a result parameter
+         gameOver = true;
+
             // disable all boxes
             boxes.forEach(box => {
                 box.style.pointerEvents = "none"; // disable all boxes
@@ -170,6 +177,8 @@ function botAction() {
 
 
          function restartGame() {
+           gameOver = false;
+
             turnI = true; // I starts again
             currentPlayer = playerI;  
             gameMessage.innerText = "Player " + currentPlayer + "'s turn";
