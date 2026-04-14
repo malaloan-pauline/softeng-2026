@@ -14,9 +14,24 @@
  gameMessage.innerText = "Player " + currentPlayer + "'s turn"; // set the initial message to indicate that player I starts and will be modified depending on the state of the game
 
 
+// here i'll code an empty cell function so later the Bot will know where it can play 
+ function getEmptyCells() {
+    let emptyCells = [];
+
+    boxes.forEach((box, index) => { // for each of the 9 boxes, get its index
+        if (box.innerText === "") { // if the box is empty
+            emptyCells.push(index); // add its index to the list of empty cells
+        }
+    });
+
+    return emptyCells; // return the list of empty cells
+}
+
+
+
 
 // Grid: parameters and winning conditions for our 3x3 grid
- const boxes = document.querySelectorAll(".gameCell"); // make a list of all our 9 elements with the class "gameell"
+ const boxes = document.querySelectorAll(".gameCell"); // make a list of all our 9 elements with the class "gameCell"
 
  // Winning cobinations
         const winningCombinations = [
@@ -100,7 +115,7 @@
                 function checkTie( ) {
                      for (let box of boxes) {
                         if (box.innerText === "") {
-                                  return; // at least one empty cell → not a tie
+                                 return; 
                         }
                      }
 
@@ -142,7 +157,7 @@
             box.style.pointerEvents = "auto"; // make it clickable again
             });
 
-        }
+        } 
 
 
 
