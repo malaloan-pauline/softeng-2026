@@ -5,16 +5,15 @@
     let currentPlayer = playerI ; /// it will change at each turn so use let
 
 // Others: Other parameters will be here ( unless a category is created for them later)
-
-
+ const restartGameButton = document.getElementById("restartGameButton"); // get the restart button by its id 
+ restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
 
 
 
 // Grid: parameters and winning conditions for our 3x3 grid
  const boxes = document.querySelectorAll(".gameCell"); // make a list of all our 9 elements with the class "gameell"
- const restartGameButton = document.getElementById("restartGameButton"); // get the restart button by its id 
- restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
-    // Winning cobinations
+
+ // Winning cobinations
         const winningCombinations = [
                 //horizontal: from top to down
                 [0, 1, 2],
@@ -74,6 +73,19 @@
             // Here to check win
 
                 function checkWin() {
+                    for (let combination of winningCombinations) { // for each of the 8 winning combinations
+                        const [a, b, c] = combination; // get the 3 cells of that combination  
+                         
+                        const cellA = boxes[a].innerText; // get the value of the first cell
+                        const cellB = boxes[b].innerText; // get the value of the second cell
+                        const cellC = boxes[c].innerText; // get the value of the third cell
+
+                        if (cellA !== "" && cellA === cellB && cellA === cellC) { // if all 3 cells are not empty and have the same value
+                            endGame(); // end the game
+                            return; // exit the function
+                        }
+                    
+                    }
 
                 }
 
@@ -88,8 +100,11 @@
      // here for ending the game
         
 
-     function endGame( ) {
-                
+     function endGame() {
+            // disable all boxes
+            boxes.forEach(box => {
+                box.style.pointerEvents = "none"; // disable all boxes
+            });
             }
     
 
@@ -99,18 +114,13 @@
 
       function gameEnded( ) {
                 
+         $("#message").text("Player " + cellA) + " Won!"; // display the winner message
+                $("#message").show()
             }
 
 
      // Here for the restart button (works everytime, before, during and after the game)
 
-             // Here to check win
-
-            function checkWin( ) {
-
-            }
-
-        // Here to tie/draw?
 
          function restartGame() {
             turnI = true; // I starts again
