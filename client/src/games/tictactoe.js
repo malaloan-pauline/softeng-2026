@@ -1,12 +1,17 @@
 // Players: parameters related to players  
     let turnI= true; // the game always start with the player I 
-    const playerI ="I" ; // const as these variables will never changed
+    const playerI ="I" ; // create varables containing the letter for inside the cells (const as these variables will never changed)
     const playerT ="T" ;
     let currentPlayer = playerI ; /// it will change at each turn so use let
+
+
 
 // Others: Other parameters will be here ( unless a category is created for them later)
  const restartGameButton = document.getElementById("restartGameButton"); // get the restart button by its id 
  restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
+
+ const gameMessage = document.getElementById("gameMessage"); // used const as it always points to the same thing
+ gameMessage.innerText = "Player " + currentPlayer + "'s turn"; // set the initial message to indicate that player I starts and will be modified depending on the state of the game
 
 
 
@@ -49,21 +54,22 @@
                 if (box.innerText !== "") return;
 
                 if (turnI){
-                   box.innerText = 'I'; // make I appear in the box
+                   box.innerText = playerI; // make I appear in the box
                    turnI = false; 
-                   
+                   currentPlayer = playerT;  // update the current player to T
                 } else {
-                    box.innerText = 'T'; // make T appear in the box
+                    box.innerText = playerT; // make T appear in the box
                     turnI = true;    
+                    currentPlayer = playerI; // -------- to I
                 }
             
                 box.style.pointerEvents = "none"; // disable THIS box
+
+                gameMessage.innerText = `Player ${currentPlayer}'s turn`; // update the message to indicate the next player's turn
+
                  checkWin(); // called after each play
                     
              });
-
-
-
          });
 
 
@@ -81,8 +87,8 @@
                         const cellC = boxes[c].innerText; // get the value of the third cell
 
                         if (cellA !== "" && cellA === cellB && cellA === cellC) { // if all 3 cells are not empty and have the same value
-                            endGame(); // end the game
-                            return; // exit the function
+                           endGame(cellA); // call the endGame function with the winner (cellA) as an argument
+                           return; // exit the function
                         }
                     }
 
@@ -99,7 +105,7 @@
                      }
 
                  // if we reach here, no empty cells exist
-                    endGame();
+                    endGame("tie"); // call endGame with "tie" as an argument
                 }
 
 
@@ -107,12 +113,19 @@
      // here for ending the game
         
 
-     function endGame() {
+    function endGame(result) { // put a result parameter
             // disable all boxes
             boxes.forEach(box => {
                 box.style.pointerEvents = "none"; // disable all boxes
             });
-            }
+
+            // show final message
+            if (result === "tie") {
+                 gameMessage.innerText = "It's a tie!";
+            } else {
+                 gameMessage.innerText = "Player " + result + " Won!";
+           }
+    }
     
 
 
@@ -121,6 +134,8 @@
 
          function restartGame() {
             turnI = true; // I starts again
+            currentPlayer = playerI;  
+            gameMessage.innerText = "Player " + currentPlayer + "'s turn";
 
             boxes.forEach(box => { // applied to each of the 9 cells
             box.innerText = "";          // clear the cell
