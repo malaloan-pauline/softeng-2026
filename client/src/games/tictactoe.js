@@ -45,10 +45,18 @@
 
         boxes.forEach((box) => { // this function will be applied to each of the 9 "boxes"
             box.addEventListener('click', function ()  {
-
-                       box.innerText = 'I';
-
-
+                
+                if (turnI){
+                   box.innerText = 'I'; // make I appear in the box
+                   turnI = false; 
+                   box.disabled = true; // the box is unclickable after being clicked once   
+                    checkWin(); // called after each play
+                } else {
+                    box.innerText = 'T'; // make T appear in the box
+                    turnI = true; 
+                    box.disabled = true; // the box is unclickable after being clicked once   
+                    checkWin(); // called after each play
+                }
             
                     });
 
@@ -62,7 +70,7 @@
 
             // Here to check win
 
-                function checkWin( ) {
+                function checkWin() {
 
                 }
 
