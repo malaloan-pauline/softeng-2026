@@ -27,7 +27,7 @@ Everything on the grig here
 */ 
 
 /*ID reference , the game board for 3x3*/ 
-    #game-board-3x3{ 
+    #gameBoard3x3{ 
         width: 45vw;
         height: 45vw;
         margin:  0 auto; /*centers horizontally*/ 
@@ -44,7 +44,7 @@ Everything on the grig here
     }
 
     /*class reference*/ 
-    .game-cell{
+    .gameCell{
             width: 10vw;
             height: 10vw;
 
@@ -62,7 +62,7 @@ Everything on the grig here
 
  
 
-    .winning-game-cell {
+    .winningGameCell {
         background-color: beige;
         color: yellow;
     }
@@ -72,7 +72,7 @@ Everything on the grig here
 All the buttons should be here 
 */ 
 
-    #restart-game-button{
+    #restartGameButton{
             color: black;
             background-color: blue;
             height: auto; /*temporary*/ 
@@ -83,7 +83,7 @@ All the buttons should be here
     }
 
 
-    #restart-game-button:hover {
+    #restartGameButton:hover {
             color: black;
             background-color: rgb(255, 0, 0);
 

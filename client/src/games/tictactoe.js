@@ -11,7 +11,8 @@
 
 
 // Grid: parameters and winning conditions for our 3x3 grid
- const boxes = document.querySelectorAll(".gameCell"); // make a list of all our 9 elements with the class "gameCell"
+ const boxes = document.querySelectorAll(".gameCell"); // make a list of all our 9 elements with the class "gameell"
+ const restartGameButton = document.getElementById("restartGameButton"); // get the restart button by its id 
  restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
     // Winning cobinations
         const winningCombinations = [
