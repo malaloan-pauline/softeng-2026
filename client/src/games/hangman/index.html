@@ -21,6 +21,17 @@
             </div>
         </div>
 
+        <div class="skip-modal" id="skip-modal" style="display:none;">
+            <div class="modal-content">
+                <h2>Skip info</h2>
+                <p>First two skips are free. Afterwards each skip costs points and increases by +2 each time.</p>
+                <div class="modal-actions">
+                    <button class="skip-cancel">Cancel</button>
+                    <button class="skip-confirm">Use skip</button>
+                </div>
+            </div>
+        </div>
+
         <div class="screen-intro" id="screen-intro">
             <h1>Hangman Game</h1>
             <img class="intro-img" src="images/intro.png" alt="hangman illustration">
@@ -51,7 +62,7 @@
                 <div class="keyboard"></div>
                 <p class="hint">Hint: <b></b></p>
                 <ul class="word-display"></ul>
-                <button class="skip">Skip</button>
+                <button class="skip">Skip (<span class="skip-cost">Free</span>)</button>
             </div>
         </div>
 
