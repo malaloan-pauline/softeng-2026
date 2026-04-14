@@ -2,7 +2,13 @@
     let turnI= true; // the game always start with the player I 
     const playerI ="I" ; // create varables containing the letter for inside the cells (const as these variables will never changed)
     const AI ="T" ;
-    let currentPlayer = playerI ; /// it will change at each turn so use let
+    let currentPlayer = playerI ; // game starts with I, it will change at each turn so use let
+
+
+    const playerNames = { // map cell content to player names
+        "I": "Player I",
+        "T": "AI"
+    };
 
 
 
@@ -14,8 +20,7 @@
     restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
 
  const gameMessage = document.getElementById("gameMessage"); // used const as it always points to the same thing
-    gameMessage.innerText = "Player " + currentPlayer + "'s turn"; // set the initial message to indicate that player I starts and will be modified depending on the state of the game
-
+        gameMessage.innerText = playerNames[currentPlayer] + "'s turn"; 
 
 // here i'll code an empty cell function so later the Bot will know where it can play 
  function getEmptyCells() {
@@ -81,7 +86,7 @@ function botAction() {
     // switch turn back to human
     turnI = true;
     currentPlayer = playerI;
-    gameMessage.innerText = "Player " + currentPlayer + "'s turn";
+    gameMessage.innerText = playerNames[currentPlayer] + "'s turn";
 
     }
 
@@ -108,7 +113,7 @@ function botAction() {
                      checkWin(); 
 
                   if (!turnI) {
-                  gameMessage.innerText = `Player ${currentPlayer}'s turn`; 
+                  gameMessage.innerText = playerNames[currentPlayer] + "'s turn";
                   const delay = Math.floor(Math.random() * 1000) + 500; // random delay, at least half a second and at most 1.5 seconds
                   setTimeout(botAction, delay);
                 } 
@@ -168,7 +173,7 @@ function botAction() {
             if (result === "tie") {
                  gameMessage.innerText = "It's a tie!";
             } else {
-                 gameMessage.innerText = "Player " + result + " Won!";
+                 gameMessage.innerText = playerNames[result] + " Won!";
            }
     }
     
@@ -182,7 +187,7 @@ function botAction() {
 
             turnI = true; // I starts again
             currentPlayer = playerI;  
-            gameMessage.innerText = "Player " + currentPlayer + "'s turn";
+            gameMessage.innerText = playerNames[currentPlayer] +"'s turn";
 
             boxes.forEach(box => { // applied to each of the 9 cells
             box.innerText = "";          // clear the cell
