@@ -10,9 +10,9 @@
 
 
 
-
 // Grid: parameters and winning conditions for our 3x3 grid
- 
+ const boxes = document.querySelectorAll(".game-cell"); // make a list of all our 9 elements with the class "game-cell"
+
     // Winning cobinations
         const winningCombinations = [
                 //horizontal: from top to down
@@ -43,7 +43,18 @@
 
     // here for during the game 
 
+        boxes.forEach((box) => { // this function will be applied to each of the 9 "boxes"
+            box.addEventListener('click', function ()  {
 
+                       box.innerText = 'I';
+
+
+            
+                    });
+
+
+
+         });
 
 
 
