@@ -22,8 +22,9 @@ const UPGRADES: Upgrade[] = [
 ];
 
 const POWERUPS: Powerups[] = [
-  { id: 1, name: "Iced Latte Matcha",       cost: 300,  cps: 17 },
-  { id: 2, name: "Ube Matcha Cheesecake",   cost: 4561,  cps: 126  },
+  { id: 1, name: "Matcha Tea",              cost: 250,   cps: 5   },
+  { id: 2, name: "Iced Latte Matcha",       cost: 300,   cps: 10  },
+  { id: 3, name: "Ube Matcha Cheesecake",   cost: 4561,  cps: 126 },
 ];
 
 function ClickerGame() {
