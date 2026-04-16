@@ -22,6 +22,11 @@
  const gameMessage = document.getElementById("gameMessage") as HTMLDivElement; // used const as it always points to the same thing
         gameMessage.innerText = playerNames[currentPlayer] + "'s turn"; 
 
+//declare boxes before it is called
+ const boxes = document.querySelectorAll(".gameCell") as NodeListOf<HTMLDivElement>; // make a list of all our 9 elements with the class "gameCell"
+
+
+
 // here i'll code an empty cell function so later the Bot will know where it can play 
  function getEmptyCells(): number[] { // this function will return a list of the indexes of the empty cells
     let emptyCells: number[] = [];
@@ -39,7 +44,6 @@
 
 
 // Grid: parameters and winning conditions for our 3x3 grid
- const boxes = document.querySelectorAll(".gameCell") as NodeListOf<HTMLDivElement>; // make a list of all our 9 elements with the class "gameCell"
 
  // Winning cobinations
         const winningCombinations = [
