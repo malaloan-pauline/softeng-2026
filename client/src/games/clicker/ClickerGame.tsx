@@ -36,7 +36,12 @@ function ClickerGame() {
   const [score,      setScore]      = useState(0);
   const [clickPower, setClickPower] = useState(1);
   const [cps,        setCps]        = useState(0);
-  const [dark,       setDark]       = useState(false);
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  const [dark, setDark] = useState(() => {
+    document.documentElement.classList.toggle("dark", prefersDark.matches);
+    return prefersDark.matches;
+  });
 
   function handleClick() {
     setScore(prev => prev + clickPower);
@@ -53,6 +58,15 @@ function ClickerGame() {
     setScore(prev => prev - powerup.cost);
     setCps(prev => prev + powerup.cps);
   }
+
+  useEffect(() => {
+    const handler = (e: MediaQueryListEvent) => {
+      setDark(e.matches);
+      document.documentElement.classList.toggle("dark", e.matches);
+    };
+    prefersDark.addEventListener('change', handler);
+    return () => prefersDark.removeEventListener('change', handler);
+  }, []);
 
   function switchTheme() {
     const isDark = !dark;
