@@ -140,7 +140,7 @@ function botAction(): void {
                         const cellC = boxes[c]!.innerText; // get the value of the third cell
 
                         if (cellA !== "" && cellA === cellB && cellA === cellC) { // if all 3 cells are not empty and have the same value
-                           endGame(cellA); // call the endGame function with the winner (cellA) as an argument
+                           endGame(cellA as "I" | "T"); // call the endGame function with the winner (cellA) as an argument
                            return; // exit the function
                         }
                     }
