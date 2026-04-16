@@ -25,6 +25,46 @@ export default function TicTacToe() {
   // message: replaces gameMessage.innerText
   const [message, setMessage] = useState("Player I's turn");
 
+
+  // Winning combinations: same logic as before, just moved into React
+  const winningCombinations: [number, number, number][] = [
+    // horizontal: from top to down
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    // vertical: from left to right
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    // diagonal: from top left to down right
+    [0, 4, 8],
+    // diagonal: from top right to down left
+    [2, 4, 6]
+  ];
+
+  // here I convert my old checkWin() into a React-friendly function
+  // same logic as before: check each winning combination and return the winner
+  function checkWin(boardToCheck: string[]): "I" | "T" | "tie" | null {
+
+    for (let [a, b, c] of winningCombinations) {
+      const cellA = boardToCheck[a];
+      const cellB = boardToCheck[b];
+      const cellC = boardToCheck[c];
+
+      // if all 3 cells are not empty and have the same value -> win
+      if (cellA !== "" && cellA === cellB && cellA === cellC) {
+        return cellA as "I" | "T";
+      }
+    }
+
+    // here I check for tie (same idea as before)
+    const noEmptyCells = boardToCheck.every(cell => cell !== "");
+    if (noEmptyCells) return "tie";
+
+    return null; // no win, no tie
+  }
+
+
   // here I convert my old click listener into a React function
   function handleCellClick(index: number) {
 
@@ -45,7 +85,20 @@ export default function TicTacToe() {
     setCurrentPlayer(AI);
     setMessage("AI's turn");
 
-    // later we will call checkWin() here
+    // check if human wins or tie
+    const result = checkWin(updatedBoard);
+
+    if (result) {
+      setGameOver(true);
+
+      if (result === "tie") {
+        setMessage("It's a tie!");
+      } else {
+        setMessage("Player I won!");
+      }
+
+      return; // stop here, bot should not play
+    }
   }
 
 
