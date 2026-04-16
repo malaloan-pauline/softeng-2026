@@ -148,9 +148,28 @@ export default function TicTacToe() {
     setMessage("Player I's turn");
   }
 
+  // Here I convert my old restartGame() into React logic
+  // same idea as before: reset everything so a new game can start
+  function restartGame() {
+
+    // reset the board
+    setBoard(Array(9).fill(""));
+
+    // reset game state
+    setTurnI(true); // I starts again
+    setCurrentPlayer(playerI);
+    setGameOver(false);
+
+    // reset message
+    setMessage("Player I's turn");
+  }
 
 
   return (
+    <div>
+      {/* Message: same idea as gameMessage.innerText */}
+       <p>{message}</p>
+
     <div className="tictactoe-board">
       {board.map((cell, index) => (
         <div
@@ -162,5 +181,10 @@ export default function TicTacToe() {
         </div>
       ))}
     </div>
+
+{/* Restart button: same idea as before */}
+      <button onClick={restartGame}>Restart Game</button>
+    </div>
+
   );
 }
