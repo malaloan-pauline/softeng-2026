@@ -100,7 +100,7 @@ function botAction(): void {
 
     // here for during the game 
 
-        boxes.forEach((box) => { // this function will be applied to each of the 9 "boxes"
+        boxes.forEach((box: HTMLDivElement) => { // this function will be applied to each of the 9 "boxes"
             box.addEventListener('click', function ()  {
                 // prevents clicking again on the same cell/box
                 if (box.innerText !== "") return;
