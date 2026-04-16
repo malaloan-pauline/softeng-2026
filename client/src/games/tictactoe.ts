@@ -23,7 +23,7 @@
         gameMessage.innerText = playerNames[currentPlayer] + "'s turn"; 
 
 //declare boxes before it is called
- const boxes = document.querySelectorAll(".gameCell") as NodeListOf<HTMLDivElement>; // make a list of all our 9 elements with the class "gameCell"
+ const boxes = document.querySelectorAll<HTMLDivElement>(".gameCell"); // make a list of all our 9 elements with the class "gameCell"
 
 
 
@@ -46,7 +46,7 @@
 // Grid: parameters and winning conditions for our 3x3 grid
 
  // Winning cobinations
-        const winningCombinations = [
+        const winningCombinations: [number, number, number][] = [
                 //horizontal: from top to down
                 [0, 1, 2],
                 [3, 4, 5],
@@ -77,7 +77,7 @@ function botAction(): void {
     // get the index of the chosen cell from the list of empty cells
     const chosenCellIndex = emptyCells[randomIndex]; 
     // get the Actual box element (from list of all indexes) using the index 
-    const chosenBox = boxes[chosenCellIndex ] as HTMLDivElement; 
+    const chosenBox = boxes[chosenCellIndex] as HTMLDivElement; 
 
     // bot plays
     chosenBox.innerText = "T";
