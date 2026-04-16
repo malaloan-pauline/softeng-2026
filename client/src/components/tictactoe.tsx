@@ -99,6 +99,11 @@ export default function TicTacToe() {
 
       return; // stop here, bot should not play
     }
+
+        // let the bot play after a small delay (same idea as before)
+    const delay = Math.floor(Math.random() * 1000) + 500; // between 0.5s and 1.5s
+    setTimeout(botAction, delay);
+
   }
 
 
