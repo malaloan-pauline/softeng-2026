@@ -75,9 +75,9 @@ export default function TicTacToe() {
     if (!turnI) return;
 
     // human plays
-    const updatedBoard = [...board];
-    updatedBoard[index] = playerI; // same as box.innerText = "I"
-    setBoard(updatedBoard);
+    const newBoard = [...board];
+    newBoard[index] = playerI; 
+    setBoard(newBoard);
 
 
     // switch turn to AI
@@ -86,37 +86,31 @@ export default function TicTacToe() {
     setMessage("AI's turn");
 
     // check if human wins or tie
-    const result = checkWin(updatedBoard);
+    const result = checkWin(newBoard);
 
     if (result) {
-      setGameOver(true);
-
-      if (result === "tie") {
-        setMessage("It's a tie!");
-      } else {
-        setMessage("Player I won!");
-      }
-
-      return; // stop here, bot should not play
-    }
+    setGameOver(true);
+    setMessage(result === "tie" ? "It's a tie!" : "Player I won!");
+    return;
+  }
 
         // let the bot play after a small delay (same idea as before)
     const delay = Math.floor(Math.random() * 1000) + 500; // between 0.5s and 1.5s
-    setTimeout(botAction, delay);
+    setTimeout(() => botAction(newBoard), delay);
 
   }
 
 
     // BOT: here I convert my old botAction() into React logic
   // same idea as before: bot chooses a random empty cell and plays "T"
-  function botAction() {
+  function botAction(currentBoard: string[]) {
 
     // if the game is already over, bot should not play
     if (gameOver) return;
 
-    // here I get the list of empty cells (React version of getEmptyCells)
+  // find empty cells based on the updated board    
     const emptyCells: number[] = [];
-    board.forEach((cell, index) => {
+    currentBoard.forEach((cell, index) => {
       if (cell === "") emptyCells.push(index);
     });
 
@@ -128,29 +122,23 @@ export default function TicTacToe() {
     const chosenCellIndex = emptyCells[randomIndex]!; // same logic as before
 
     // bot plays
-    const updatedBoard = [...board];
+    const updatedBoard = [...currentBoard];
     updatedBoard[chosenCellIndex] = AI; // same as chosenBox.innerText = "T"
     setBoard(updatedBoard);
 
     // check if bot wins or tie
     const result = checkWin(updatedBoard);
 
-    if (result) {
-      setGameOver(true);
-
-      if (result === "tie") {
-        setMessage("It's a tie!");
-      } else {
-        setMessage("AI won!");
-      }
-
-      return; // stop here, human should not play
-    }
-
+   
+  if (result) {
+    setGameOver(true);
+    setMessage(result === "tie" ? "It's a tie!" : "AI won!"); 
+    return;
+  }
     // switch turn back to human
     setTurnI(true);
     setCurrentPlayer(playerI);
-    setMessage("Player I's turn");
+    setMessage("Player I's turn"); 
   }
 
   // Here I convert my old restartGame() into React logic
