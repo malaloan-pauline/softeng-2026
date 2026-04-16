@@ -75,7 +75,7 @@ function botAction(): void {
     const randomIndex = Math.floor(Math.random() * emptyCells.length); // .floor round doun to the nearest integer and.random gives a random number between 0 and 1
 
     // get the index of the chosen cell from the list of empty cells
-    const chosenCellIndex = emptyCells[randomIndex]; 
+    const chosenCellIndex = emptyCells[randomIndex]!; // use ! to tell typescript that we are sure this value is not undefined (debugged)
     // get the Actual box element (from list of all indexes) using the index 
     const chosenBox = boxes[chosenCellIndex] as HTMLDivElement; 
 
