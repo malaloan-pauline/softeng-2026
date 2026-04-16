@@ -197,21 +197,58 @@
 
 
 
-/* grid: temporary styling so I can see the 3x3 layout */
+/* Board layout using vw units */
 .tictactoe-board {
   display: grid;
-  grid-template-columns: repeat(3, 80px);
-  gap: 5px;
-  margin-top: 20px;
+  grid-template-columns: repeat(3, 8vw);
+  grid-template-rows: repeat(3, 8vw);
+  gap: 1vw;
+  margin-top: 3vw;
+  justify-content: center;
 }
 
+/* Cell styling with pastel palette */
 .cell {
-  width: 80px;
-  height: 80px;
-  border: 1px solid #333;
+  width: 8vw;
+  height: 8vw;
+  background-color: #f5f0e6; /* soft beige/cream */
+  border: 0.3vw solid #d8b4c4; /* pastel pink border */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 4vw;
   cursor: pointer;
+  color: #7fbf8e; /* pastel matcha green */
+  border-radius: 0.8vw; /* softer, friendlier look */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Hover effect */
+.cell:hover {
+  background-color: #e8f5e9; /* lighter pastel green */
+  transform: scale(1.05);
+}
+
+/* Optional: message styling */
+p {
+  color: #7fbf8e; /* matcha green */
+  font-size: 2vw;
+  text-align: center;
+  margin-bottom: 2vw;
+}
+
+/* Optional: restart button styling */
+button {
+  background-color: #d8b4c4; /* pastel pink */
+  color: #fff;
+  border: none;
+  padding: 1vw 2vw;
+  font-size: 1.5vw;
+  border-radius: 0.8vw;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #c79ab0; /* slightly deeper pink */
 }
