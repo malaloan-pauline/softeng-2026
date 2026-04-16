@@ -102,6 +102,52 @@ export default function TicTacToe() {
   }
 
 
+    // BOT: here I convert my old botAction() into React logic
+  // same idea as before: bot chooses a random empty cell and plays "T"
+  function botAction() {
+
+    // if the game is already over, bot should not play
+    if (gameOver) return;
+
+    // here I get the list of empty cells (React version of getEmptyCells)
+    const emptyCells: number[] = [];
+    board.forEach((cell, index) => {
+      if (cell === "") emptyCells.push(index);
+    });
+
+    // if no empty cells exist, bot cannot play
+    if (emptyCells.length === 0) return;
+
+    // choose a random index from the list of empty cells
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const chosenCellIndex = emptyCells[randomIndex]!; // same logic as before
+
+    // bot plays
+    const updatedBoard = [...board];
+    updatedBoard[chosenCellIndex] = AI; // same as chosenBox.innerText = "T"
+    setBoard(updatedBoard);
+
+    // check if bot wins or tie
+    const result = checkWin(updatedBoard);
+
+    if (result) {
+      setGameOver(true);
+
+      if (result === "tie") {
+        setMessage("It's a tie!");
+      } else {
+        setMessage("AI won!");
+      }
+
+      return; // stop here, human should not play
+    }
+
+    // switch turn back to human
+    setTurnI(true);
+    setCurrentPlayer(playerI);
+    setMessage("Player I's turn");
+  }
+
 
 
   return (
