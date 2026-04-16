@@ -77,7 +77,7 @@ function botAction(): void {
     // get the index of the chosen cell from the list of empty cells
     const chosenCellIndex = emptyCells[randomIndex]; 
     // get the Actual box element (from list of all indexes) using the index 
-    const chosenBox = boxes[chosenCellIndex] as HTMLDivElement; 
+    const chosenBox = boxes[chosenCellIndex ] as HTMLDivElement; 
 
     // bot plays
     chosenBox.innerText = "T";
@@ -100,7 +100,7 @@ function botAction(): void {
 
     // here for during the game 
 
-        boxes.forEach((box: HTMLDivElement) => { // this function will be applied to each of the 9 "boxes"
+        boxes.forEach((box: HTMLDivElement ) => { // this function will be applied to each of the 9 "boxes"
             box.addEventListener('click', function ()  {
                 // prevents clicking again on the same cell/box
                 if (box.innerText !== "") return;
@@ -135,9 +135,9 @@ function botAction(): void {
                     for (let combination of winningCombinations) { // for each of the 8 winning combinations
                         const [a, b, c] = combination; // get the 3 cells of that combination  
                          
-                        const cellA = boxes[a].innerText; // get the value of the first cell
-                        const cellB = boxes[b].innerText; // get the value of the second cell
-                        const cellC = boxes[c].innerText; // get the value of the third cell
+                        const cellA = boxes[a]!.innerText; // get the value of the first cell
+                        const cellB = boxes[b]!.innerText; // get the value of the second cell
+                        const cellC = boxes[c]!.innerText; // get the value of the third cell
 
                         if (cellA !== "" && cellA === cellB && cellA === cellC) { // if all 3 cells are not empty and have the same value
                            endGame(cellA); // call the endGame function with the winner (cellA) as an argument
@@ -150,10 +150,9 @@ function botAction(): void {
             // Here to tie/draw?
 
                 function checkTie( ): void {
-                     for (let box of boxes) {
-                        if (box.innerText === "") {
-                                 return; 
-                        }
+                     for (const box of boxes as NodeListOf<HTMLDivElement>) { // for each of the 9 boxes
+                        if (box.innerText === "")  
+                            return; 
                      }
 
                  // if we reach here, no empty cells exist
