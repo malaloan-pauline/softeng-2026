@@ -16,10 +16,10 @@
  let gameOver = false; // will be used in endgame and restart dame function
 
 
- const restartGameButton = document.getElementById("restartGameButton") as HTMLButtonElement; // get the restart button by its id 
+ const restartGameButton = document.getElementById("restartGameButton")! as HTMLButtonElement; // get the restart button by its id 
     restartGameButton.addEventListener('click', restartGame); // add an event listener to the restart button, when it's clicked it will call the function restartGame
 
- const gameMessage = document.getElementById("gameMessage") as HTMLDivElement; // used const as it always points to the same thing
+ const gameMessage = document.getElementById("gameMessage")! as HTMLDivElement; // used const as it always points to the same thing
         gameMessage.innerText = playerNames[currentPlayer] + "'s turn"; 
 
 //declare boxes before it is called
