@@ -16,8 +16,7 @@ export default function TicTacToe() {
   // turn: true means it's I's turn, false means it's T's turn
   const [turnI, setTurnI] = useState(true);
 
-  // current player: I or T (starts with I)
-  const [currentPlayer, setCurrentPlayer] = useState<"I" | "T">(playerI);
+  
 
   // gameOver: same as before but now React state
   const [gameOver, setGameOver] = useState(false);
@@ -82,7 +81,7 @@ export default function TicTacToe() {
 
     // switch turn to AI
     setTurnI(false);
-    setCurrentPlayer(AI);
+
     setMessage("AI's turn");
 
     // check if human wins or tie
@@ -137,7 +136,7 @@ export default function TicTacToe() {
   }
     // switch turn back to human
     setTurnI(true);
-    setCurrentPlayer(playerI);
+    
     setMessage("Player I's turn"); 
   }
 
@@ -150,7 +149,6 @@ export default function TicTacToe() {
 
     // reset game state
     setTurnI(true); // I starts again
-    setCurrentPlayer(playerI);
     setGameOver(false);
 
     // reset message
