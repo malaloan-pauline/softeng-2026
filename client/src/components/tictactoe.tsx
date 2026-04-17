@@ -107,7 +107,39 @@ export default function TicTacToe() {
     // if the game is already over, bot should not play
     if (gameOver) return;
 
-  // find empty cells based on the updated board    
+  // 1) BOT tries to win (using the same winning combinations as before)
+  for (let [a, b, c] of winningCombinations) {
+
+    // here I check the 3 cells of this winning line
+    const line = [currentBoard[a], currentBoard[b], currentBoard[c]];
+
+    // if bot has 2 "T" and 1 empty spot -> bot can win right now
+    if (line.filter(v => v === AI).length === 2 && line.includes("")) {
+
+      // find the empty cell inside this winning line
+      const emptyIndex = [a, b, c][line.indexOf("")];
+
+      // bot plays the winning move
+      const updatedBoard = [...currentBoard];
+      updatedBoard[emptyIndex] = AI;
+      setBoard(updatedBoard);
+
+      // check if bot wins (it should)
+      const result = checkWin(updatedBoard);
+      if (result) {
+        setGameOver(true);
+        setMessage("AI won!");
+        return; // stop here, game ends
+      }
+
+      // if somehow no win, switch turn back to human
+      setTurnI(true);
+      setMessage("Player I's turn");
+      return;
+    }
+  }
+
+  // 2) If can't win, play randomly    
     const emptyCells: number[] = [];
     currentBoard.forEach((cell, index) => {
       if (cell === "") emptyCells.push(index);
