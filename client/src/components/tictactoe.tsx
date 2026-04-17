@@ -190,7 +190,7 @@ export default function TicTacToe() {
 
   return (
     <div className="tictactoe-container">
-       <h1 className="tictactoe-title">Welcome the Tict'IT game</h1>
+       <h1 className="tictactoe-title">Welcome to the Tict'IT </h1>
 
        <p>{message}</p>
 
