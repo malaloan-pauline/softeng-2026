@@ -195,7 +195,7 @@
 
 
 
-
+/* Tict'IT game css */
 
 /* Board layout using vw units */
 .tictactoe-board {
@@ -251,4 +251,22 @@ button {
 
 button:hover {
   background-color: #c79ab0; /* slightly deeper pink */
+}
+
+/* Center the whole game */
+.tictactoe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5vw;
+}
+
+/* Title styling */
+.tictactoe-title {
+  font-size: 4vw;
+  color: #7fbf8e; /* pastel matcha green */
+  margin-bottom: 2vw;
+  font-weight: 600;
+  text-align: center;
 }

@@ -157,8 +157,9 @@ export default function TicTacToe() {
 
 
   return (
-    <div>
-      {/* Message: same idea as gameMessage.innerText */}
+    <div className="tictactoe-container">
+       <h1 className="tictactoe-title">Welcome the Tict'IT game</h1>
+
        <p>{message}</p>
 
     <div className="tictactoe-board">
@@ -173,7 +174,7 @@ export default function TicTacToe() {
       ))}
     </div>
 
-{/* Restart button: same idea as before */}
+{/* Restart button */}
       <button onClick={restartGame}>Restart Game</button>
     </div>
 
