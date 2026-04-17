@@ -206,8 +206,8 @@ body {
 /* Board layout using vw units */
 .tictactoe-board {
   display: grid;
-  grid-template-columns: repeat(3, 16vw);
-  grid-template-rows: repeat(3, 16vw);
+  grid-template-columns: repeat(3, 14vw);
+  grid-template-rows: repeat(3, 14vw);
   gap: 1vw;
   margin-top: 3vw;
   justify-content: center;
@@ -215,8 +215,8 @@ body {
 
 /* Cell styling with pastel palette */
 .cell {
-  width: 16vw;
-  height: 16vw;
+  width: 14vw;
+  height: 14vw;
   background-color: #f5f0e6; /* soft beige/cream */
   border: 0.3vw solid #d8b4c4; /* pastel pink border */
   display: flex;
@@ -238,7 +238,7 @@ body {
 /* message styling */
 p {
   color: #7fbf8e; /* matcha green */
-  font-size: 5vw;
+  font-size: 3vw;
   text-align: center;
   margin-bottom: 2vw;
   margin-top: 5vw;
@@ -272,9 +272,12 @@ button:hover {
 
 /* Title styling */
 .tictactoe-title {
-  font-size: 8vw;
+  font-size: 6vw;
   color: #7fbf8e; /* pastel matcha green */
   margin-bottom: 2vw;
   font-weight: 600;
   text-align: center;
+
+    max-width: 80vw; /* gives the text room to wrap */
+  word-wrap: break-word; /* forces wrapping instead of overlapping */
 }
