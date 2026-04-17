@@ -1,57 +1,168 @@
+/* ── Google Font: Alfa Slab One for the retro title ── */
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double&family=Nunito:wght@600;700;800&display=swap');
+
+/* ── Design tokens ── */
+:root {
+  --cream:       #e8e4d4;
+  --green:       #7a9e7e;
+  --green-dark:  #5c7a60;
+  --green-shadow:#4a6650;
+  --text-dark:   #4a5e4c;
+  --text-cream:  #e8e4d4;
+}
+
+/* ── Base container ── */
 .game-container {
-  background-color: #e2d3a5;
+  background-color: var(--cream);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 2rem;
-  color: rgb(135, 151, 95);
+  padding-top: 2.5rem;
+  color: var(--text-dark);
+  font-family: 'Nunito', sans-serif;
 }
 
-/* ── Level on the home screen ── */
+/* ── Title ── */
+.game-title {
+  font-family: 'Bitcount Grid Double', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  color: var(--green);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* retro shadow effect */
+  text-shadow:
+    3px 3px 0 var(--green-shadow),
+    6px 6px 0 rgba(0,0,0,0.08);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* ── Subtitle ── */
+.game-subtitle {
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-bottom: 3rem;
+  letter-spacing: 0.03em;
+}
+
+/* ── Level list ── */
 .level-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 30vh;
+  gap: 16px;
   align-items: center;
+  width: 100%;
 }
 
+/* ── Level button ── */
 .level-card {
   display: flex;
-  gap: 12px;
   align-items: center;
-  padding: 14px 24px;
-  border: 1px solid #444;
-  border-radius: 10px;
-  background: #1e1e1e;
-  color: white;
-  font-size: 1rem;
+  justify-content: center;
+  padding: 18px 0;
+  width: clamp(260px, 40vw, 420px);
+  border: none;
+  border-radius: 999px;
+  background: var(--green);
+  color: var(--text-cream);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
   cursor: pointer;
-  min-width: 260px;
-  transition: background 0.2s;
+  /* 3D shadow under buttons */
+  box-shadow:
+    0 6px 0 var(--green-shadow),
+    0 8px 12px rgba(0,0,0,0.15);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 .level-card:hover {
-  background: #2a2a2a;
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 var(--green-shadow),
+    0 10px 16px rgba(0,0,0,0.18);
 }
 
-.level-number {
-  color: #888;
-  font-size: 0.85rem;
-  min-width: 50px;
+.level-card:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 var(--green-shadow),
+    0 3px 6px rgba(0,0,0,0.12);
 }
 
-.level-name {
-  font-weight: 600;
-  flex: 1;
-}
-
-.level-difficulty {
-  font-size: 0.8rem;
-  padding: 2px 8px;
+/* ── Difficulty pill (on game page) ── */
+.difficulty-pill {
+  background: var(--green);
+  color: var(--text-cream);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 12px 60px;
   border-radius: 999px;
-  background: #333;
-  color: #aaa;
+  border: none;
+  box-shadow:
+    0 6px 0 var(--green-shadow),
+    0 8px 12px rgba(0,0,0,0.15);
+  margin-bottom: 2rem;
+  display: inline-block;
 }
+
+/* ── Win screen ── */
+.win-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+
+.win-emoji {
+  font-size: 4rem;
+}
+
+.win-screen h2 {
+  font-family: 'Alfa Slab One', serif;
+  font-size: 2.5rem;
+  color: var(--green);
+}
+
+.win-screen p {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.win-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: var(--text-cream);
+  box-shadow: 0 5px 0 var(--green-shadow);
+}
+
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--green-shadow); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--green-dark);
+  border: 2px solid var(--green);
+}
+
+.btn-secondary:hover { background: var(--green); color: var(--text-cream); }

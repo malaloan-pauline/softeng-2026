@@ -115,7 +115,6 @@ function HomeScreen({ onSelectLevel }: HomeScreenProps) {
             className={`level-card difficulty-${level.difficulty.toLowerCase()}`}
             onClick={() => onSelectLevel(index)}
           >
-            <span className="level-number">Level {level.id}</span>
             <span className="level-difficulty">{level.difficulty}</span>
           </button>
         ))}
