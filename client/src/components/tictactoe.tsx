@@ -21,6 +21,10 @@ export default function TicTacToe() {
   // gameOver: same as before but now React state
   const [gameOver, setGameOver] = useState(false);
 
+  // score tracking
+  const [scoreI, setScoreI] = useState(0);
+  const [scoreAI, setScoreAI] = useState(0);
+
   // message: replaces gameMessage.innerText
   const [message, setMessage] = useState("Player I's turn");
 
@@ -89,9 +93,16 @@ export default function TicTacToe() {
 
     if (result) {
     setGameOver(true);
-    setMessage(result === "tie" ? "It's a tie!" : "Player I won!");
-    return;
-  }
+    if (result === "I") {
+      setScoreI(prev => prev + 2); // Player I gets 2 points for winning
+      setMessage("Player I won!");
+    } else if (result === "tie") {
+      setScoreI(prev => prev + 1); // Player I gets 1 point for a tie
+      setMessage("It's a tie!");
+    }   
+    
+     return;
+    }
 
         // let the bot play after a small delay (same idea as before)
     const delay = Math.floor(Math.random() * 1000) + 500; // between 0.5s and 1.5s
@@ -128,9 +139,20 @@ export default function TicTacToe() {
       const result = checkWin(updatedBoard);
       if (result) {
         setGameOver(true);
+
+       if (result === "T") {
+        setScoreAI(prev => prev + 2); // AI gets 2 points for winning
         setMessage("AI won!");
+       } else if (result === "I") {
+        setScoreI(prev => prev + 2); // Player I wins during bot turn (rare but possible)
+        setMessage("Player I won!");
+       } else if (result === "tie") {
+        setScoreI(prev => prev + 1); // Player I gets 1 point for a tie
+        setScoreAI(prev => prev + 1); // AI gets 1 point for a tie
+        setMessage("It's a tie!");
+       }
         return; // stop here, game ends
-      }
+       }
 
       // if somehow no win, switch turn back to human
       setTurnI(true);
@@ -163,7 +185,13 @@ export default function TicTacToe() {
    
   if (result) {
     setGameOver(true);
-    setMessage(result === "tie" ? "It's a tie!" : "AI won!"); 
+    if (result === "I") {
+      setScoreI(prev => prev + 1); // add point to Player I
+      setMessage("Player I won!");
+   } else if (result === "tie") {
+    setMessage("It's a tie!");
+   }
+
     return;
   }
     // switch turn back to human
@@ -183,14 +211,26 @@ export default function TicTacToe() {
     setTurnI(true); // I starts again
     setGameOver(false);
 
+    // reset scores
+    setScoreI(0);
+    setScoreAI(0);
+
     // reset message
     setMessage("Player I's turn");
+
+  
   }
 
 
   return (
     <div className="tictactoe-container">
        <h1 className="tictactoe-title"> Tict'IT Game </h1>
+
+      <div className="scoreboard">
+       <span>Player I: {scoreI}</span>
+       <span>AI: {scoreAI}</span>
+      </div>
+
 
        <p>{message}</p>
 
