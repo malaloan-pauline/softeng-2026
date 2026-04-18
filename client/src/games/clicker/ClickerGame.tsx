@@ -5,6 +5,7 @@ type Upgrade = {
   name: string;
   cost: number;
   power: number;
+  unlockAt: number;
 }
 
 type Powerups = {
@@ -12,18 +13,19 @@ type Powerups = {
   name: string;
   cost: number;
   cps: number;
+  unlockAt: number;
 }
 
 const UPGRADES: Upgrade[] = [
-  { id: 1, name: "Mechanical Keyboard", cost: 25,  power: 10 },
-  { id: 2, name: "Dual Monitors",       cost: 200, power: 50 },
-  { id: 3, name: "Brainrot",            cost: 500, power: 67 },
+  { id: 1, name: "Mechanical Keyboard", cost: 25,  power: 10, unlockAt: 10  },
+  { id: 2, name: "Dual Monitors",       cost: 200, power: 50, unlockAt: 50  },
+  { id: 3, name: "Brainrot",            cost: 500, power: 67, unlockAt: 200 },
 ];
 
 const POWERUPS: Powerups[] = [
-  { id: 1, name: "Matcha Tea",            cost: 250,  cps: 5   },
-  { id: 2, name: "Iced Latte Matcha",     cost: 300,  cps: 10  },
-  { id: 3, name: "Ube Matcha Cheesecake", cost: 4561, cps: 126 },
+  { id: 1, name: "Matcha Tea",            cost: 250,  cps: 5,   unlockAt: 15  },
+  { id: 2, name: "Iced Latte Matcha",     cost: 300,  cps: 10,  unlockAt: 150 },
+  { id: 3, name: "Ube Matcha Cheesecake", cost: 4561, cps: 126, unlockAt: 600 },
 ];
 
 const panel  = "bg-[#e8e4d4] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
@@ -46,6 +48,7 @@ function ClickerGame() {
   const [cps,            setCps]            = useState(0);
   const [powerupCounts,  setPowerupCounts]  = useState<Record<number, number>>({});
   const [upgradeCounts,  setUpgradeCounts]  = useState<Record<number, number>>({});
+  const [totalEarned,      setTotalEarned]      = useState(0);
   const [showGuide,        setShowGuide]        = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -57,6 +60,7 @@ function ClickerGame() {
 
   function handleClick() {
     setScore(prev => prev + clickPower);
+    setTotalEarned(prev => prev + clickPower);
   }
 
   function buyUpgrade(upg: Upgrade) {
@@ -88,6 +92,7 @@ function ClickerGame() {
 
   function reset() {
     setScore(0);
+    setTotalEarned(0);
     setClickPower(1);
     setCps(0);
     setPowerupCounts({});
@@ -102,7 +107,10 @@ function ClickerGame() {
 
   useEffect(() => {
     if (cps === 0) return;
-    const id = setInterval(() => setScore(prev => prev + cps / 10), 100);
+    const id = setInterval(() => {
+      setScore(prev => prev + cps / 10);
+      setTotalEarned(prev => prev + cps / 10);
+    }, 100);
     return () => clearInterval(id);
   }, [cps]);
 
@@ -209,59 +217,71 @@ function ClickerGame() {
 
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-          <div className={panel}>
-            <h3 className={`text-[1.1rem] font-semibold mb-3 ${heading}`}>Upgrades</h3>
-            {UPGRADES.map(upg => {
-              const count = upgradeCounts[upg.id] ?? 0;
-              const cost  = scaledCost(upg.cost, count);
-              return (
-                <div className={row} key={upg.id}>
-                  <div className="flex items-center justify-between">
-                    <p className={muted}>{upg.name} — +{upg.power} click power</p>
-                    {count > 0 && (
-                      <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#c8e6c9] dark:bg-[#2d4a33] ${heading}`}>
-                        ×{count}
-                      </span>
-                    )}
+          {UPGRADES.some(u => totalEarned >= u.unlockAt) && (
+            <div className={panel}>
+              <h3 className={`text-[1.1rem] font-semibold mb-3 ${heading}`}>Upgrades</h3>
+              {UPGRADES.map((upg, i) => {
+                const unlocked = totalEarned >= upg.unlockAt;
+                const isNextLocked = !unlocked && UPGRADES.slice(0, i).every(u => totalEarned >= u.unlockAt);
+                if (!unlocked && !isNextLocked) return null;
+                if (isNextLocked) return (
+                  <div className={`${row} opacity-50`} key={upg.id}>
+                    <p className={`${muted} italic`}>??? — unlocks at {upg.unlockAt} pts earned</p>
                   </div>
-                  <button
-                    onClick={() => buyUpgrade(upg)}
-                    disabled={score < cost}
-                    className={buyBtn}
-                  >
-                    Buy ({cost} pts)
-                  </button>
-                </div>
-              );
-            })}
-          </div>
+                );
+                const count = upgradeCounts[upg.id] ?? 0;
+                const cost  = scaledCost(upg.cost, count);
+                return (
+                  <div className={row} key={upg.id}>
+                    <div className="flex items-center justify-between">
+                      <p className={muted}>{upg.name} — +{upg.power} click power</p>
+                      {count > 0 && (
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#c8e6c9] dark:bg-[#2d4a33] ${heading}`}>
+                          ×{count}
+                        </span>
+                      )}
+                    </div>
+                    <button onClick={() => buyUpgrade(upg)} disabled={score < cost} className={buyBtn}>
+                      Buy ({cost} pts)
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
-          <div className={panel}>
-            <h3 className={`text-[1.1rem] font-semibold mb-3 ${heading}`}>Powerups</h3>
-            {POWERUPS.map(powerup => {
-              const count = powerupCounts[powerup.id] ?? 0;
-              const cost  = scaledCost(powerup.cost, count);
-              return (
-                <div className={row} key={powerup.id}>
-                  <div className="flex items-center justify-between">
-                    <p className={muted}>{powerup.name} — +{powerup.cps} pts/sec</p>
-                    {count > 0 && (
-                      <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#c8e6c9] dark:bg-[#2d4a33] ${heading}`}>
-                        ×{count}
-                      </span>
-                    )}
+          {POWERUPS.some(p => totalEarned >= p.unlockAt) && (
+            <div className={panel}>
+              <h3 className={`text-[1.1rem] font-semibold mb-3 ${heading}`}>Powerups</h3>
+              {POWERUPS.map((powerup, i) => {
+                const unlocked = totalEarned >= powerup.unlockAt;
+                const isNextLocked = !unlocked && POWERUPS.slice(0, i).every(p => totalEarned >= p.unlockAt);
+                if (!unlocked && !isNextLocked) return null;
+                if (isNextLocked) return (
+                  <div className={`${row} opacity-50`} key={powerup.id}>
+                    <p className={`${muted} italic`}>??? — unlocks at {powerup.unlockAt} pts earned</p>
                   </div>
-                  <button
-                    onClick={() => buypowerup(powerup)}
-                    disabled={score < cost}
-                    className={buyBtn}
-                  >
-                    Buy ({cost} pts)
-                  </button>
-                </div>
-              );
-            })}
-          </div>
+                );
+                const count = powerupCounts[powerup.id] ?? 0;
+                const cost  = scaledCost(powerup.cost, count);
+                return (
+                  <div className={row} key={powerup.id}>
+                    <div className="flex items-center justify-between">
+                      <p className={muted}>{powerup.name} — +{powerup.cps} pts/sec</p>
+                      {count > 0 && (
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#c8e6c9] dark:bg-[#2d4a33] ${heading}`}>
+                          ×{count}
+                        </span>
+                      )}
+                    </div>
+                    <button onClick={() => buypowerup(powerup)} disabled={score < cost} className={buyBtn}>
+                      Buy ({cost} pts)
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
         </div>
 
