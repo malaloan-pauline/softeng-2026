@@ -3,13 +3,16 @@
 @tailwind utilities;
 
 :root {
-    --cream:        #e8e4d4;
+    --cream:        #f2e8cf;
     --green:        #7a9e7e;
     --green-dark:   #5c7a60;
     --green-shadow: #4a6650;
     --text-dark:    #4a5e4c;
-    --text-cream:   #e8e4d4;
+    --text-cream:   #f2e8cf;
     --pink:         #f9dfe0;
+    --pink-mid:     #ffafcc;
+    --pink-dark:    #ff99b3;
+
 }
 
 body {
