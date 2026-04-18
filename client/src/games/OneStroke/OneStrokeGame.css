@@ -1,17 +1,24 @@
-/* ── Google Font: Alfa Slab One for the retro title ── */
+/* Google Font: Bitcount Grid Doucle for the retro title */
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double&family=Nunito:wght@600;700;800&display=swap');
 
-/* ── Design tokens ── */
 :root {
+/* Design color tokens */
   --cream:       #e8e4d4;
   --green:       #7a9e7e;
   --green-dark:  #5c7a60;
   --green-shadow:#4a6650;
   --text-dark:   #4a5e4c;
   --text-cream:  #e8e4d4;
+
+/* Puzzle canvas colors */
+  --node-color:        #d37bb1;
+  --node-active:       #e89fd0;
+  --node-ghost:        #c8d4c8;
+  --edge-drawn:        #7a9e7e;
+  --edge-ghost:        #b8c4b8;
 }
 
-/* ── Base container ── */
+/* Base container */
 .game-container {
   background-color: var(--cream);
   min-height: 100vh;
@@ -23,30 +30,32 @@
   font-family: 'Nunito', sans-serif;
 }
 
-/* ── Title ── */
+/* Title  */
 .game-title {
   font-family: 'Bitcount Grid Double', serif;
   font-size: clamp(2.5rem, 7vw, 5rem);
   color: var(--green);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  /* retro shadow effect */
+  /* shadow effect */
   text-shadow:
     3px 3px 0 var(--green-shadow),
     6px 6px 0 rgba(0,0,0,0.08);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   text-align: center;
+  line-height: 1.1;
 }
 
-/* ── Subtitle ── */
+/* Subtitle  */
 .game-subtitle {
   font-size: 1rem;
   color: var(--text-dark);
   margin-bottom: 3rem;
+  margin-top: 0;
   letter-spacing: 0.03em;
 }
 
-/* ── Level list ── */
+/* Level list */
 .level-list {
   display: flex;
   flex-direction: column;
@@ -55,7 +64,7 @@
   width: 100%;
 }
 
-/* ── Level button ── */
+/* Level button */
 .level-card {
   display: flex;
   align-items: center;
@@ -91,8 +100,8 @@
     0 3px 6px rgba(0,0,0,0.12);
 }
 
-/* ── Difficulty pill (on game page) ── */
-.difficulty-pill {
+/* Difficulty label in pill shape  */
+.difficulty-label {
   background: var(--green);
   color: var(--text-cream);
   font-family: 'Nunito', sans-serif;
@@ -108,7 +117,7 @@
   display: inline-block;
 }
 
-/* ── Win screen ── */
+/* Win screen */
 .win-screen {
   display: flex;
   flex-direction: column;
@@ -166,3 +175,46 @@
 }
 
 .btn-secondary:hover { background: var(--green); color: var(--text-cream); }
+
+/* Puzzle canvas */
+.puzzle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.puzzle-svg {
+  width: min(80vw, 400px);
+  height: min(80vw, 400px);
+  cursor: default;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 2px solid var(--green);
+  color: var(--green-dark);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 8px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.reset-btn:hover {
+  background: var(--green);
+  color: var(--text-cream);
+}
+
+/* Playing screen layout */
+.playing-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  width: 100%;
+}

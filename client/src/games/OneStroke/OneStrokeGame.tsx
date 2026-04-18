@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { levels } from './levels';
-import './OneStrokeGame.css'; 
+import './OneStrokeGame.css';
+import PuzzleCanvas from './PuzzleCanvas'; 
 
 // ─────────────────────────────────────────────
 // The screen the user is currently on:
@@ -54,34 +55,28 @@ export default function OneStrokeGame() {
   return (
     <div className="game-container">
 
-      {/* ── HOME SCREEN ───────────────────── */}
+      {/* OME SCREEN */}
       {screen === 'home' && (
         <HomeScreen onSelectLevel={handleSelectLevel} />
       )}
 
-      {/* ── PLAYING SCREEN ────────────────── */}
+      {/* PLAYING SCREEN */}
       {screen === 'playing' && (
-        <div style={{ padding: '2rem' }}>
-          <p style={{ fontSize: '1.2rem', color: '#666', marginBottom: '1rem' }}>
-            🚧 Puzzle canvas for <strong>{currentLevel.name}</strong> coming next!
-          </p>
-          {/* Temporary buttons to test navigation */}
-          <button
-            onClick={handleWin}
-            style={{ marginRight: '1rem', padding: '0.5rem 1rem', cursor: 'pointer' }}
-          >
-            Simulate WIN
-          </button>
-          <button
-            onClick={handleBackHome}
-            style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}
-          >
-            ← Back to levels
+        <div className="playing-screen">
+          <span className="difficulty-pill">
+            {currentLevel.difficulty}
+          </span>
+          <PuzzleCanvas
+            level={currentLevel}
+            onWin={handleWin}
+          />
+          <button className="btn btn-secondary" onClick={handleBackHome}>
+            ← Back
           </button>
         </div>
       )}
 
-      {/* ── WIN SCREEN ────────────────────── */}
+      {/* WIN SCREEN */}
       {screen === 'win' && (
         <WinScreen
           levelName={currentLevel.name}
@@ -95,9 +90,8 @@ export default function OneStrokeGame() {
   );
 }
 
-// ─────────────────────────────────────────────
 // HomeScreen — level selection list
-// ─────────────────────────────────────────────
+
 interface HomeScreenProps {
   onSelectLevel: (index: number) => void;
 }
@@ -106,7 +100,7 @@ function HomeScreen({ onSelectLevel }: HomeScreenProps) {
   return (
     <div className="home-screen">
       <h1 className="game-title">One Stroke</h1>
-      <p className="game-subtitle">Draw each shape without lifting your pen!</p>
+      <p className="game-subtitle">Tap on each node to make the shape !</p>
 
       <div className="level-list">
         {levels.map((level, index) => (
