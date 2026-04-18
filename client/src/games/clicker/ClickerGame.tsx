@@ -46,7 +46,8 @@ function ClickerGame() {
   const [cps,            setCps]            = useState(0);
   const [powerupCounts,  setPowerupCounts]  = useState<Record<number, number>>({});
   const [upgradeCounts,  setUpgradeCounts]  = useState<Record<number, number>>({});
-  const [showGuide,      setShowGuide]      = useState(false);
+  const [showGuide,        setShowGuide]        = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   
   const [dark, setDark] = useState(() => {
@@ -117,7 +118,7 @@ function ClickerGame() {
             Guide
           </button>
           <button
-            onClick={reset}
+            onClick={() => setShowResetConfirm(true)}
             className="px-4 py-2 text-sm font-semibold rounded-lg border border-red-300 dark:border-red-800 bg-white dark:bg-red-950 text-red-600 dark:text-red-400 transition-colors duration-150 hover:bg-red-50 dark:hover:bg-red-900"
           >
             Reset
@@ -129,6 +130,35 @@ function ClickerGame() {
             {dark ? "Light Mode" : "Dark Mode"}
           </button>
         </div>
+
+        {showResetConfirm && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={() => setShowResetConfirm(false)}
+          >
+            <div
+              className={`relative w-full max-w-sm rounded-2xl p-6 shadow-xl ${panel}`}
+              onClick={e => e.stopPropagation()}
+            >
+              <h2 className={`text-lg font-bold mb-2 ${heading}`}>Reset game?</h2>
+              <p className={`mb-5 ${muted}`}>All progress, purchases, and points will be lost. This cannot be undone.</p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => { reset(); setShowResetConfirm(false); }}
+                  className="px-4 py-2 text-sm font-semibold rounded-lg border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-150"
+                >
+                  Yes, reset
+                </button>
+                <button
+                  onClick={() => setShowResetConfirm(false)}
+                  className={`px-4 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] hover:bg-[#e8f5e9] dark:hover:bg-[#3a7045] transition-colors duration-150 ${heading}`}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {showGuide && (
           <div
