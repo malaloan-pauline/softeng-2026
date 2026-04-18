@@ -120,7 +120,7 @@ function ClickerGame() {
       duration: 2.2 + Math.random() * 2,
       delay: Math.random() * 0.8,
     })));
-    const t = setTimeout(() => { setActiveMilestone(null); setConfetti([]); }, 5000);
+    const t = setTimeout(() => { setActiveMilestone(null); setConfetti([]); }, 20000);
     return () => clearTimeout(t);
   }, [totalEarned]);
 
@@ -341,8 +341,15 @@ function ClickerGame() {
 
       {activeMilestone && (
         <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[9998] w-[min(92vw,480px)] milestone-toast">
-          <div className={`rounded-2xl px-5 py-4 shadow-xl border border-[#b9ddc1] dark:border-[#2d4a33] ${panel}`}>
-            <p className={`text-base font-bold mb-1 ${heading}`}>🎉 Milestone: {activeMilestone.score.toLocaleString()} pts!</p>
+          <div className={`relative rounded-2xl px-5 py-4 shadow-xl border border-[#b9ddc1] dark:border-[#2d4a33] ${panel}`}>
+            <button
+              onClick={() => { setActiveMilestone(null); setConfetti([]); }}
+              className={`absolute top-3 right-3 text-lg leading-none px-1 hover:opacity-60 transition-opacity ${heading}`}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <p className={`text-base font-bold mb-1 pr-6 ${heading}`}>🎉 Milestone: {activeMilestone.score.toLocaleString()} pts!</p>
             <p className={`text-sm ${muted}`}>{activeMilestone.fact}</p>
           </div>
         </div>
