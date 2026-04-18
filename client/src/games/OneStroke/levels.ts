@@ -2,8 +2,8 @@
 // This file defines all the puzzles for the One Stroke game.
 // Each level has:
 //   - a name and difficulty
-//   - a list of NODES (the dots the player clicks on), each with an id and x/y position
-//   - a list of EDGES (the allowed lines between dots)
+//   - a list of NODES, with id and x/y position
+//   - a list of EDGES 
 // The player must draw through ALL edges exactly once (Eulerian path)
 
 export interface Node {
@@ -25,9 +25,7 @@ export interface Level {
   edges: Edge[]
 }
 
-// ─────────────────────────────────────────────
-// LEVEL 1 — EASY — Star shape (5 points)
-// ─────────────────────────────────────────────
+// LEVEL 1 : EASY — Star (5 points)
 //        0 (top)
 //      /   \
 //    4       1
@@ -53,17 +51,7 @@ const starLevel: Level = {
   ]
 }
 
-// ─────────────────────────────────────────────
-// LEVEL 2 — MEDIUM — House shape (6 points)
-// ─────────────────────────────────────────────
-//       0 (roof top)
-//      / \
-//     1   2
-//     |   |
-//     3 - 4
-//     |   |
-//     5 - 6  ← no, simpler:
-//
+// LEVEL 2 — MEDIUM — House (6 points)
 //      0
 //    1 - 2
 //    |   |
@@ -89,52 +77,47 @@ const houseLevel: Level = {
   ]
 }
 
-// ─────────────────────────────────────────────
-// LEVEL 3 — HARD — 3D Cube (8 points)
-// ─────────────────────────────────────────────
-// Front face: 0,1,2,3  Back face: 4,5,6,7
-//   4 - 5
-//  /|  /|
-// 0-+-1 |
-// | 6-|-7
-// |/  |/
-// 3 - 2
-const cubeLevel: Level = {
+// LEVEL 3 — HARD — 3D Rectangle (8 points)
+// Front face: 0,1,2,3  Back face: 4,5,6
+//   4 ──── 5
+//   |╲       ╲
+//   |  0 ──── 1
+//   |  |      |
+//   6  |      |
+//    \ |      |
+//      3 ──── 2
+
+const rectLevel: Level = {
   id: 3,
-  name: '3D Cube',
+  name: '3D Rectangle',
   difficulty: 'Hard',
   nodes: [
-    { id: 0, x: 30, y: 30 },   // front top-left
-    { id: 1, x: 65, y: 30 },   // front top-right
-    { id: 2, x: 65, y: 65 },   // front bottom-right
-    { id: 3, x: 30, y: 65 },   // front bottom-left
-    { id: 4, x: 15, y: 15 },   // back top-left
-    { id: 5, x: 50, y: 15 },   // back top-right
-    { id: 6, x: 50, y: 50 },   // back bottom-right
-    { id: 7, x: 15, y: 50 },   // back bottom-left
-  ],
+  { id: 0, x: 42, y: 40 },  // front top-left
+  { id: 1, x: 75, y: 40 },  // front top-right
+  { id: 2, x: 75, y: 75 },  // front bottom-right
+  { id: 3, x: 42, y: 75 },  // front bottom-left
+  { id: 4, x: 22, y: 20 },  // back top-left
+  { id: 5, x: 55, y: 20 },  // back top-right
+  { id: 6, x: 22, y: 57 },  // back bottom-left
+],
   edges: [
-    // Front face
+    // Front face (square)
     { from: 0, to: 1 },
     { from: 1, to: 2 },
     { from: 2, to: 3 },
     { from: 3, to: 0 },
-    // Back face
+    // Back visible edges
     { from: 4, to: 5 },
-    { from: 5, to: 6 },
-    { from: 6, to: 7 },
-    { from: 7, to: 4 },
-    // Connecting edges
+    { from: 4, to: 6 },
+    // Depth lines (front to back)
     { from: 0, to: 4 },
     { from: 1, to: 5 },
-    { from: 2, to: 6 },
-    { from: 3, to: 7 },
+    { from: 3, to: 6 },
+    { from: 1, to: 3 },
   ]
 }
 
-// ─────────────────────────────────────────────
-// LEVEL 4 — CHALLENGE — Spiderweb (9 points)
-// ─────────────────────────────────────────────
+// LEVEL 4 : CHALLENGE — Spiderweb (9 points)
 // Center + 2 rings of points
 const webLevel: Level = {
   id: 4,
@@ -169,12 +152,10 @@ const webLevel: Level = {
   ]
 }
 
-// ─────────────────────────────────────────────
 // Export all levels in order
-// ─────────────────────────────────────────────
 export const levels: Level[] = [
   starLevel,
   houseLevel,
-  cubeLevel,
+  rectLevel,
   webLevel,
 ]
