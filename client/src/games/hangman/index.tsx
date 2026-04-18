@@ -278,11 +278,22 @@ export default function Hangman(): React.JSX.Element {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors]);
 
+  // Confetti on win
+  useEffect(() => {
+    if (endResult === "win") {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        colors: ['#7a9e7e', '#e8e4d4', '#f9dfe0', '#5c7a60', '#ffafcc', '#ffd60a'],
+      });
+    }
+  }, [endResult]);
+
   // --------------------
   // UI helpers for displays
   // --------------------
   const attemptsLeft = MAX_ATTEMPTS - errors;
-  const hangmanImageSrc = `images/${errors}.png`;
+  const hangmanImageSrc = `/images/${errors}.png`;
 
   const skipCostText = useMemo(() => {
     if (skipsUsed < FREE_SKIPS) {
@@ -306,59 +317,63 @@ export default function Hangman(): React.JSX.Element {
     <div className="hangman-root">
       {/* Rules modal */}
       {rulesModalVisible && (
-        <div className="rules-modal" id="rules-modal">
-          <div className="modal-content">
-            <h2>Rules</h2>
-            <p>
-              Guess the hidden CS word letter by letter. You have 6 attempts. Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
-            </p>
-            <button className="close-modal" onClick={() => setRulesModalVisible(false)}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Skip modal (shown once before the first paid skip) */}
-      {skipModalVisible && (
-        <div className="skip-modal" id="skip-modal">
-          <div className="modal-content">
-            <h2>Skip info</h2>
-            <p>
-              First two skips are free. Afterwards each skip costs points and increases by +2 each time.
-            </p>
-            <div className="modal-actions">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--text-dark)]">Rules</h2>
+              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+                Guess the hidden CS word letter by letter. You have 6 attempts.
+                Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
+              </p>
               <button
-                className="skip-cancel"
-                onClick={() => {
-                  setSkipModalVisible(false);
-                  setSkipExplained(true);
-                }}
+                  className="self-end px-5 py-2 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-medium text-sm hover:bg-[var(--green-shadow)] transition-colors"
+                  onClick={() => setRulesModalVisible(false)}
               >
-                Cancel
-              </button>
-              <button
-                className="skip-confirm"
-                onClick={() => {
-                  setSkipModalVisible(false);
-                  setSkipExplained(true);
-                  performSkipAction();
-                }}
-              >
-                Use skip
+                Got it
               </button>
             </div>
           </div>
-        </div>
+      )}
+
+      {/* Skip modal */}
+      {skipModalVisible && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--text-dark)]">Skip info</h2>
+              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+                First two skips are free. Afterwards each skip costs points and increases by +2 each time.
+              </p>
+              <div className="flex gap-3 self-end">
+                <button
+                    className="px-5 py-2 rounded-full border-2 border-[var(--green-dark)] text-[var(--text-dark)] font-medium text-sm hover:bg-white/40 transition-colors"
+                    onClick={() => {
+                      setSkipModalVisible(false);
+                      setSkipExplained(true);
+                    }}
+                >
+                  Cancel
+                </button>
+                <button
+                    className="px-5 py-2 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-medium text-sm hover:bg-[var(--green-shadow)] transition-colors"
+                    onClick={() => {
+                      setSkipModalVisible(false);
+                      setSkipExplained(true);
+                      performSkipAction();
+                    }}
+                >
+                  Use skip
+                </button>
+              </div>
+            </div>
+          </div>
       )}
 
       {/* Intro screen */}
       <div
           id="screen-intro"
           style={{ display: activeScreen === "screen-intro" ? "flex" : "none" }}
-          className="flex min-h-screen flex-col md:flex-row items-center justify-center gap-12 px-8 py-10"
+          className="flex min-h-screen flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-6 py-4 md:px-8 md:py-10"
       >
-        {/* right screen */}
+        {/* left screen */}
         <div className="flex flex-col items-center gap-6 md:w-1/2">
           <h1 className="text-5xl font-bold text-[var(--text-dark)] tracking-tight"
               style={{fontFamily: "Soopa"}}>
@@ -366,12 +381,12 @@ export default function Hangman(): React.JSX.Element {
           </h1>
 
           <img
-              src="images/intro.png"
+              src="/images/intro.png"
               alt="hangman illustration"
               className="w-48 md:w-64 rounded-[var(--radius-md)] object-contain"
           />
 
-          <div className="bg-white/40 rounded-2xl p-5 text-sm text-[var(--text-dark)] leading-relaxed max-w-sm">
+          <div className="bg-white/40 rounded-2xl p-3 md:p-5 text-sm text-[var(--text-dark)] leading-relaxed w-full">
             <h2 className="font-bold text-base mb-2">Rules</h2>
             <p>
               Guess the hidden CS word letter by letter. You have 6 attempts.
@@ -443,7 +458,7 @@ export default function Hangman(): React.JSX.Element {
         <div className="flex flex-1 flex-col md:flex-row gap-6 px-6 py-6">
 
           {/* Colonne gauche */}
-          <div className="flex flex-col items-center justify-center gap-6 md:w-1/2">
+          <div className="flex flex-col items-center justify-center gap-3 md:gap-6 md:w-1/2">
             <img
                 className="w-48 md:w-64 rounded-2xl object-contain bg-white p-2 shadow-md"
                 src={hangmanImageSrc}
@@ -453,7 +468,7 @@ export default function Hangman(): React.JSX.Element {
               <span className="font-bold not-italic">Hint : </span>{currentHint}
             </p>
             <button
-                className="px-6 py-2 rounded-full bg-[var(--green)] text-[var(--text-cream)] font-medium text-sm hover:bg-[var(--green-dark)] transition-colors"
+                className="px-6 py-2 rounded-full bg-[var(--pink-mid)] text-[var(--text-dark)] font-medium text-sm hover:bg-[var(--pink-dark)] transition-colors"
                 onClick={() => skipWord()}
             >
               Skip — <span className="font-bold">{skipCostText}</span>
@@ -464,13 +479,10 @@ export default function Hangman(): React.JSX.Element {
           <div className="relative flex flex-col items-center justify-center gap-6 md:w-1/2">
 
             {/* Mot à deviner */}
-            <ul className="flex flex-wrap justify-center gap-2 mt-4">
+            <ul className="flex flex-wrap justify-center gap-2 mt-1 md:mt-4">
               {currentWord.split("").map((ch, idx) => (
-                  <li
-                      key={idx}
-                      className="w-9 h-12 flex items-end justify-center pb-1 border-b-4 border-[var(--green-shadow)]"
-                  >
-                    <span className={`font-mono font-bold text-2xl text-[var(--green-dark)] transition-all duration-300 ${guessedLetters.includes(ch) ? "opacity-100" : "opacity-0"}`}>
+                  <li className="w-6 h-10 md:w-9 md:h-12 flex items-end justify-center pb-1 border-b-4 border-[var(--green-shadow)]">
+                    <span className={`font-mono font-bold text-lg md:text-2xl text-[var(--green-dark)] transition-all duration-300 ${guessedLetters.includes(ch) ? "opacity-100" : "opacity-0"}`}>
                       {guessedLetters.includes(ch) ? ch : ""}
                     </span>
                   </li>
@@ -513,9 +525,9 @@ export default function Hangman(): React.JSX.Element {
             </div>
 
             {/* Bulle score */}
-            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-[var(--green-dark)] flex flex-col items-center justify-center shadow-lg">
-              <span className="text-xs text-[var(--text-cream)] leading-none">pts</span>
-              <span className="text-lg font-bold text-[var(--text-cream)] leading-none">{score}</span>
+            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-[var(--pink-mid)] flex flex-col items-center justify-center shadow-lg">
+              <span className="text-xs text-[var(--text-dark)] leading-none">pts</span>
+              <span className="text-lg font-bold text-[var(--text-dark)] leading-none">{score}</span>
             </div>
 
           </div>
@@ -523,25 +535,68 @@ export default function Hangman(): React.JSX.Element {
       </div>
 
       {/* End screen */}
-      <div className="screen-end" id="screen-end" style={{ display: activeScreen === "screen-end" ? "block" : "none" }}>
-        <h1 id="end-title">{endResult === "win" ? "Success!" : "You lost!"}</h1>
-        <p id="end-word">{currentWord}</p>
-        <p id="end-score">Score: {score} pts</p>
-        <button className="play-again" style={{ display: endResult === "win" ? "block" : "none" }} onClick={() => startGame(currentDifficulty)}>
-          Play again
-        </button>
-        <button className="next-level" style={{ display: endResult === "win" ? "block" : "none" }} onClick={() => {
-          if (currentDifficulty === "easy") startGame("medium");
-          else if (currentDifficulty === "medium") startGame("hard");
-        }}>
-          Next Level
-        </button>
-        <button className="try-again" style={{ display: endResult === "loss" ? "block" : "none" }} onClick={() => startGame(currentDifficulty)}>
-          Try again
-        </button>
-        <button className="exit" onClick={() => setActiveScreen("screen-intro")}>
-          Exit
-        </button>
+      {/* Écran de fin */}
+      <div
+          id="screen-end"
+          style={{ display: activeScreen === "screen-end" ? "flex" : "none" }}
+          className={`
+    flex flex-col items-center justify-center gap-6 min-h-screen px-8 py-10 transition-colors duration-500
+    ${endResult === "win" ? "bg-[var(--green)]" : "bg-[var(--pink)]"}
+  `}
+      >
+        <h1 className={`text-5xl font-bold ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+          {endResult === "win" ? "🎉 Success!" : "💀 Game Over"}
+        </h1>
+
+        <p className={`text-lg font-mono font-bold tracking-widest ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+          {currentWord}
+        </p>
+
+        <div className={`px-6 py-3 rounded-full text-2xl font-bold shadow-md ${endResult === "win" ? "bg-white/30 text-[var(--text-cream)]" : "bg-white/60 text-[var(--text-dark)]"}`}>
+          {score} pts
+        </div>
+
+        <div className="flex flex-col gap-3 w-full max-w-xs mt-4">
+          {endResult === "win" && (
+              <>
+                <button
+                    className="w-full py-3 rounded-full bg-white/30 text-[var(--text-cream)] font-bold text-lg hover:bg-white/50 transition-colors"
+                    onClick={() => startGame(currentDifficulty)}
+                >
+                  Play again
+                </button>
+                {currentDifficulty !== "hard" && (
+                    <button
+                        className="w-full py-3 rounded-full bg-[var(--text-cream)] text-[var(--green-dark)] font-bold text-lg hover:brightness-95 transition-all"
+                        onClick={() => {
+                          if (currentDifficulty === "easy") startGame("medium");
+                          else if (currentDifficulty === "medium") startGame("hard");
+                        }}
+                    >
+                      Next Level ↑
+                    </button>
+                )}
+              </>
+          )}
+          {endResult === "loss" && (
+              <button
+                  className="w-full py-3 rounded-full bg-[var(--text-dark)] text-[var(--text-cream)] font-bold text-lg hover:brightness-110 transition-all"
+                  onClick={() => startGame(currentDifficulty)}
+              >
+                Try again
+              </button>
+          )}
+          <button
+              className={`w-full py-3 rounded-full border-2 font-bold text-lg transition-colors
+        ${endResult === "win"
+                  ? "border-[var(--text-cream)] text-[var(--text-cream)] hover:bg-white/20"
+                  : "border-[var(--text-dark)] text-[var(--text-dark)] hover:bg-black/10"
+              }`}
+              onClick={() => setActiveScreen("screen-intro")}
+          >
+            Exit
+          </button>
+        </div>
       </div>
     </div>
   );
