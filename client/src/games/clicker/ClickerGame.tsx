@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type Upgrade = {
   id: number;
@@ -15,6 +15,20 @@ type Powerups = {
   cps: number;
   unlockAt: number;
 }
+
+type Milestone = { score: number; fact: string };
+type ConfettiParticle = { id: number; x: number; color: string; size: number; duration: number; delay: number };
+
+const CONFETTI_COLORS = ["#ff6b6b","#ffd93d","#6bcb77","#4d96ff","#ff922b","#cc5de8","#f06595"];
+
+const MILESTONES: Milestone[] = [
+  { score: 50,    fact: "First 50 points! The word 'click' was first used to describe a mouse action in 1983." },
+  { score: 250,   fact: "250 points! The average person spends 6 hours a day on screens. You're making yours count." },
+  { score: 1000,  fact: "1,000 points! The first computer bug was an actual moth found inside a Harvard relay in 1947." },
+  { score: 5000,  fact: "5,000 points! WiFi doesn't stand for anything — the name was invented by a marketing firm." },
+  { score: 10000, fact: "10,000 points! A programmer's go-to drink is Java ☕ — coincidence? We think not." },
+  { score: 50000, fact: "50,000 points! You could fill an Olympic pool with the electricity used by the internet each second." },
+];
 
 const UPGRADES: Upgrade[] = [
   { id: 1, name: "Mechanical Keyboard", cost: 25,  power: 10, unlockAt: 10  },
@@ -49,6 +63,9 @@ function ClickerGame() {
   const [powerupCounts,  setPowerupCounts]  = useState<Record<number, number>>({});
   const [upgradeCounts,  setUpgradeCounts]  = useState<Record<number, number>>({});
   const [totalEarned,      setTotalEarned]      = useState(0);
+  const [activeMilestone,  setActiveMilestone]  = useState<Milestone | null>(null);
+  const [confetti,         setConfetti]         = useState<ConfettiParticle[]>([]);
+  const triggeredMilestones = useRef(new Set<number>());
   const [showGuide,        setShowGuide]        = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -90,6 +107,23 @@ function ClickerGame() {
     return () => prefersDark.removeEventListener('change', handler);
   }, []);
 
+  useEffect(() => {
+    const next = MILESTONES.find(m => totalEarned >= m.score && !triggeredMilestones.current.has(m.score));
+    if (!next) return;
+    triggeredMilestones.current.add(next.score);
+    setActiveMilestone(next);
+    setConfetti(Array.from({ length: 70 }, (_, i) => ({
+      id: Date.now() + i,
+      x: Math.random() * 100,
+      color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+      size: 6 + Math.random() * 8,
+      duration: 2.2 + Math.random() * 2,
+      delay: Math.random() * 0.8,
+    })));
+    const t = setTimeout(() => { setActiveMilestone(null); setConfetti([]); }, 5000);
+    return () => clearTimeout(t);
+  }, [totalEarned]);
+
   function reset() {
     setScore(0);
     setTotalEarned(0);
@@ -97,6 +131,9 @@ function ClickerGame() {
     setCps(0);
     setPowerupCounts({});
     setUpgradeCounts({});
+    triggeredMilestones.current.clear();
+    setActiveMilestone(null);
+    setConfetti([]);
   }
 
   function switchTheme() {
@@ -286,6 +323,31 @@ function ClickerGame() {
         </div>
 
       </main>
+
+      {confetti.map(p => (
+        <div
+          key={p.id}
+          className="confetti-piece"
+          style={{
+            left: `${p.x}vw`,
+            width: p.size,
+            height: p.size,
+            background: p.color,
+            animationDuration: `${p.duration}s`,
+            animationDelay: `${p.delay}s`,
+          }}
+        />
+      ))}
+
+      {activeMilestone && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[9998] w-[min(92vw,480px)] milestone-toast">
+          <div className={`rounded-2xl px-5 py-4 shadow-xl border border-[#b9ddc1] dark:border-[#2d4a33] ${panel}`}>
+            <p className={`text-base font-bold mb-1 ${heading}`}>🎉 Milestone: {activeMilestone.score.toLocaleString()} pts!</p>
+            <p className={`text-sm ${muted}`}>{activeMilestone.fact}</p>
+          </div>
+        </div>
+      )}
+
       <footer className={`mt-8 text-xs text-center ${muted}`}>
         <p>Copyrights © 2026 Clicker Game by Match IT</p>
       </footer>
