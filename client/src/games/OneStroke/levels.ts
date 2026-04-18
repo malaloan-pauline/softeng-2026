@@ -117,38 +117,60 @@ const rectLevel: Level = {
   ]
 }
 
-// LEVEL 4 : CHALLENGE — Spiderweb (9 points)
-// Center + 2 rings of points
-const webLevel: Level = {
+// LEVEL 4 : CHALLENGE — Flower (9 points)
+// Outer octagon: 1-8, Inner octagon: 9-16
+const flowerLevel: Level = {
   id: 4,
-  name: 'Spiderweb',
+  name: 'Flower',
   difficulty: 'Challenge',
-  nodes: [
-    { id: 0, x: 50, y: 50 },   // center
-    { id: 1, x: 50, y: 20 },   // inner top
-    { id: 2, x: 75, y: 65 },   // inner right
-    { id: 3, x: 25, y: 65 },   // inner left
-    { id: 4, x: 50, y: 5  },   // outer top
-    { id: 5, x: 90, y: 75 },   // outer right
-    { id: 6, x: 10, y: 75 },   // outer left
+   nodes: [
+    // Outer octagon (clockwise from top-left)
+    { id: 1,  x: 20, y: 20 },  // top-left
+    { id: 2,  x: 50, y: 7  },  // top
+    { id: 3,  x: 80, y: 20 },  // top-right
+    { id: 4,  x: 93, y: 50 },  // right
+    { id: 5,  x: 80, y: 80 },  // bottom-right
+    { id: 6,  x: 50, y: 93 },  // bottom
+    { id: 7,  x: 20, y: 80 },  // bottom-left
+    { id: 8,  x: 7,  y: 50 },  // left
+    // Inner octagon (same angles, smaller)
+    { id: 9,  x: 35, y: 35 },  // inner top-left
+    { id: 10, x: 50, y: 29 },  // inner top
+    { id: 11, x: 65, y: 35 },  // inner top-right
+    { id: 12, x: 71, y: 50 },  // inner right
+    { id: 13, x: 65, y: 65 },  // inner bottom-right
+    { id: 14, x: 50, y: 71 },  // inner bottom
+    { id: 15, x: 35, y: 65 },  // inner bottom-left
+    { id: 16, x: 29, y: 50 },  // inner left
   ],
   edges: [
-    // Center to inner ring
-    { from: 0, to: 1 },
-    { from: 0, to: 2 },
-    { from: 0, to: 3 },
-    // Inner ring
-    { from: 1, to: 2 },
-    { from: 2, to: 3 },
-    { from: 3, to: 1 },
-    // Inner to outer ring
-    { from: 1, to: 4 },
-    { from: 2, to: 5 },
-    { from: 3, to: 6 },
-    // Outer ring
-    { from: 4, to: 5 },
-    { from: 5, to: 6 },
-    { from: 6, to: 4 },
+    // Outer octagon
+    { from: 1, to: 2 }, 
+    { from: 2, to: 3 }, 
+    { from: 3, to: 4 },
+    { from: 4, to: 5 }, 
+    { from: 5, to: 6 }, 
+    { from: 6, to: 7 },
+    { from: 7, to: 8 }, 
+    { from: 8, to: 1 },
+    // Big flower
+    { from: 1,  to: 10 }, { from: 2,  to: 11 },
+    { from: 10, to: 3  }, { from: 11, to: 4  },
+    { from: 3,  to: 12 }, { from: 4,  to: 13 },
+    { from: 12, to: 5  }, { from: 13, to: 6  },
+    { from: 5,  to: 14 }, { from: 6,  to: 15 },
+    { from: 14, to: 7  }, { from: 15, to: 8  },
+    { from: 7,  to: 16 }, { from: 8,  to: 9  },
+    { from: 16, to: 1  }, { from: 9,  to: 2  },
+    // Small flower 
+    { from: 9,  to: 12 },
+    { from: 12, to: 15 }, 
+    { from: 15, to: 10 }, 
+    { from: 10, to: 13 },
+    { from: 13, to: 16 },
+    { from: 16, to: 11 },
+    { from: 11, to: 14 },
+    { from: 14, to: 9 },
   ]
 }
 
@@ -157,5 +179,5 @@ export const levels: Level[] = [
   starLevel,
   houseLevel,
   rectLevel,
-  webLevel,
+  flowerLevel,
 ]
