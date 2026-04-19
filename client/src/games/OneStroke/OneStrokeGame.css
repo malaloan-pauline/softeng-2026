@@ -148,10 +148,6 @@ html, body {
   color: var(--text-dark);
 }
 
-.win-emoji {
-  font-size: 4rem;
-}
-
 .win-buttons {
   display: flex;
   gap: 1rem;
