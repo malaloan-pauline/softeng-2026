@@ -107,6 +107,7 @@ export default function Hangman(): React.JSX.Element {
   const [activeScreen, setActiveScreen] = useState<"screen-intro" | "screen-game" | "screen-end">("screen-intro");
   const [rulesModalVisible, setRulesModalVisible] = useState<boolean>(false);
   const [skipModalVisible, setSkipModalVisible] = useState<boolean>(false);
+  const [shaking, setShaking] = useState(false);
 
   // Refs to keep stable values for event handlers when necessary
   const gameActiveRef = useRef(gameActive);
@@ -286,6 +287,11 @@ export default function Hangman(): React.JSX.Element {
         spread: 80,
         colors: ['#7a9e7e', '#e8e4d4', '#f9dfe0', '#5c7a60', '#ffafcc', '#ffd60a'],
       });
+    }
+
+    if (endResult === "loss") {
+      setShaking(true);
+      setTimeout(() => setShaking(false), 500);
     }
   }, [endResult]);
 
@@ -496,7 +502,7 @@ export default function Hangman(): React.JSX.Element {
 
             {/* Clavier */}
             <div
-                className="grid grid-cols-5 gap-2 w-full max-w-xs"
+                className="grid grid-cols-5 gap-1 md:gap-2 w-full max-w-xs"
                 onClick={onKeyboardClick}
             >
               {alphabet.map((letter) => {
@@ -525,8 +531,7 @@ export default function Hangman(): React.JSX.Element {
             </div>
 
             {/* Bulle score */}
-            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-[var(--pink-mid)] flex flex-col items-center justify-center shadow-lg">
-              <span className="text-xs text-[var(--text-dark)] leading-none">pts</span>
+            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-[var(--pink-mid)] flex flex-col items-center justify-center shadow-lg juicy__hover">              <span className="text-xs text-[var(--text-dark)] leading-none">pts</span>
               <span className="text-lg font-bold text-[var(--text-dark)] leading-none">{score}</span>
             </div>
 
@@ -535,20 +540,23 @@ export default function Hangman(): React.JSX.Element {
       </div>
 
       {/* End screen */}
-      {/* Écran de fin */}
       <div
           id="screen-end"
           style={{ display: activeScreen === "screen-end" ? "flex" : "none" }}
           className={`
-    flex flex-col items-center justify-center gap-6 min-h-screen px-8 py-10 transition-colors duration-500
-    ${endResult === "win" ? "bg-[var(--green)]" : "bg-[var(--pink)]"}
-  `}
+            flex flex-col items-center justify-center gap-6 min-h-screen px-8 py-10 transition-colors duration-500
+            ${endResult === "win" ? "bg-[var(--green)]" : "bg-[var(--pink)]"}
+            ${shaking ? "juicy__screenshake" : ""}
+          `}
       >
         <h1 className={`text-5xl font-bold ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
           {endResult === "win" ? "🎉 Success!" : "💀 Game Over"}
         </h1>
 
-        <p className={`text-lg font-mono font-bold tracking-widest ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+        <p className={`text-sm font-medium ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+          The correct word was
+        </p>
+        <p className={`text-2xl font-mono font-bold tracking-widest ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
           {currentWord}
         </p>
 
