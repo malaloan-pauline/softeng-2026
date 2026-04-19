@@ -101,7 +101,7 @@ body {
 /*** hover-scorebubble ***/
 
 .juicy__hover {
-    animation-duration: 1s;
+    animation-duration: 3s;
     animation-name: hover;
     animation-iteration-count: infinite;
     transition-timing-function: ease-in-out;
