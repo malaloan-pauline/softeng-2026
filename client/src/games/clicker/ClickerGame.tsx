@@ -108,7 +108,7 @@ function ClickerGame() {
   }, []);
 
   useEffect(() => {
-    const next = MILESTONES.find(m => totalEarned >= m.score && !triggeredMilestones.current.has(m.score));
+    const next = MILESTONES.find(m => score >= m.score && !triggeredMilestones.current.has(m.score));
     if (!next) return;
     triggeredMilestones.current.add(next.score);
     setActiveMilestone(next);
@@ -122,7 +122,7 @@ function ClickerGame() {
     })));
     const t = setTimeout(() => { setActiveMilestone(null); setConfetti([]); }, 20000);
     return () => clearTimeout(t);
-  }, [totalEarned]);
+  }, [score]);
 
   function reset() {
     setScore(0);
