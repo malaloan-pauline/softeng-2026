@@ -22,6 +22,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/*-------fonts--------*/
 @font-face {
     font-family: 'Soopa';
     src: url('/fonts/soopafre.ttf') format('truetype');
@@ -48,4 +49,87 @@ body {
     src: url('/fonts/heycomic.ttf') format('truetype');
     font-weight: normal;
     font-display: swap;
+}
+
+/*-------animations--------*/
+
+/*-----screen shake----*/
+
+.juicy__screenshake {
+    animation-name: screenshake, screenshake_bright;
+    animation-duration: 350ms;
+    transition-timing-function: ease-out;
+    animation-repeat: 1;
+}
+
+@keyframes screenshake {
+    0% { transform: translate(8px, 8px) rotate(0deg); }
+    2% { transform: translate(-8px, -16px) rotate(-3deg); }
+    4% { transform: translate(-24px, 0px) rotate(3deg); }
+    6% { transform: translate(24px, 16px) rotate(0deg); }
+    8% { transform: translate(8px, -8px) rotate(3deg); }
+    10% { transform: translate(-8px, 16px) rotate(-3deg); }
+    12% { transform: translate(-24px, 8px) rotate(0deg); }
+    14% { transform: translate(24px, 8px) rotate(-3deg); }
+    16% { transform: translate(-8px, -8px) rotate(3deg); }
+    18% { transform: translate(8px, 16px) rotate(-3deg); }
+    20% { transform: translate(0px, 0px) rotate(0deg); }
+    25% { transform: translate(4px, 4px) rotate(0deg); }
+    30% { transform: translate(-4px, -8px) rotate(-3deg); }
+    35% { transform: translate(-12px, 0px) rotate(3deg); }
+    40% { transform: translate(12px, 8px) rotate(0deg); }
+    45% { transform: translate(4px, -4px) rotate(3deg); }
+    50% { transform: translate(-4px, 8px) rotate(-3deg); }
+    55% { transform: translate(-12px, 4px) rotate(0deg); }
+    60% { transform: translate(12px, 4px) rotate(-3deg); }
+    65% { transform: translate(2px, 2px) rotate(0deg); }
+    70% { transform: translate(-2px, -4px) rotate(-3deg); }
+    75% { transform: translate(-6px, 0px) rotate(3deg); }
+    80% { transform: translate(6px, 4px) rotate(0deg); }
+    85% { transform: translate(3px, 1px) rotate(-3deg); }
+    90% { transform: translate(-1px, -1px) rotate(3deg); }
+    95% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-3deg); }
+}
+
+@keyframes screenshake_bright {
+    0% {
+        background-color: white;
+    }
+}
+
+/*** hover-scorebubble ***/
+
+.juicy__hover {
+    animation-duration: 1s;
+    animation-name: hover;
+    animation-iteration-count: infinite;
+    transition-timing-function: ease-in-out;
+}
+
+@keyframes hover {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.juicy__hover__shadow {
+    animation-duration: 1s;
+    animation-name: hover-shadow;
+    animation-iteration-count: infinite;
+    transition-timing-function: ease-in-out;
+}
+
+@keyframes hover-shadow {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.9);
+    }
 }
