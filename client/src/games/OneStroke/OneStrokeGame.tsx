@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import confetti from 'canvas-confetti'; 
 import { levels } from './levels';
 import './OneStrokeGame.css';
 import PuzzleCanvas from './PuzzleCanvas';
@@ -115,7 +116,7 @@ export default function OneStrokeGame() {
 
       {screen === 'win' && (
         <WinScreen
-          levelName={currentLevel.name}
+          levelName={currentLevel.difficulty}
           elapsedTime={elapsedTime}
           isLastLevel={currentLevelIndex === levels.length - 1}
           onNext={handleNextLevel}
@@ -165,12 +166,30 @@ function WinScreen({
   isLastLevel,
   onNext,
   onHome,
-}: WinScreenProps) {
+}: WinScreenProps) { 
+  useEffect(() => {
+    confetti({
+      particleCount: 80,
+      angle: 60,
+      spread: 70,
+      origin: { x: 0, y: 0.6 },
+      colors: ['#7a9e7e', '#e8e4d4', '#5c7a60', '#d4c9a8', '#a0c4a4'],
+    });
+
+    confetti({
+      particleCount: 80,
+      angle: 120,
+      spread: 70,
+      origin: { x: 1, y: 0.6 },
+      colors: ['#7a9e7e', '#e8e4d4', '#5c7a60', '#d4c9a8', '#a0c4a4'],
+    });
+  }, []);
+  
   return (
     <div className="win-screen">
       <h2>You did it!</h2>
       <p>
-        You completed <strong>{levelName}</strong> in {formatTime(elapsedTime)}!
+        You completed level <strong>{levelName}</strong> in {formatTime(elapsedTime)}!
       </p>
 
       <div className="win-buttons">
