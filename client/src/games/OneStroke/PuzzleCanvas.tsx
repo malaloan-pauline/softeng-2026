@@ -1,38 +1,29 @@
 import React, { useState } from 'react';
 import { Level } from './levels';
 
-// PuzzleCanvas — the interactive drawing board where the player clicks on the nodes to draw
-
 interface Props {
   level: Level; 
   onWin: () => void;  
+  onFirstMove: () => void; 
+  onRetry: () => void; 
 }
 
-// Represents one edge, identified by the two node IDs it connects
 interface DrawnEdge {
   from: number;
   to: number;
 }
 
-export default function PuzzleCanvas({ level, onWin }: Props) {
-
-  // The node the player is currently "on" (null = not started yet)
+export default function PuzzleCanvas({ level, onWin, onFirstMove, onRetry }: Props) {
   const [currentNode, setCurrentNode] = useState<number | null>(null);
-
-  // The list of edges the player has drawn so far
   const [drawnEdges, setDrawnEdges] = useState<DrawnEdge[]>([]);
-
-  // The ordered list of nodes visited (to draw the path lines)
   const [visitedPath, setVisitedPath] = useState<number[]>([]);
 
-  // ── Helper: check if an edge exists in the level ──
   function edgeExists(a: number, b: number): boolean {
     return level.edges.some(
       e => (e.from === a && e.to === b) || (e.from === b && e.to === a)
     );
   }
 
-  // Helper: to check if an edge was already drawn ──
   function edgeAlreadyDrawn(a: number, b: number): boolean {
     return drawnEdges.some(
       e => (e.from === a && e.to === b) || (e.from === b && e.to === a)
@@ -43,6 +34,7 @@ export default function PuzzleCanvas({ level, onWin }: Props) {
 
     // Start case 1 : 
     if (currentNode === null) {
+      onFirstMove();
       setCurrentNode(nodeId);
       setVisitedPath([nodeId]);
       return;
@@ -50,16 +42,13 @@ export default function PuzzleCanvas({ level, onWin }: Props) {
 
     // Case 2: Player clicked the same node → deselect (reset start)
     if (currentNode === nodeId) {
-      setCurrentNode(null);
-      setVisitedPath([]);
-      setDrawnEdges([]);
       return;
     }
 
-    // Case 3: Edge doesn't exist → invalid move, do nothing
+    // Case 3: Edge doesn't exist = invalid move, no action
     if (!edgeExists(currentNode, nodeId)) return;
 
-    // Case 4: Edge already drawn → invalid move, do nothing
+    // Case 4: Edge already drawn = invalid move, no action
     if (edgeAlreadyDrawn(currentNode, nodeId)) return;
 
     // Case 5: Valid move! Draw the edge
@@ -72,18 +61,19 @@ export default function PuzzleCanvas({ level, onWin }: Props) {
 
     // Check if all edges are drawn → player wins!
     if (newDrawnEdges.length === level.edges.length) {
-      setTimeout(onWin, 400); // small delay so player sees the last line
+      setTimeout(onWin, 400); // small delay to let the player sees the last line
     }
   }
 
-  // ── Reset the puzzle ──
+  // Reset the puzzle 
   function handleReset() {
     setCurrentNode(null);
     setDrawnEdges([]);
     setVisitedPath([]);
+    onRetry();
   }
 
-  // ── SVG viewBox is 100x100 — node coordinates in levels.ts are % based ──
+  // SVG viewBox is 100x100 —> node coordinates in levels.ts are % based 
   const SIZE = 100;
 
   return (
@@ -101,8 +91,10 @@ export default function PuzzleCanvas({ level, onWin }: Props) {
           return (
             <line
               key={`ghost-${i}`}
-              x1={fromNode.x} y1={fromNode.y}
-              x2={toNode.x}   y2={toNode.y}
+              x1={fromNode.x} 
+              y1={fromNode.y}
+              x2={toNode.x} 
+              y2={toNode.y}
               stroke="var(--edge-ghost)"
               strokeWidth="2"
               strokeLinecap="round"
@@ -117,8 +109,10 @@ export default function PuzzleCanvas({ level, onWin }: Props) {
           return (
             <line
               key={`drawn-${i}`}
-              x1={fromNode.x} y1={fromNode.y}
-              x2={toNode.x}   y2={toNode.y}
+              x1={fromNode.x} 
+              y1={fromNode.y}
+              x2={toNode.x} 
+              y2={toNode.y}
               stroke="var(--edge-drawn)"
               strokeWidth="2.5"
               strokeLinecap="round"

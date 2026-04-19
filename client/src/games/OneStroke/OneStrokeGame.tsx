@@ -1,96 +1,130 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { levels } from './levels';
 import './OneStrokeGame.css';
-import PuzzleCanvas from './PuzzleCanvas'; 
+import PuzzleCanvas from './PuzzleCanvas';
 
-// ─────────────────────────────────────────────
-// The screen the user is currently on:
-//   'home'    → the title/welcome screen
-//   'playing' → the actual puzzle
-//   'win'     → the "you solved it!" screen
-// ─────────────────────────────────────────────
 type Screen = 'home' | 'playing' | 'win';
 
-// ─────────────────────────────────────────────
-// OneStrokeGame — the top-level page component
-// ─────────────────────────────────────────────
+function formatTime(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
 export default function OneStrokeGame() {
-  // Which screen is showing right now?
   const [screen, setScreen] = useState<Screen>('home');
-
-  // Which level (0-indexed) is the player on?
   const [currentLevelIndex, setCurrentLevelIndex] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(false);
 
-  // The current level object (nodes, edges, name, difficulty...)
   const currentLevel = levels[currentLevelIndex];
+  const navigate = useNavigate();
 
-  // Called when the player clicks a level card on the home screen
+  useEffect(() => {
+    let interval: number | undefined;
+
+    if (screen === 'playing' && timerRunning) {
+      interval = window.setInterval(() => {
+        setElapsedTime((prev) => prev + 1);
+      }, 1000);
+    }
+
+    return () => {
+      if (interval !== undefined) {
+        clearInterval(interval);
+      }
+    };
+  }, [screen, timerRunning]);
+
   function handleSelectLevel(index: number) {
     setCurrentLevelIndex(index);
+    setElapsedTime(0);
+    setTimerRunning(false);
     setScreen('playing');
   }
 
-  // Called when the player solves the puzzle
+  function handleFirstMove() {
+    setTimerRunning (true);
+  }
+
+  function handleRetry() {
+    setElapsedTime(0);
+    setTimerRunning(false);
+  }
+
   function handleWin() {
+    setTimerRunning(false);
     setScreen('win');
   }
 
-  // Called when the player wants to go back to the level list
   function handleBackHome() {
+    setElapsedTime(0);
+    setTimerRunning(false);
     setScreen('home');
   }
 
-  // Called when the player advances to the next level
   function handleNextLevel() {
     const nextIndex = currentLevelIndex + 1;
+
     if (nextIndex < levels.length) {
       setCurrentLevelIndex(nextIndex);
+      setElapsedTime(0);
+      setTimerRunning(false);
       setScreen('playing');
     } else {
-      // No more levels → back to home
+      setElapsedTime(0);
+      setTimerRunning(false);
       setScreen('home');
     }
   }
 
   return (
     <div className="game-container">
-
-      {/* OME SCREEN */}
       {screen === 'home' && (
-        <HomeScreen onSelectLevel={handleSelectLevel} />
+        <>
+          <button className="btn-back-menu" onClick={() => navigate('/games')}>
+            ← Game menu
+          </button>
+          <HomeScreen onSelectLevel={handleSelectLevel} />
+        </>
       )}
 
-      {/* PLAYING SCREEN */}
       {screen === 'playing' && (
         <div className="playing-screen">
           <span className="difficulty-pill">
             {currentLevel.difficulty}
           </span>
+
+          <div className="timer-pill">
+            ⏱ {formatTime(elapsedTime)}
+          </div>
+
           <PuzzleCanvas
             level={currentLevel}
             onWin={handleWin}
+            onFirstMove={handleFirstMove}
+            onRetry={handleRetry}
           />
+
           <button className="btn btn-secondary" onClick={handleBackHome}>
             ← Back
           </button>
         </div>
       )}
 
-      {/* WIN SCREEN */}
       {screen === 'win' && (
         <WinScreen
           levelName={currentLevel.name}
+          elapsedTime={elapsedTime}
           isLastLevel={currentLevelIndex === levels.length - 1}
           onNext={handleNextLevel}
           onHome={handleBackHome}
         />
       )}
-
     </div>
   );
 }
-
-// HomeScreen — level selection list
 
 interface HomeScreenProps {
   onSelectLevel: (index: number) => void;
@@ -117,22 +151,27 @@ function HomeScreen({ onSelectLevel }: HomeScreenProps) {
   );
 }
 
-// ─────────────────────────────────────────────
-// WinScreen — shown when puzzle is solved
-// ─────────────────────────────────────────────
 interface WinScreenProps {
   levelName: string;
+  elapsedTime: number;
   isLastLevel: boolean;
   onNext: () => void;
   onHome: () => void;
 }
 
-function WinScreen({ levelName, isLastLevel, onNext, onHome }: WinScreenProps) {
+function WinScreen({
+  levelName,
+  elapsedTime,
+  isLastLevel,
+  onNext,
+  onHome,
+}: WinScreenProps) {
   return (
     <div className="win-screen">
-      <div className="win-emoji">🎉</div>
       <h2>You did it!</h2>
-      <p>You completed <strong>{levelName}</strong> in one stroke!</p>
+      <p>
+        You completed <strong>{levelName}</strong> in {formatTime(elapsedTime)}!
+      </p>
 
       <div className="win-buttons">
         {!isLastLevel && (
