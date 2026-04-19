@@ -13,14 +13,30 @@ function formatTime(totalSeconds: number) {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
+function getPointsForDifficulty(difficulty: string): number {
+  switch (difficulty) {
+    case 'Easy':
+      return 5;
+    case 'Medium':
+      return 6;
+    case 'Hard':
+      return 8;
+    case 'Challenge':
+      return 15;
+    default:
+      return 0;
+  }
+}
 export default function OneStrokeGame() {
   const [screen, setScreen] = useState<Screen>('home');
   const [currentLevelIndex, setCurrentLevelIndex] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
-
   const currentLevel = levels[currentLevelIndex];
   const navigate = useNavigate();
+  const [lastPointsEarned, setLastPointsEarned] = useState<number>(() => {
+  return Number(sessionStorage.getItem('oneStrokePoints') || 0);
+  });
 
   useEffect(() => {
     let interval: number | undefined;
@@ -56,6 +72,20 @@ export default function OneStrokeGame() {
 
   function handleWin() {
     setTimerRunning(false);
+
+  const pointsEarned = getPointsForDifficulty(currentLevel.difficulty);
+  const previousPoints = Number(sessionStorage.getItem('oneStrokePoints') || 0);
+  const totalPoints = previousPoints + pointsEarned;
+
+  setLastPointsEarned(totalPoints);
+  sessionStorage.setItem('oneStrokePoints', String(totalPoints));
+
+    console.log({
+      game: 'OneStroke',
+      difficulty: currentLevel.difficulty,
+      points: pointsEarned,
+    });
+
     setScreen('win');
   }
 
@@ -88,13 +118,18 @@ export default function OneStrokeGame() {
             ← Game menu
           </button>
           <HomeScreen onSelectLevel={handleSelectLevel} />
+
+          <div className="points-box">
+            You earned {lastPointsEarned} points 
+          </div>
         </>
+        
       )}
 
       {screen === 'playing' && (
         <div className="playing-screen">
           <span className="difficulty-pill">
-            {currentLevel.difficulty}
+            <strong>{currentLevel.difficulty}</strong>
           </span>
 
           <div className="timer-pill">
