@@ -112,7 +112,7 @@ button:hover {
 
 /* popup box */
 .popup-box {
-  background: #fff;
+  background: #a98467;
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
@@ -139,4 +139,12 @@ button:hover {
 
 .popup-box button:hover {
   background: #6aa97a;
+}
+
+menu-title {
+  font-size: 4vw;
+  color: #6A994E; /* pastel matcha green */
+  margin-bottom: 2vw;
+  font-weight: 600;
+  text-align: center;
 }

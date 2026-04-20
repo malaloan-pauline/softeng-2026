@@ -261,6 +261,11 @@ useEffect(() => {
     // reset message
     setMessage("Player I's turn");
 
+   // hide popup and confetti if they were showing
+    setShowPopup(false);
+    setShowConfetti(false);
+
+
   
   }
 
@@ -282,25 +287,40 @@ useEffect(() => {
            width={windowSize.width || undefined}
            height={windowSize.height || undefined}
            recycle={false}
-           numberOfPieces={300}
+           numberOfPieces={500}
            colors={['#6A994E', '#A7C957', '#7FBF8E', '#A98467']}
            style={{ position: 'fixed', top: 0, left: 0, zIndex: 998, pointerEvents: 'none' }}
            />
         )}
 
+            {showPopup && (
+              <div className="popup-overlay">
+                <div className="popup-box">
+                  <h2>{message}</h2>
+                  <button
+                    onClick={() => {
+                      setShowPopup(false);
+                      setShowConfetti(false);
+                      restartGame();
+                    }}
+                  >
+                    Play Again
+                  </button>
+                </div>
+              </div>
+            )}
 
-
-    <div className="tictactoe-board">
-      {board.map((cell, index) => (
-        <div
-          key={index}
-          className="cell"
-          onClick={() => handleCellClick(index)} // new click logic
-        >
-          {cell}
-        </div>
-      ))}
-    </div>
+            <div className="tictactoe-board">
+              {board.map((cell, index) => (
+                <div
+                  key={index}
+                  className="cell"
+                  onClick={() => handleCellClick(index)} // new click logic
+                >
+                  {cell}
+                </div>
+              ))}
+            </div>
 
 {/* Restart button and back to menu button */}
      <div className="button-row">
