@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import "./index.css";
 
 type Upgrade = {
   id: number;
@@ -42,7 +43,7 @@ const POWERUPS: Powerups[] = [
   { id: 3, name: "Ube Matcha Cheesecake", cost: 4561, cps: 126, unlockAt: 600 },
 ];
 
-const panel  = "bg-[#e1d39e] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
+const panel  = "bg-[#f0db8e] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
 //upgrade and powerups menu 
 
 const buyBtn = "self-start px-3.5 py-1.5 text-sm font-semibold rounded-lg border border-[#e8b4b8] dark:border-[#7a3a40] cursor-pointer transition-colors duration-150 bg-[#e8a0a8] dark:bg-[#8b3a42] text-[#5a1a20] dark:text-[#f5d0d4] enabled:hover:bg-[#d4707c] enabled:hover:text-white dark:enabled:hover:bg-[#a04850] dark:enabled:hover:text-white disabled:bg-[#d0cdc8] dark:disabled:bg-[#4a3f38] disabled:text-[#7a6a5e] dark:disabled:text-[#7a6a5e] disabled:cursor-not-allowed";
@@ -151,14 +152,14 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
   }, [cps]);
 
   return (
-    <div className="min-h-[100svh] bg-[#7a9e7e] dark:bg-[#5c7a60] text-[#3b2f2f] dark:text-[#f5f0e8] font-sans flex flex-col items-center px-4 py-8 transition-colors duration-300">
+    <div className="min-h-[100svh] bg-[#9dcba2] dark:bg-[#386e3f] text-[#000000] dark:text-[#f5f0e8] font-sans flex flex-col items-center px-4 py-8 transition-colors duration-300">
       <main className="w-full max-w-[720px] flex flex-col items-center gap-6">
 
         <div className="w-full flex justify-between items-center gap-2">
           {onBack && (
             <button
               onClick={onBack}
-              className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] transition-colors duration-150 hover:bg-[#d2f7d5] dark:hover:bg-[#3a7045] text-[#2a4a2e] dark:text-[#a8d5a8]"
+              className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] transition-colors duration-150 hover:bg-[#d2f7d5] dark:hover:bg-[#3a7045] text-[#c57269] dark:text-[#ffffff]"
               aria-label="Back to game selection"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
@@ -215,16 +216,16 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
             >
               <h2 className={`text-lg font-bold mb-2 ${heading}`}>Reset game?</h2>
               <p className={`mb-5 ${muted}`}>All progress, purchases, and points will be lost. This cannot be undone.</p>
-              <div className="flex gap-3">
+              <div className="flex gap-2 mt-1 justify-center">
                 <button
                   onClick={() => { reset(); setShowResetConfirm(false); }}
-                  className="px-4 py-2 text-sm font-semibold rounded-lg border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-150"
+                  className="px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-red-400 dark:border-red-700 bg-red-500 dark:bg-red-700 text-white hover:bg-red-600 dark:hover:bg-red-600 transition-colors duration-150"
                 >
                   Yes, reset
                 </button>
                 <button
                   onClick={() => setShowResetConfirm(false)}
-                  className={`px-4 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] hover:bg-[#e8f5e9] dark:hover:bg-[#3a7045] transition-colors duration-150 ${heading}`}
+                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] hover:bg-[#e8f5e9] dark:hover:bg-[#3a7045] transition-colors duration-150 ${heading}`}
                 >
                   Cancel
                 </button>
@@ -274,7 +275,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
           </button>
         </div>
 
-        <div className={`flex gap-8 px-8 py-4 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#e1d39e] dark:bg-[#7c9c80] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
+        <div className={`flex gap-8 px-8 py-4 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#f0db8e] dark:bg-[#7c9c80] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
           <p>click: <strong>{Math.floor(click)}</strong></p>
           <p>Per click: <strong>{clickPower}</strong></p>
           <p>Per second: <strong>{cps.toFixed(1)}</strong></p>
@@ -383,7 +384,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
         </div>
       )}
 
-      <footer className={`mt-8 text-xs text-center ${row}`}>
+      <footer className={`mt-auto pt-8 text-xs text-center ${row}`}>
         <p>Copyrights © 2026 Clicker Game by Match IT</p>
       </footer>
     </div>
