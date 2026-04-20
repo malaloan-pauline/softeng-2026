@@ -37,20 +37,22 @@ html, body {
   padding: clamp(1 rem, 3vw, 2.5rem);
   color: var(--text-dark);
   font-family: 'Nunito', sans-serif;
+  overflow: hidden;
 }
 
 /* Title  */
 .game-title {
   font-family: 'Bitcount Grid Double', serif;
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(3rem, 13vw, 5.5rem);
   color: var(--green);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   /* shadow effect */
   text-shadow:
     3px 3px 0 var(--green-shadow),
     6px 6px 0 rgba(0,0,0,0.08);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
   text-align: center;
   line-height: 1.1;
 }
@@ -73,6 +75,7 @@ html, body {
   gap: 16px;
   align-items: center;
   width: 100%;
+  margin-bottom: 2rem;
 }
 
 /* Level button */
@@ -267,6 +270,7 @@ html, body {
   justify-content: center;
   gap: 2rem;
   width: 100%;
+  padding-bottom: 1.5rem;
 }
 
 .home-main {
@@ -299,8 +303,8 @@ html, body {
   }
 
   .game-title {
-    margin-top: 3.5rem;
-    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    margin-top: 5rem;
+    font-size: clamp(2.5rem, 13vw, 5.5rem);
   }
 
   .home-layout {
@@ -314,4 +318,16 @@ html, body {
     top: 0.75rem;
     right: 0.75rem;
   }
+}
+
+.game-footer {
+  position: static;
+  bottom: var(--space-3, 0.75rem);
+  width: 100%;
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  user-select: none;
 }

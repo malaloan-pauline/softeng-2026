@@ -183,6 +183,9 @@ function HomeScreen({ onSelectLevel }: HomeScreenProps) {
           </button>
         ))}
       </div>
+      <footer className="game-footer">
+        Copyright © 2026 One Stroke game by Match IT 
+      </footer>
     </div>
   );
 }
