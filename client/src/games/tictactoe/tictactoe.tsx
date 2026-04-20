@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // imported useState because in React we don't manually change the DOM anymore,
 // we store the game state here and React updates the UI for us
 
-import "./tictactoe.css"; 
+import Confetti from "react-confetti";
 
+import "./tictactoe.css";
 
 interface TicTacToeProps {
   onBack: () => void;
+  onWin2?: () => void; // optional: parent can handle confetti if needed
 }
 
+export default function TicTacToe({ onBack, onWin2 }: TicTacToeProps) {
 
-export default function TicTacToe({ onBack }: TicTacToeProps) {
 
   // grid: here I store the 9 cells of the board (empty at the start)
   // previously I used querySelectorAll(".gameCell"), now React handles it
@@ -52,6 +54,34 @@ export default function TicTacToe({ onBack }: TicTacToeProps) {
     // diagonal: from top right to down left
     [2, 4, 6]
   ];
+
+//for confeti and popup
+const [showPopup, setShowPopup] = useState(false);
+const [showConfetti, setShowConfetti] = useState(false);
+
+// confetti needs a real width/height (avoid 0x0 on first render)
+const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+useEffect(() => {
+  function update() {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+  }
+  update();
+  window.addEventListener("resize", update);
+  return () => window.removeEventListener("resize", update);
+}, []);
+
+// auto-hide confetti after a short burst
+useEffect(() => {
+  if (!showConfetti) return;
+  const t = setTimeout(() => setShowConfetti(false), 4000); // 4s
+  return () => clearTimeout(t);
+}, [showConfetti]);
+
+
+
+
+
 
   // here I convert my old checkWin() into a React-friendly function
   // same logic as before: check each winning combination and return the winner
@@ -104,6 +134,11 @@ export default function TicTacToe({ onBack }: TicTacToeProps) {
     if (result === "I") {
       setScoreI(prev => prev + 2); // Player I gets 2 points for winning
       setMessage("Player I won!");
+
+      // show popup and confetti
+        setShowPopup(true);
+        setShowConfetti(true);
+
     } else if (result === "tie") {
       setScoreI(prev => prev + 1); // Player I gets 1 point for a tie
       setMessage("It's a tie!");
@@ -241,6 +276,19 @@ export default function TicTacToe({ onBack }: TicTacToeProps) {
 
 
        <p>{message}</p>
+
+       {showConfetti && (
+          <Confetti
+           width={windowSize.width || undefined}
+           height={windowSize.height || undefined}
+           recycle={false}
+           numberOfPieces={300}
+           colors={['#6A994E', '#A7C957', '#7FBF8E', '#A98467']}
+           style={{ position: 'fixed', top: 0, left: 0, zIndex: 998, pointerEvents: 'none' }}
+           />
+        )}
+
+
 
     <div className="tictactoe-board">
       {board.map((cell, index) => (

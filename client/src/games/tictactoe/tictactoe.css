@@ -93,3 +93,50 @@ button:hover {
     max-width: 80vw; /* gives the text room to wrap */
   word-wrap: break-word; /* forces wrapping instead of overlapping */
 }
+
+
+
+/* popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* popup box */
+.popup-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  min-width: 260px;
+}
+
+/* popup buttons */
+.popup-box .popup-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.popup-box button {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #7fbf8e;
+  color: white;
+}
+
+.popup-box button:hover {
+  background: #6aa97a;
+}
