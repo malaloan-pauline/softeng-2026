@@ -2,62 +2,71 @@
 
 
 body {
-  background-color: #fdfaf5; /* soft cream  */
+  background-color: #F2E8CF; /* soft cream  */
 }
 
 
 /* Board layout using vw units */
 .tictactoe-board {
   display: grid;
-  grid-template-columns: repeat(3, 14vw);
-  grid-template-rows: repeat(3, 14vw);
+  grid-template-columns: repeat(3, 20vw);
+  grid-template-rows: repeat(3, 20vw);
   gap: 1vw;
   margin-top: 3vw;
+  margin-bottom: 5vw;
   justify-content: center;
 }
 
 /* Cell styling with pastel palette */
 .cell {
-  width: 14vw;
-  height: 14vw;
-  background-color: #f5f0e6; /* soft beige/cream */
-  border: 0.3vw solid #d8b4c4; /* pastel pink border */
+  width: 20vw;
+  height: 20vw;
+  background-color: #A7C957; /* soft beige/cream */
+  border: 0.3vw solid #6A994E; /* pastel pink border */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16vw;
+  font-size: 20vw;
   cursor: pointer;
-  color: #7fbf8e; /* pastel matcha green */
+  color: #a98467; /* pastel matcha green */
   border-radius: 0.8vw; /* softer, friendlier look */
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
+
+.scoreboard {
+  color: #6A994E;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2vw;
+}
 /* Hover effect */
 .cell:hover {
-  background-color: #e8f5e9; /* lighter pastel green */
+  background-color: #c8d5b9; /* lighter pastel green */
   transform: scale(1.05);
 }
 
 /* message styling */
 p {
-  color: #7fbf8e; /* matcha green */
+  color: #6A994E; /* matcha green */
   font-size: 3vw;
   text-align: center;
   margin-bottom: 2vw;
   margin-top: 5vw;
 }
 
-/* restart button styling */
+/* buttons styling */
 button {
-  background-color: #d8b4c4; /* pastel pink */
+  background-color: #a98467; /* pastel pink */
   color: #fff;
   border: none;
-  padding: 1vw 2vw;
+  padding: 2vw 2vw;
   font-size: 1.5vw;
   border-radius: 0.8vw;
   cursor: pointer;
   transition: background-color 0.2s ease;
   margin-top: 5vw;
+  margin: 5vw;
 }
 
 button:hover {
@@ -76,7 +85,7 @@ button:hover {
 /* Title styling */
 .tictactoe-title {
   font-size: 6vw;
-  color: #7fbf8e; /* pastel matcha green */
+  color: #6A994E; /* pastel matcha green */
   margin-bottom: 2vw;
   font-weight: 600;
   text-align: center;

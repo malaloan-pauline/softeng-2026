@@ -2,6 +2,9 @@ import { useState } from "react";
 // imported useState because in React we don't manually change the DOM anymore,
 // we store the game state here and React updates the UI for us
 
+import "./tictactoe.css"; 
+
+
 interface TicTacToeProps {
   onBack: () => void;
 }
@@ -251,7 +254,7 @@ export default function TicTacToe({ onBack }: TicTacToeProps) {
       ))}
     </div>
 
-{/* Restart button */}
+{/* Restart button and back to menu button */}
      <div className="button-row">
       <button onClick={restartGame}>Restart Game</button>
       <button onClick={onBack}>Back to Menu</button>
