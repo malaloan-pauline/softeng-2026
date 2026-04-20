@@ -2,7 +2,12 @@ import { useState } from "react";
 // imported useState because in React we don't manually change the DOM anymore,
 // we store the game state here and React updates the UI for us
 
-export default function TicTacToe() {
+interface TicTacToeProps {
+  onBack: () => void;
+}
+
+
+export default function TicTacToe({ onBack }: TicTacToeProps) {
 
   // grid: here I store the 9 cells of the board (empty at the start)
   // previously I used querySelectorAll(".gameCell"), now React handles it
@@ -247,7 +252,10 @@ export default function TicTacToe() {
     </div>
 
 {/* Restart button */}
+     <div className="button-row">
       <button onClick={restartGame}>Restart Game</button>
+      <button onClick={onBack}>Back to Menu</button>
+     </div>
     </div>
 
   );

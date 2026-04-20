@@ -1,0 +1,86 @@
+/* Tict'IT game css */
+
+
+body {
+  background-color: #fdfaf5; /* soft cream  */
+}
+
+
+/* Board layout using vw units */
+.tictactoe-board {
+  display: grid;
+  grid-template-columns: repeat(3, 14vw);
+  grid-template-rows: repeat(3, 14vw);
+  gap: 1vw;
+  margin-top: 3vw;
+  justify-content: center;
+}
+
+/* Cell styling with pastel palette */
+.cell {
+  width: 14vw;
+  height: 14vw;
+  background-color: #f5f0e6; /* soft beige/cream */
+  border: 0.3vw solid #d8b4c4; /* pastel pink border */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16vw;
+  cursor: pointer;
+  color: #7fbf8e; /* pastel matcha green */
+  border-radius: 0.8vw; /* softer, friendlier look */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Hover effect */
+.cell:hover {
+  background-color: #e8f5e9; /* lighter pastel green */
+  transform: scale(1.05);
+}
+
+/* message styling */
+p {
+  color: #7fbf8e; /* matcha green */
+  font-size: 3vw;
+  text-align: center;
+  margin-bottom: 2vw;
+  margin-top: 5vw;
+}
+
+/* restart button styling */
+button {
+  background-color: #d8b4c4; /* pastel pink */
+  color: #fff;
+  border: none;
+  padding: 1vw 2vw;
+  font-size: 1.5vw;
+  border-radius: 0.8vw;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 5vw;
+}
+
+button:hover {
+  background-color: #c79ab0; /* slightly deeper pink */
+}
+
+/* Center the whole game */
+.tictactoe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5vw;
+}
+
+/* Title styling */
+.tictactoe-title {
+  font-size: 6vw;
+  color: #7fbf8e; /* pastel matcha green */
+  margin-bottom: 2vw;
+  font-weight: 600;
+  text-align: center;
+
+    max-width: 80vw; /* gives the text room to wrap */
+  word-wrap: break-word; /* forces wrapping instead of overlapping */
+}
