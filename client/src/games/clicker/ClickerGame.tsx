@@ -42,13 +42,13 @@ const POWERUPS: Powerups[] = [
   { id: 3, name: "Ube Matcha Cheesecake", cost: 4561, cps: 126, unlockAt: 600 },
 ];
 
-const panel  = "bg-[#e3d6a5] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
+const panel  = "bg-[#e1d39e] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
 //upgrade and powerups menu 
 
-const buyBtn = "self-start px-3.5 py-1.5 text-sm font-semibold rounded-lg border border-[ #c8e6c9] dark:border-[ #2d4a33] cursor-pointer transition-colors duration-150 bg-[ #c8a87a] dark:bg-[ #8b5e3c] text-[ #2a4a2e] dark:text-[ #a8d5a8] enabled:hover:bg-[ #b8946a] dark:enabled:hover:bg-[ #a0714d] disabled:bg-[ #d0cdc8] dark:disabled:bg-[ #4a3f38] disabled:text-[ #7a6a5e] dark:disabled:text-[ #7a6a5e] disabled:cursor-not-allowed";
-const row    = "flex flex-col gap-1.5 py-2.5 border-b border-[ #c8e6c9] dark:border-[ #2d4a33] last:border-b-0";
-const muted  = "text-sm text-[ #7a6a5e] dark:text-[#4a5e4c]";
-const heading = "!text-[#ee9497] dark:!text-[#e8e4d4]";
+const buyBtn = "self-start px-3.5 py-1.5 text-sm font-semibold rounded-lg border border-[#e8b4b8] dark:border-[#7a3a40] cursor-pointer transition-colors duration-150 bg-[#e8a0a8] dark:bg-[#8b3a42] text-[#5a1a20] dark:text-[#f5d0d4] enabled:hover:bg-[#d4707c] enabled:hover:text-white dark:enabled:hover:bg-[#a04850] dark:enabled:hover:text-white disabled:bg-[#d0cdc8] dark:disabled:bg-[#4a3f38] disabled:text-[#7a6a5e] dark:disabled:text-[#7a6a5e] disabled:cursor-not-allowed";
+const row    = "flex flex-col gap-1.5 py-2.5 border-b border-[#c8e6c9] dark:border-[#2d4a33] last:border-b-0";
+const muted  = "text-sm text-[#7a6a5e] dark:text-[#4a5e4c]";
+const heading = "!text-[#c57269] dark:!text-[#e8e4d4]";
 // Upgrades/Powerups/Clicker btn
 
 function scaledCost(baseCost: number, count: number) {
@@ -244,7 +244,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
             >
               <h2 className={`text-xl font-bold mb-4 ${heading}`}>How to Play</h2>
               <ul className={`space-y-2 list-disc list-inside ${muted}`}>
-                <li>Click <strong>! CLick !</strong> to earn points.</li>
+                <li>Click <strong>!^oWo^!</strong> to earn points.</li>
                 <li><strong>Upgrades</strong> increase points per click.</li>
                 <li><strong>Powerups</strong> generate points automatically per second.</li>
                 <li>Each purchase raises that item's cost by ×1.15.</li>
@@ -261,8 +261,8 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
           </div>
         )}
 
-        <h1 className={`text-[2.5rem] font-bold tracking-[-0.5px] mb-2 ${heading}`}>
-          Clicker Game
+        <h1 className="text-[2.5rem] font-bold tracking-[-0.5px] mb-2 !text-[#022505] dark:!text-[#e3f2e3]">
+          Clicker
         </h1>
 
         <div className="flex justify-center">
@@ -270,11 +270,11 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
             onClick={handleClick}
             className={`px-12 py-4 text-2xl font-bold border-2 border-[#c8e6c9] dark:border-[#2d4a33] rounded-full cursor-pointer shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] transition-colors duration-150 bg-[#f0db8e] dark:bg-[#2d5a35] hover:bg-[#e3d6a5] dark:hover:bg-[#7c9c80] active:scale-95 ${heading}`}
           >
-            !CLick!
+            !^oWo^!
           </button>
         </div>
 
-        <div className={`flex gap-8 px-8 py-4 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#e6d28b] dark:bg-[#2d5a35] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
+        <div className={`flex gap-8 px-8 py-4 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#e1d39e] dark:bg-[#7c9c80] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
           <p>click: <strong>{Math.floor(click)}</strong></p>
           <p>Per click: <strong>{clickPower}</strong></p>
           <p>Per second: <strong>{cps.toFixed(1)}</strong></p>
@@ -301,7 +301,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
                     <div className="flex items-center justify-between">
                       <p className={muted}>{upg.name} — +{upg.power} click power</p>
                       {count > 0 && (
-                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#c8e6c9] dark:bg-[#2d4a33] ${heading}`}>
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#a4d9a6] dark:bg-[#2d4a33] ${heading}`}>
                           ×{count}
                         </span>
                       )}
@@ -334,7 +334,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
                     <div className="flex items-center justify-between">
                       <p className={muted}>{powerup.name} — +{powerup.cps} pts/sec</p>
                       {count > 0 && (
-                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#c8e6c9] dark:bg-[#2d4a33] ${heading}`}>
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#a4d9a6] dark:bg-[#2d4a33] ${heading}`}>
                           ×{count}
                         </span>
                       )}
@@ -383,7 +383,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
         </div>
       )}
 
-      <footer className={`mt-8 text-xs text-center ${muted}`}>
+      <footer className={`mt-8 text-xs text-center ${row}`}>
         <p>Copyrights © 2026 Clicker Game by Match IT</p>
       </footer>
     </div>
