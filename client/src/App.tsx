@@ -1,40 +1,29 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
+import Hangman from "./games/hangman";
+import OneStrokeGame from "./games/OneStroke/OneStrokeGame";
+import ClickerGame from "./games/clicker/ClickerGame";
 import TicTacToe from "./games/tictactoe/tictactoe";
-import "./App.css";   
-import { useState } from "react";
+import "./App.css";
 
 
-
-export default function App() {
-
-  // screen state: here I control which screen is visible
-  // "menu" = game selection screen
-  // "tictactoe" = the actual game
-  const [screen, setScreen] = useState("menu");
-
-
+function App() {
   return (
-    <div>
-
-       {/* If I'm on the menu screen, show the game selection */}
-      {screen === "menu" && (
-        <div className="menu-container">
-          <h1 className="menu-title">Choose a Game</h1>
-
-          {/* Button to start TicTacToe */}
-          <button onClick={() => setScreen("tictactoe")}>
-            Play TicTacToe
-          </button>
-        </div>
-      )}
-
-      {/* If I'm on the TicTacToe screen, show the game */}
-      {screen === "tictactoe" && (
-        // I pass a function to TicTacToe so it can go back to the menu
-        <TicTacToe onBack={() => setScreen("menu")} />
-      )}
-
-
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} /> 
+        <Route path="/games" element={<div>Games page</div>} />
+        <Route path="/quiz" element={<div>IT Match Quiz</div>} />
+        <Route path="/feedback" element={<div>Students Feedback</div>} />
+        <Route path="/leaderboard" element={<div>Leaderboard</div>} />
+        <Route path="/games/hangman" element={<Hangman />} />
+        <Route path="/games/onestroke" element={<OneStrokeGame />} />
+        <Route path="/games/clicker" element={<ClickerGame />} />
+        <Route path="/games/tictactoe" element={<TicTacToe />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
+export default App;
