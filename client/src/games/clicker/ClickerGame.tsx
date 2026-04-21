@@ -152,7 +152,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
   }, [cps]);
 
   return (
-    <div className="min-h-[100svh] bg-[#9dcba2] dark:bg-[#386e3f] text-[#000000] dark:text-[#f5f0e8] font-sans flex flex-col items-center px-4 py-8 transition-colors duration-300">
+    <div className="min-h-[100svh] bg-[#9dcba2] dark:bg-[#386e3f] text-[#000000] dark:text-[#f5f0e8] flex flex-col items-center px-4 py-8 transition-colors duration-300">
       <main className="w-full max-w-[720px] flex flex-col items-center gap-6">
 
         <div className="w-full flex justify-between items-center gap-2">
