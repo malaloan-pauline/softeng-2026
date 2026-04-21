@@ -43,6 +43,14 @@ const POWERUPS: Powerups[] = [
   { id: 3, name: "Ube Matcha Cheesecake", cost: 4561, cps: 126, unlockAt: 600 },
 ];
 
+const SCORE_TIERS = [
+  { clicks: 1000, points: 8, label: "150 clicks / 10s" },
+  { clicks: 500 , points: 5, label: "150 clicks / 10s" },
+  { clicks: 300 , points: 4, label: "150 clicks / 10s" },
+  { clicks: 200 , points: 3, label: "200 clicks / 10s" },
+  { clicks: 150 , points: 1, label: "150 clicks / 10s" },
+];
+
 const panel  = "bg-[#f0db8e] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
 //upgrade and powerups menu 
 
@@ -52,10 +60,6 @@ const muted  = "text-sm text-[#7a6a5e] dark:text-[#4a5e4c]";
 const heading = "!text-[#c57269] dark:!text-[#e8e4d4]";
 // Upgrades/Powerups/Clicker btn
 
-const SCORE_TIERS = [
-  { clicks: 200, points: 3, label: "200 clicks / 10s" },
-  { clicks: 150, points: 1, label: "150 clicks / 10s" },
-];
 
 function scaledCost(baseCost: number, count: number) {
   return Math.floor(baseCost * Math.pow(1.15, count));
@@ -284,6 +288,14 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
                 <li>The <strong>×N</strong> badge shows how many times you've bought an item.</li>
                 <li>Hit <strong>Reset</strong> to start over from scratch.</li>
               </ul>
+              <h3 className={`text-base font-bold mt-5 mb-2 ${heading}`}>🏆 Score</h3>
+              <p className={`mb-2 ${muted}`}>Earn score points by clicking fast. Points are tracked over a 10-second window:</p>
+              <ul className={`space-y-1 list-disc list-inside ${muted}`}>
+                {SCORE_TIERS.map(t => (
+                  <li key={t.clicks}><strong>{t.clicks} pts in 10s</strong> → +{t.points} score {t.points >= 3 ? "🥇" : "🥈"}</li>
+                ))}
+              </ul>
+              <p className={`mt-2 text-xs ${muted}`}>Your score is saved for this session and visible in the bubble at the bottom-right of the screen.</p>
               <button
                 onClick={() => setShowGuide(false)}
                 className={`mt-5 px-4 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] hover:bg-[#e8f5e9] dark:hover:bg-[#3a7045] transition-colors duration-150 ${heading}`}
@@ -311,21 +323,6 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
           <p>click: <strong>{Math.floor(click)}</strong></p>
           <p>Per click: <strong>{clickPower}</strong></p>
           <p>Per second: <strong>{cps.toFixed(1)}</strong></p>
-        </div>
-
-        <div className={`w-full flex items-center justify-between px-5 py-3 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#f0db8e] dark:bg-[#7c9c80] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
-          <div className="flex items-center gap-2">
-            <span className="text-base">🏆</span>
-            <span>Score: <strong className={heading}>{leaderboardPts} pts</strong></span>
-          </div>
-          <div className="flex items-center gap-3 text-xs">
-            <span>{Math.floor(recentScore)}<span className="opacity-60"> pts/10s</span></span>
-            {SCORE_TIERS.map(t => (
-              <span key={t.clicks} className={recentScore >= t.clicks ? `font-bold ${heading}` : "opacity-50"}>
-                {t.clicks}→+{t.points}
-              </span>
-            ))}
-          </div>
         </div>
 
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -430,6 +427,11 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
           </div>
         </div>
       )}
+
+      <div className={`fixed bottom-5 right-5 z-50 flex flex-col items-center justify-center w-16 h-16 rounded-full shadow-lg border-2 border-[#c8e6c9] dark:border-[#2d4a33] bg-[#f0db8e] dark:bg-[#2d5a35] ${recentScore >= SCORE_TIERS[0].clicks ? "ring-2 ring-[#c57269]" : ""}`}>
+        <span className="text-lg leading-none">🏆</span>
+        <span className={`text-xs font-bold leading-tight ${heading}`}>{leaderboardPts}</span>
+      </div>
 
       <footer className={`mt-auto pt-8 text-xs text-center ${row}`}>
         <p>Copyrights © 2026 Clicker Game by Match IT</p>
