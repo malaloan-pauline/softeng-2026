@@ -20,7 +20,7 @@ type Powerups = {
 type Milestone = { click: number; fact: string };
 type ConfettiParticle = { id: number; x: number; color: string; size: number; duration: number; delay: number };
 
-const CONFETTI_COLORS = ["#ff6b6b","#ffd93d","#6bcb77","#4d96ff","#ff922b","#cc5de8","#f06595"];
+const CONFETTI_COLORS = ["#e8a0a8","#d4707c","#f0db8e","#c57269","#9dcba2","#6b9c70","#b9ddc1","#f5d0d4","#2d5a35","#e8e4d4"];
 
 const MILESTONES: Milestone[] = [
   { click: 50,    fact: "First 50 points! The word 'click' was first used to describe a mouse action in 1983." },
