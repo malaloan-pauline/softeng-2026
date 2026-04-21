@@ -52,6 +52,11 @@ const muted  = "text-sm text-[#7a6a5e] dark:text-[#4a5e4c]";
 const heading = "!text-[#c57269] dark:!text-[#e8e4d4]";
 // Upgrades/Powerups/Clicker btn
 
+const SCORE_TIERS = [
+  { clicks: 200, points: 3, label: "200 clicks / 10s" },
+  { clicks: 150, points: 1, label: "150 clicks / 10s" },
+];
+
 function scaledCost(baseCost: number, count: number) {
   return Math.floor(baseCost * Math.pow(1.15, count));
 }
@@ -66,6 +71,10 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
   const [activeMilestone,  setActiveMilestone]  = useState<Milestone | null>(null);
   const [confetti,         setConfetti]         = useState<ConfettiParticle[]>([]);
   const triggeredMilestones = useRef(new Set<number>());
+  const [leaderboardPts,   setLeaderboardPts]   = useState(() => Number(sessionStorage.getItem('clicker-lb-pts') ?? 0));
+  const [recentScore,      setRecentScore]       = useState(0);
+  const timedScores      = useRef<{ t: number; pts: number }[]>([]);
+  const awardedTiers     = useRef(new Set<number>());
   const [showGuide,        setShowGuide]        = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -78,6 +87,26 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
   function handleClick() {
     setclick(prev => prev + clickPower);
     setTotalEarned(prev => prev + clickPower);
+
+    const now = Date.now();
+    timedScores.current.push({ t: now, pts: clickPower });
+    timedScores.current = timedScores.current.filter(s => now - s.t <= 10000);
+    const recent = timedScores.current.reduce((sum, s) => sum + s.pts, 0);
+    setRecentScore(recent);
+
+    if (recent < SCORE_TIERS[SCORE_TIERS.length - 1].clicks) {
+      awardedTiers.current.clear();
+    }
+    for (const tier of SCORE_TIERS) {
+      if (recent >= tier.clicks && !awardedTiers.current.has(tier.clicks)) {
+        awardedTiers.current.add(tier.clicks);
+        setLeaderboardPts(prev => {
+          const next = prev + tier.points;
+          sessionStorage.setItem('clicker-lb-pts', String(next));
+          return next;
+        });
+      }
+    }
   }
 
   function buyUpgrade(upg: Upgrade) {
@@ -132,6 +161,9 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
     setPowerupCounts({});
     setUpgradeCounts({});
     triggeredMilestones.current.clear();
+    timedScores.current = [];
+    awardedTiers.current.clear();
+    setRecentScore(0);
     setActiveMilestone(null);
     setConfetti([]);
   }
@@ -279,6 +311,21 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
           <p>click: <strong>{Math.floor(click)}</strong></p>
           <p>Per click: <strong>{clickPower}</strong></p>
           <p>Per second: <strong>{cps.toFixed(1)}</strong></p>
+        </div>
+
+        <div className={`w-full flex items-center justify-between px-5 py-3 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#f0db8e] dark:bg-[#7c9c80] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
+          <div className="flex items-center gap-2">
+            <span className="text-base">🏆</span>
+            <span>Score: <strong className={heading}>{leaderboardPts} pts</strong></span>
+          </div>
+          <div className="flex items-center gap-3 text-xs">
+            <span>{Math.floor(recentScore)}<span className="opacity-60"> pts/10s</span></span>
+            {SCORE_TIERS.map(t => (
+              <span key={t.clicks} className={recentScore >= t.clicks ? `font-bold ${heading}` : "opacity-50"}>
+                {t.clicks}→+{t.points}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
