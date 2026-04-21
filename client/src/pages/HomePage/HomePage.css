@@ -241,15 +241,22 @@ a { text-decoration: none; color: inherit; }
     .main {
     padding: var(--space-6) var(--space-4);
     gap: var(--space-6);
+    padding-top: calc(var(--space-6) + 60px);
     }
 
     .site-title {
     font-size: clamp(1.6rem, 10vw, 2.4rem);
-    margin-top: var(--space-2);
+    margin-top: 0;
     }
 
     .mobile-nav-bar {
     display: flex !important;
+    position: fixed;
+    top: 0;
+    bottom : auto; 
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 12px rgba(74, 102, 80, 0.2);
     }
 
     .feedbacks-section {
@@ -257,11 +264,11 @@ a { text-decoration: none; color: inherit; }
     }
 }
 
-/* Mobile bottom nav bar (hidden on desktop) */
+/* Mobile top nav bar (hidden on desktop) */
 .mobile-nav-bar {
     display: none;
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     background: var(--green-sidebar);
@@ -286,7 +293,3 @@ a { text-decoration: none; color: inherit; }
 }
 .mobile-nav-item svg { width: 22px; height: 22px; }
 .mobile-nav-item:active { opacity: 1; }
-
-@media (max-width: 640px) {
-    .main { padding-bottom: 5rem; }
-}
