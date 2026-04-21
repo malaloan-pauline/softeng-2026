@@ -172,10 +172,20 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
     setConfetti([]);
   }
 
+  function setBg(isDark: boolean) {
+    document.body.style.background = isDark ? "#386e3f" : "#9dcba2";
+  }
+
+  useEffect(() => {
+    setBg(dark);
+    return () => { document.body.style.background = ""; };
+  }, []);
+
   function switchTheme() {
     const isDark = !dark;
     setDark(isDark);
     document.documentElement.classList.toggle("dark", isDark);
+    setBg(isDark);
   }
 
   useEffect(() => {
@@ -189,20 +199,19 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
 
   return (
     <div className="min-h-[100svh] bg-[#9dcba2] dark:bg-[#386e3f] text-[#000000] dark:text-[#f5f0e8] flex flex-col items-center px-4 py-8 transition-colors duration-300">
-      <main className="w-full max-w-[720px] flex flex-col items-center gap-6">
 
-        <div className="w-full flex justify-between items-center gap-2">
-          {onBack && (
-            <button
-              onClick={onBack}
-              className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] transition-colors duration-150 hover:bg-[#d2f7d5] dark:hover:bg-[#3a7045] text-[#c57269] dark:text-[#ffffff]"
-              aria-label="Back to game selection"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-              Games
-            </button>
-          )}
-          <div className="flex gap-2 ml-auto">
+      <div className="w-full flex items-center gap-2 mb-2">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] transition-colors duration-150 hover:bg-[#d2f7d5] dark:hover:bg-[#3a7045] text-[#c57269] dark:text-[#ffffff]"
+            aria-label="Back to game selection"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Games
+          </button>
+        ) : <span />}
+        <div className="flex gap-2 ml-auto">
           <button
             onClick={() => setShowGuide(true)}
             className={`px-4 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] transition-colors duration-150 hover:bg-[#d2f7d5] dark:hover:bg-[#3a7045] ${heading}`}
@@ -238,8 +247,10 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
               </svg>
             )}
           </button>
-          </div>
         </div>
+      </div>
+
+      <main className="w-full max-w-[720px] flex flex-col items-center gap-6">
 
         {showResetConfirm && (
           <div

@@ -35,6 +35,7 @@
 
 body {
   font-family: 'NunitoSans', sans-serif;
+  transition: background 300ms;
 }
 
 h1, h2, h3, button {
