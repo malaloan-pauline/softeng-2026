@@ -44,9 +44,9 @@ const POWERUPS: Powerups[] = [
 ];
 
 const SCORE_TIERS = [
-  { clicks: 1000, points: 8, label: "150 clicks / 10s" },
-  { clicks: 500 , points: 5, label: "150 clicks / 10s" },
-  { clicks: 300 , points: 4, label: "150 clicks / 10s" },
+  { clicks: 1000, points: 8, label: "1000 clicks / 12s" },
+  { clicks: 500 , points: 5, label: "500 clicks / 15s" },
+  { clicks: 300 , points: 4, label: "300 clicks / 15s" },
   { clicks: 200 , points: 3, label: "200 clicks / 10s" },
   { clicks: 150 , points: 1, label: "150 clicks / 10s" },
 ];
