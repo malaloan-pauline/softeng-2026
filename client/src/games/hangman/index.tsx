@@ -112,6 +112,7 @@ export default function Hangman(): React.JSX.Element {
   const [activeScreen, setActiveScreen] = useState<"screen-intro" | "screen-game" | "screen-end">("screen-intro");
   const [rulesModalVisible, setRulesModalVisible] = useState<boolean>(false);
   const [skipModalVisible, setSkipModalVisible] = useState<boolean>(false);
+  const [noPointsModalVisible, setNoPointsModalVisible] = useState<boolean>(false);
   const [shaking, setShaking] = useState(false);
 
   // Refs to keep stable values for event handlers when necessary
@@ -196,10 +197,7 @@ export default function Hangman(): React.JSX.Element {
 
     // paid skip
     if (score < skipCost) {
-      // not enough points; keep behavior (alert)
-      // Consumers may replace alert with custom UI
-      // eslint-disable-next-line no-alert
-      alert(`Not enough points to skip. Need ${skipCost} pts.`);
+      setNoPointsModalVisible(true);
       return;
     }
 
@@ -376,6 +374,26 @@ export default function Hangman(): React.JSX.Element {
           </div>
       )}
 
+      {/* No points modal */}
+      {noPointsModalVisible && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--text-dark)]">Not enough points!</h2>
+              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+                You need <span className="font-bold">{skipCost} pts</span> to skip this word, but you have <span className="font-bold">{score} pts</span> at the moment. Keep guessing to earn more points!
+              </p>
+              <div className="flex self-end">
+                <button
+                    className="px-5 py-2 rounded-full bg-[var(--pink-mid)] text-[var(--text-dark)] font-medium text-sm hover:bg-[var(--pink-dark)] transition-colors"
+                    onClick={() => setNoPointsModalVisible(false)}
+                >
+                  Got it
+                </button>
+              </div>
+            </div>
+          </div>
+      )}
+
       {/* Intro screen */}
       <div
           id="screen-intro"
@@ -525,14 +543,14 @@ export default function Hangman(): React.JSX.Element {
                         data-letter={letter}
                         disabled={isGuessed || !gameActive}
                         className={`
-                h-10 rounded-lg font-mono font-bold text-sm transition-all
-                ${isCorrect
+                          h-10 rounded-lg font-mono font-bold text-sm transition-all
+                          ${isCorrect
                             ? "bg-[var(--green)] text-[var(--text-cream)] opacity-80"
                             : isWrong
                                 ? "bg-[var(--green-shadow)] text-[var(--text-cream)] opacity-40"
                                 : "bg-[var(--green-dark)] text-[var(--text-cream)] hover:bg-[var(--green-shadow)]"
-                        }
-              `}
+                          }
+                        `}
                     >
                       {letter}
                     </button>
