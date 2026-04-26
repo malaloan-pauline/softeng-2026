@@ -101,7 +101,10 @@ export default function Hangman(): React.JSX.Element {
   const [currentHint, setCurrentHint] = useState<string>("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [errors, setErrors] = useState<number>(0);
-  const [score, setScore] = useState<number>(0); // session score
+  const [score, setScore] = useState<number>(() => {
+    const saved = localStorage.getItem("hangman_score");
+    return saved ? parseInt(saved, 10) : 0;
+  });
   const [skipsUsed, setSkipsUsed] = useState<number>(0);
   const [currentDifficulty, setCurrentDifficulty] = useState<Difficulty>("");
   const [usedWords, setUsedWords] = useState<string[]>([]);
@@ -115,8 +118,14 @@ export default function Hangman(): React.JSX.Element {
   const [rulesModalVisible, setRulesModalVisible] = useState<boolean>(false);
   const [skipModalVisible, setSkipModalVisible] = useState<boolean>(false);
   const [noPointsModalVisible, setNoPointsModalVisible] = useState<boolean>(false);
+  const [resetModalVisible, setResetModalVisible] = useState<boolean>(false);
   const [lastRoundBonus, setLastRoundBonus] = useState<number>(0);
   const [shaking, setShaking] = useState(false);
+
+  // Persist score to localStorage
+  useEffect(() => {
+    localStorage.setItem("hangman_score", String(score));
+  }, [score]);
 
   // Refs to keep stable values for event handlers when necessary
   const gameActiveRef = useRef(gameActive);
@@ -405,6 +414,35 @@ export default function Hangman(): React.JSX.Element {
           </div>
       )}
 
+      {/* Reset points modal */}
+      {resetModalVisible && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--text-dark)]">Reset points</h2>
+              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+                You currently have <span className="font-bold">{score} pts</span>. Do you want to reset your score to zero?
+              </p>
+              <div className="flex gap-3 self-end">
+                <button
+                    className="px-5 py-2 rounded-full border-2 border-[var(--green-dark)] text-[var(--text-dark)] font-medium text-sm hover:bg-white/40 transition-colors"
+                    onClick={() => setResetModalVisible(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                    className="px-5 py-2 rounded-full bg-[var(--pink-mid)] text-[var(--text-dark)] font-medium text-sm hover:bg-[var(--pink-dark)] transition-colors"
+                    onClick={() => {
+                      setScore(0);
+                      setResetModalVisible(false);
+                    }}
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+      )}
+
       {/* Intro screen */}
       <div
           id="screen-intro"
@@ -457,9 +495,22 @@ export default function Hangman(): React.JSX.Element {
             >
               Hard
             </button>
+            <div className="flex flex-col items-center gap-1 md:flex-row md:justify-between w-full mt-2 px-1">
+              <span className="text-sm text-[var(--text-dark)] font-medium">
+                Your score: <span className="font-bold">{score} pts</span>
+              </span>
+              {score > 0 && (
+                <button
+                    onClick={() => setResetModalVisible(true)}
+                    className="text-xs text-[var(--text-dark)] opacity-60 underline underline-offset-2 hover:opacity-100 transition-opacity"
+                >
+                  Reset points
+                </button>
+              )}
+            </div>
             <button
                 onClick={() => navigate(GAMES_PATH)}
-                className="mt-4 text-sm text-[var(--text-dark)] underline underline-offset-4 hover:text-[var(--green-dark)] transition-colors"
+                className="mt-2 text-sm text-[var(--text-dark)] underline underline-offset-4 hover:text-[var(--green-dark)] transition-colors"
             >
               ← Back to games page
             </button>
@@ -468,7 +519,7 @@ export default function Hangman(): React.JSX.Element {
         </div> {/* fin div deux colonnes */}
 
         {/* Footer — en dehors des colonnes */}
-        <p className="w-full text-xs text-[var(--text-dark)] opacity-50 text-center pb-4">
+        <p className="w-full text-xs text-[var(--text-dark)] opacity-50 text-center pt-3 pb-4">
           Copyrights © 2026 Hangman Game by Match IT
         </p>
 
