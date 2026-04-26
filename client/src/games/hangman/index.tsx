@@ -82,6 +82,8 @@ const SCORE_MULTIPLIERS: Record<"easy" | "medium" | "hard", number> = {
 };
 const FREE_SKIPS = 2;
 const SKIP_BASE_COST = 2;
+const PERFECT_BONUS_FACTOR = 2;   // bonus = SCORE_MULTIPLIERS[diff] * PERFECT_BONUS_FACTOR
+const LOSS_PENALTY_FACTOR = 2;    // penalty = SCORE_MULTIPLIERS[diff] * LOSS_PENALTY_FACTOR
 const GAMES_PATH = "/games";
 const ALPHABET = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
@@ -113,6 +115,7 @@ export default function Hangman(): React.JSX.Element {
   const [rulesModalVisible, setRulesModalVisible] = useState<boolean>(false);
   const [skipModalVisible, setSkipModalVisible] = useState<boolean>(false);
   const [noPointsModalVisible, setNoPointsModalVisible] = useState<boolean>(false);
+  const [lastRoundBonus, setLastRoundBonus] = useState<number>(0);
   const [shaking, setShaking] = useState(false);
 
   // Refs to keep stable values for event handlers when necessary
@@ -158,6 +161,7 @@ export default function Hangman(): React.JSX.Element {
       setErrors(0);
       setGuessedLetters([]);
       setEndResult(null);
+      setLastRoundBonus(0);
       setGameActive(true);
       setActiveScreen("screen-game");
       pickWord(difficulty);
@@ -259,7 +263,9 @@ export default function Hangman(): React.JSX.Element {
     if (currentWord.split("").every((l) => guessedLetters.includes(l))) {
       const diff = currentDifficulty as "easy" | "medium" | "hard";
       const points = (MAX_ATTEMPTS - errors) * SCORE_MULTIPLIERS[diff];
-      setScore((prev) => prev + points);
+      const bonus = errors === 0 ? SCORE_MULTIPLIERS[diff] * PERFECT_BONUS_FACTOR : 0;
+      setScore((prev) => prev + points + bonus);
+      setLastRoundBonus(bonus);
       setActiveScreen("screen-end");
       setEndResult("win");
       setGameActive(false);
@@ -273,6 +279,11 @@ export default function Hangman(): React.JSX.Element {
   useEffect(() => {
     if (!gameActive) return;
     if (errors === MAX_ATTEMPTS) {
+      const diff = currentDifficulty as "easy" | "medium" | "hard";
+      const penalty = SCORE_MULTIPLIERS[diff] * LOSS_PENALTY_FACTOR;
+      const actualPenalty = Math.min(score, penalty);
+      setScore((prev) => Math.max(0, prev - penalty));
+      setLastRoundBonus(-actualPenalty);
       setActiveScreen("screen-end");
       setEndResult("loss");
       setGameActive(false);
@@ -592,6 +603,19 @@ export default function Hangman(): React.JSX.Element {
         <p className={`text-2xl font-mono font-bold tracking-widest ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
           {currentWord}
         </p>
+
+        {lastRoundBonus > 0 && (
+          <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-white/30 text-[var(--text-cream)] font-semibold text-sm shadow-md">
+            <span>⭐</span>
+            <span>Perfect round! +{lastRoundBonus} bonus pts</span>
+          </div>
+        )}
+        {lastRoundBonus < 0 && (
+          <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-black/20 text-[var(--text-dark)] font-semibold text-sm shadow-md">
+            <span>💸</span>
+            <span> - {Math.abs(lastRoundBonus)} pts!</span>
+          </div>
+        )}
 
         <div className={`px-6 py-3 rounded-full text-2xl font-bold shadow-md ${endResult === "win" ? "bg-white/30 text-[var(--text-cream)]" : "bg-white/60 text-[var(--text-dark)]"}`}>
           {score} pts
