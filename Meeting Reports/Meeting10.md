@@ -37,8 +37,8 @@
 
 #### Visual Identity
 
-- Visual identity → logo, fonts for titles to be unique
-- Games -> choose a template to consolide the appearance of some elements (points, buttons), agree on colours (same background/btns colour for everyone?)
+- Visual identity → logo to be chosen and fonts for titles should be unique
+- Games -> choose a template to consolide the appearance of some elements (points, buttons), agree on colours (same background/button colour for everyone?)
 - Background -> light mode : beige / dark mode : dark green
 - Buttons :
   - Points → bottom right corner of webpage, 
