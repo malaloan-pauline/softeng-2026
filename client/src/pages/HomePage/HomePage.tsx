@@ -43,15 +43,11 @@ export default function HomePage() {
           <main className="main">
             <h1 className="site-title">MATCH IT</h1>
 
-        <nav className="nav-buttons">
-          <button className="nav-btn" onClick={() => navigate('/games')}> Games</button>
-          <button className="nav-btn" onClick={() => navigate('/games/quiz')}> IT Match Quiz</button>
-          <button className="nav-btn" onClick={() => navigate('/feedback')}> Students Feedback</button>
-        </nav>
             <nav className="nav-buttons">
               <button className="nav-btn" onClick={() => navigate('/games')}> Games</button>
               <button className="nav-btn" onClick={() => navigate('/games/quiz')}> IT Match Quiz</button>
               <button className="nav-btn" onClick={() => navigate('/feedback')}> Students Feedback</button>
+              <button className="nav-btn" onClick={() => navigate('/games/hangman')}> Hangman</button>
             </nav>
 
             <section className="feedbacks-section">
