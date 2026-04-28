@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage'
-import Hangman from './games/hangman/index'
+import Hangman from "./games/hangman";
 
 function App() {
   return (
