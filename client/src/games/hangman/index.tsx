@@ -341,7 +341,17 @@ export default function Hangman(): React.JSX.Element {
 
   // ------<< render component >>-------
   return (
-    <div className="hangman-root w-full">
+    <div className="hangman-root w-full"
+         style={{
+           '--cream': '#e8e4d4',
+           '--green': '#7a9e7e',
+           '--green-dark': '#5c7a60',
+           '--green-shadow': '#4a6650',
+           '--text-dark': '#4a5e4c',
+           '--text-cream': '#e8e4d4',
+           '--pink': '#f9dfe0',
+           '--pink-dark': '#d4787a',
+         } as React.CSSProperties}>
       {/* Rules modal */}
       {rulesModalVisible && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
@@ -450,11 +460,11 @@ export default function Hangman(): React.JSX.Element {
           className="flex min-h-screen flex-col items-center justify-center px-6 py-4 md:px-8 md:py-10"
       >
         {/* Contenu principal — deux colonnes */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 w-full flex-1">
+        <div className="intro-columns flex items-center justify-center gap-8 md:gap-12 w-full flex-1">
 
           {/* Colonne gauche */}
-          <div className="flex flex-col items-center gap-6 md:w-1/2">
-            <h1 className="text-5xl font-bold text-[var(--text-dark)] tracking-tight"
+          <div className="intro-col-left flex flex-col items-center gap-6">
+            <h1 className="text-5xl font-bold text-[var(--text-dark)] tracking-tight m-0"
                 style={{fontFamily: "Soopa"}}>
               Hangman
             </h1>
@@ -464,7 +474,7 @@ export default function Hangman(): React.JSX.Element {
                 className="w-48 md:w-64 rounded-[var(--radius-md)] object-contain"
             />
             <div className="bg-white/40 rounded-2xl p-3 md:p-5 text-sm text-[var(--text-dark)] leading-relaxed w-full">
-              <h2 className="font-bold text-base mb-2">Rules</h2>
+              <h2 className="font-bold text-base mb-2 text-center">Rules</h2>
               <p>
                 Guess the hidden CS word letter by letter. You have 6 attempts.
                 Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
@@ -473,7 +483,7 @@ export default function Hangman(): React.JSX.Element {
           </div>
 
           {/* Colonne droite */}
-          <div className="flex flex-col items-center gap-4 md:w-1/3">
+          <div className="intro-col-right flex flex-col items-center gap-4">
             <p className="text-sm font-medium text-[var(--text-dark)] uppercase tracking-widest">
               Choose difficulty
             </p>
@@ -533,7 +543,7 @@ export default function Hangman(): React.JSX.Element {
       >
         {/* Topnav */}
         <div className="flex items-center justify-between px-6 py-3 bg-[var(--green-dark)]">
-          <h1 className="text-xl font-bold text-[var(--text-cream)]">Hangman</h1>
+          <h1 className="text-xl font-bold text-[var(--text-cream)] m-0">Hangman</h1>
           <div className="flex gap-3">
             <button
                 className="px-4 py-1.5 rounded-full border-2 border-[var(--text-cream)] text-[var(--text-cream)] text-sm font-medium hover:bg-[var(--green)] transition-colors"
@@ -644,7 +654,7 @@ export default function Hangman(): React.JSX.Element {
             ${shaking ? "juicy__screenshake" : ""}
           `}
       >
-        <h1 className={`text-5xl font-bold ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+        <h1 className={`text-5xl font-bold m-0 ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
           {endResult === "win" ? "🎉 Success!" : "💀 Game Over"}
         </h1>
 
