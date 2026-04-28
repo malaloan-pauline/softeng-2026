@@ -58,26 +58,34 @@
     --surface-card:   rgba(255,255,255,0.05);
 }
 
-/* RESET */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-body {
-    min-height: 100dvh;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--text-dark);
-    background: var(--bg);
-    display: flex;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-    transition: background 180ms ease, color 180ms ease;
-    
+/* RESET — inside @layer base so Tailwind utility classes can override */
+@layer base {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+        min-height: 100dvh;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        color: var(--text-dark);
+        background: var(--bg);
+        display: flex;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        transition: background 180ms ease, color 180ms ease;
+    }
+    button { cursor: pointer; border: none; font: inherit; }
+    a { text-decoration: none; color: inherit; }
 }
-button { cursor: pointer; border: none; font: inherit; }
-a { text-decoration: none; color: inherit; }
 
 /* LAYOUT */
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+}
+
 .page-wrapper {
     display: flex;
     width: 100%;
