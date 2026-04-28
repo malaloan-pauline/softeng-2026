@@ -20,7 +20,7 @@ type Powerups = {
 type Milestone = { click: number; fact: string };
 type ConfettiParticle = { id: number; x: number; color: string; size: number; duration: number; delay: number };
 
-const CONFETTI_COLORS = ["#e8a0a8","#d4707c","#f0db8e","#c57269","#9dcba2","#6b9c70","#b9ddc1","#f5d0d4","#2d5a35","#e8e4d4"];
+const CONFETTI_COLORS = ["#e8a0a8","#d4707c","#e8e4d4","#c57269","#9dcba2","#6b9c70","#b9ddc1","#f5d0d4","#2d5a35","#e8e4d4"];
 
 const MILESTONES: Milestone[] = [
   { click: 50,    fact: "First 50 points! The word 'click' was first used to describe a mouse action in 1983." },
@@ -51,13 +51,13 @@ const SCORE_TIERS = [
   { clicks: 150 , points: 1, label: "150 clicks / 10s" },
 ];
 
-const panel  = "bg-[#f0db8e] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
+const panel  = "bg-[#9dcba2] dark:bg-[#7c9c80] border border-[#b9ddc1] dark:border-[#2d4a33] rounded-2xl p-5 shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px]";
 //upgrade and powerups menu 
 
-const buyBtn = "self-start px-3.5 py-1.5 text-sm font-semibold rounded-lg border border-[#e8b4b8] dark:border-[#7a3a40] cursor-pointer transition-colors duration-150 bg-[#e8a0a8] dark:bg-[#8b3a42] text-[#5a1a20] dark:text-[#f5d0d4] enabled:hover:bg-[#d4707c] enabled:hover:text-white dark:enabled:hover:bg-[#a04850] dark:enabled:hover:text-white disabled:bg-[#d0cdc8] dark:disabled:bg-[#4a3f38] disabled:text-[#7a6a5e] dark:disabled:text-[#7a6a5e] disabled:cursor-not-allowed";
+const buyBtn = "self-start px-3.5 py-1.5 text-sm font-semibold rounded-lg border border-[#e8b4b8] dark:border-[#7a3a40] cursor-pointer transition-colors duration-150 bg-[#e8b4b8] dark:bg-[#8b3a42] text-[#5a1a20] dark:text-[#f5d0d4] enabled:hover:bg-[#f9dfe0] enabled:hover:text-[#5a1a20] dark:enabled:hover:bg-[#a04850] dark:enabled:hover:text-white disabled:bg-[#d0cdc8] dark:disabled:bg-[#4a3f38] disabled:text-[#7a6a5e] dark:disabled:text-[#7a6a5e] disabled:cursor-not-allowed";
 const row    = "flex flex-col gap-1.5 py-2.5 border-b border-[#c8e6c9] dark:border-[#2d4a33] last:border-b-0";
 const muted  = "text-sm text-[#7a6a5e] dark:text-[#4a5e4c]";
-const heading = "!text-[#c57269] dark:!text-[#e8e4d4]";
+const heading = "!text-[#B97375] dark:!text-[#e8e4d4]";
 // Upgrades/Powerups/Clicker btn
 
 
@@ -80,7 +80,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
   const timedScores      = useRef<{ t: number; pts: number }[]>([]);
   const awardedTiers     = useRef(new Set<number>());
   const [showGuide,        setShowGuide]        = useState(false);
-  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showRestartConfirm, setShowRestartConfirm] = useState(false);
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   
   const [dark, setDark] = useState(() => {
@@ -157,7 +157,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
     return () => clearTimeout(t);
   }, [click]);
 
-  function reset() {
+  function Restart() {
     setclick(0);
     setTotalEarned(0);
     setClickPower(1);
@@ -173,12 +173,17 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
   }
 
   function setBg(isDark: boolean) {
-    document.body.style.background = isDark ? "#386e3f" : "#9dcba2";
+    const color = isDark ? "#386e3f" : "#e8e4d4";
+    document.body.style.background = color;
+    document.documentElement.style.background = color;
   }
 
   useEffect(() => {
     setBg(dark);
-    return () => { document.body.style.background = ""; };
+    return () => {
+      document.body.style.background = "";
+      document.documentElement.style.background = "";
+    };
   }, []);
 
   function switchTheme() {
@@ -198,7 +203,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
   }, [cps]);
 
   return (
-    <div className="min-h-[100svh] bg-[#9dcba2] dark:bg-[#386e3f] text-[#000000] dark:text-[#f5f0e8] flex flex-col items-center px-4 py-8 transition-colors duration-300">
+    <div className="min-h-[100svh] bg-[#e8e4d4] dark:bg-[#386e3f] text-[#000000] dark:text-[#f5f0e8] flex flex-col items-center px-4 py-8 transition-colors duration-300">
 
       <div className="w-full flex items-center gap-2 mb-2">
         {onBack ? (
@@ -219,10 +224,10 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
             Guide
           </button>
           <button
-            onClick={() => setShowResetConfirm(true)}
+            onClick={() => setShowRestartConfirm(true)}
             className="px-4 py-2 text-sm font-semibold rounded-lg border border-red-300 dark:border-red-800 bg-white dark:bg-red-950 text-red-600 dark:text-red-400 transition-colors duration-150 hover:bg-[#f8c8e4] dark:hover:bg-red-900"
           >
-            Reset
+            Restart
           </button>
           <button
             onClick={switchTheme}
@@ -252,26 +257,26 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
 
       <main className="w-full max-w-[720px] flex flex-col items-center gap-6">
 
-        {showResetConfirm && (
+        {showRestartConfirm && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-            onClick={() => setShowResetConfirm(false)}
+            onClick={() => setShowRestartConfirm(false)}
           >
             <div
               className={`relative w-full max-w-sm rounded-2xl p-6 shadow-xl ${panel}`}
               onClick={e => e.stopPropagation()}
             >
-              <h2 className={`text-lg font-bold mb-2 ${heading}`}>Reset game?</h2>
+              <h2 className={`text-lg font-bold mb-2 ${heading}`}>Restart game?</h2>
               <p className={`mb-5 ${muted}`}>All progress, purchases, and points will be lost. This cannot be undone.</p>
               <div className="flex gap-2 mt-1 justify-center">
                 <button
-                  onClick={() => { reset(); setShowResetConfirm(false); }}
+                  onClick={() => { Restart(); setShowRestartConfirm(false); }}
                   className="px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-red-400 dark:border-red-700 bg-red-500 dark:bg-red-700 text-white hover:bg-red-600 dark:hover:bg-red-600 transition-colors duration-150"
                 >
-                  Yes, reset
+                  Yes, Restart
                 </button>
                 <button
-                  onClick={() => setShowResetConfirm(false)}
+                  onClick={() => setShowRestartConfirm(false)}
                   className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] hover:bg-[#e8f5e9] dark:hover:bg-[#3a7045] transition-colors duration-150 ${heading}`}
                 >
                   Cancel
@@ -297,13 +302,13 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
                 <li><strong>Powerups</strong> generate points automatically per second.</li>
                 <li>Each purchase raises that item's cost by ×1.15.</li>
                 <li>The <strong>×N</strong> badge shows how many times you've bought an item.</li>
-                <li>Hit <strong>Reset</strong> to start over from scratch.</li>
+                <li>Hit <strong>Restart</strong> to start over from scratch.</li>
               </ul>
               <h3 className={`text-base font-bold mt-5 mb-2 ${heading}`}>🏆 Score</h3>
               <p className={`mb-2 ${muted}`}>Earn score points by clicking fast. Points are tracked over a 10-second window:</p>
               <ul className={`space-y-1 list-disc list-inside ${muted}`}>
                 {SCORE_TIERS.map(t => (
-                  <li key={t.clicks}><strong>{t.clicks} pts in 10s</strong> → +{t.points} score {t.points >= 3 ? "🥇" : "🥈"}</li>
+                  <li key={t.clicks}><strong>{t.clicks} pts in 10s</strong> → +{t.points} score </li>
                 ))}
               </ul>
               <p className={`mt-2 text-xs ${muted}`}>Your score is saved for this session and visible in the bubble at the bottom-right of the screen.</p>
@@ -317,20 +322,20 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
           </div>
         )}
 
-        <h1 className="text-[2.5rem] font-bold tracking-[-0.5px] mb-2 !text-[#022505] dark:!text-[#e3f2e3]">
-          Clicker
+        <h1 className="text-[2.5rem] font-bold tracking-[-0.5px] mb-2 !text-[#5c7a60] dark:!text-[#e3f2e3] font-pakades">
+          Click IT
         </h1>
 
         <div className="flex justify-center">
           <button
             onClick={handleClick}
-            className={`px-12 py-4 text-2xl font-bold border-2 border-[#c8e6c9] dark:border-[#2d4a33] rounded-full cursor-pointer shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] transition-colors duration-150 bg-[#f0db8e] dark:bg-[#2d5a35] hover:bg-[#e3d6a5] dark:hover:bg-[#7c9c80] active:scale-95 ${heading}`}
+            className={`px-12 py-4 text-2xl font-bold border-2 border-[#c8e6c9] dark:border-[#2d4a33] rounded-full cursor-pointer shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] transition-colors duration-150 bg-[#9dcba2] dark:bg-[#2d5a35] hover:bg-[#b9ddc1] dark:hover:bg-[#7c9c80] active:scale-95 ${heading}`}
           >
             !^oWo^!
           </button>
         </div>
 
-        <div className={`flex gap-8 px-8 py-4 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#f0db8e] dark:bg-[#7c9c80] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
+        <div className={`flex gap-8 px-8 py-4 rounded-2xl shadow-[rgba(60,80,60,0.12)_0_4px_16px] dark:shadow-[rgba(0,0,0,0.4)_0_4px_16px] bg-[#9dcba2] dark:bg-[#7c9c80] border border-[#c8e6c9] dark:border-[#2d4a33] ${muted}`}>
           <p>click: <strong>{Math.floor(click)}</strong></p>
           <p>Per click: <strong>{clickPower}</strong></p>
           <p>Per second: <strong>{cps.toFixed(1)}</strong></p>
@@ -357,7 +362,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
                     <div className="flex items-center justify-between">
                       <p className={muted}>{upg.name} — +{upg.power} click power</p>
                       {count > 0 && (
-                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#a4d9a6] dark:bg-[#2d4a33] ${heading}`}>
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#e8e4d4] dark:bg-[#2d4a33] ${heading}`}>
                           ×{count}
                         </span>
                       )}
@@ -390,7 +395,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
                     <div className="flex items-center justify-between">
                       <p className={muted}>{powerup.name} — +{powerup.cps} pts/sec</p>
                       {count > 0 && (
-                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#a4d9a6] dark:bg-[#2d4a33] ${heading}`}>
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full bg-[#e8e4d4] dark:bg-[#2d4a33] ${heading}`}>
                           ×{count}
                         </span>
                       )}
@@ -439,7 +444,7 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
         </div>
       )}
 
-      <div className={`fixed bottom-5 right-5 z-50 flex flex-col items-center justify-center w-16 h-16 rounded-full shadow-lg border-2 border-[#c8e6c9] dark:border-[#2d4a33] bg-[#f0db8e] dark:bg-[#2d5a35] ${recentScore >= SCORE_TIERS[0].clicks ? "ring-2 ring-[#c57269]" : ""}`}>
+      <div className={`fixed bottom-5 right-5 z-50 flex flex-col items-center justify-center w-16 h-16 rounded-full shadow-lg border-2 border-[#c8e6c9] dark:border-[#2d4a33] bg-[#9dcba2] dark:bg-[#2d5a35] ${recentScore >= SCORE_TIERS[0].clicks ? "ring-2 ring-[#c57269]" : ""}`}>
         <span className="text-lg leading-none">🏆</span>
         <span className={`text-xs font-bold leading-tight ${heading}`}>{leaderboardPts}</span>
       </div>
