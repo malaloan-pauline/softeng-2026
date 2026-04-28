@@ -15,6 +15,34 @@
 body {
     background-color: var(--cream);
     color: var(--text-dark);
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Cal Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+    font-family: 'Soopa';
+    src: url('/fonts/soopafre.ttf') format('truetype');
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Mickle';
+    src: url('/fonts/mickle.ttf') format('truetype');
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Starborn';
+    src: url('/fonts/starborn.ttf') format('truetype');
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HeyComic';
+    src: url('/fonts/heycomic.ttf') format('truetype');
+    font-weight: normal;
+    font-display: swap;
 }

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import './index.css';
 
 // Word item interface: represents a word and its definition
 interface WordItem {
@@ -299,9 +300,7 @@ export default function Hangman(): React.JSX.Element {
     setSkipModalVisible(false);
   }, []);
 
-  // --------------------
-  // Render component (keeps original HTML structure and classNames)
-  // --------------------
+  // ------<< render component >>-------
   return (
     <div className="hangman-root">
       {/* Rules modal */}
@@ -353,40 +352,92 @@ export default function Hangman(): React.JSX.Element {
       )}
 
       {/* Intro screen */}
-      <div className="screen-intro" id="screen-intro" style={{ display: activeScreen === "screen-intro" ? "block" : "none" }}>
-        <h1>Hangman Game</h1>
-        <img className="intro-img" src="images/intro.png" alt="hangman illustration" />
-        <h2>Rules</h2>
-        <p>
-          Guess the hidden CS word letter by letter. You have 6 attempts. Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
-        </p>
-        <div className="difficulty-buttons">
-          <button className="easy" onClick={() => startGame("easy")}>
+      <div
+          id="screen-intro"
+          style={{ display: activeScreen === "screen-intro" ? "flex" : "none" }}
+          className="flex min-h-screen flex-col md:flex-row items-center justify-center gap-12 px-8 py-10"
+      >
+        {/* right screen */}
+        <div className="flex flex-col items-center gap-6 md:w-1/2">
+          <h1 className="text-5xl font-bold text-[var(--text-dark)] tracking-tight"
+              style={{fontFamily: "Soopa"}}>
+            Hangman
+          </h1>
+
+          <img
+              src="images/intro.png"
+              alt="hangman illustration"
+              className="w-48 md:w-64 rounded-[var(--radius-md)] object-contain"
+          />
+
+          <div className="bg-white/40 rounded-2xl p-5 text-sm text-[var(--text-dark)] leading-relaxed max-w-sm">
+            <h2 className="font-bold text-base mb-2">Rules</h2>
+            <p>
+              Guess the hidden CS word letter by letter. You have 6 attempts.
+              Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
+            </p>
+          </div>
+        </div>
+
+        {/* Colonne droite */}
+        <div className="flex flex-col items-center gap-4 md:w-1/3">
+          <p className="text-sm font-medium text-[var(--text-dark)] uppercase tracking-widest">
+            Choose difficulty
+          </p>
+
+          <button
+              onClick={() => startGame("easy")}
+              className="w-full py-3 rounded-full bg-[var(--green)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-dark)] transition-colors"
+          >
             Easy
           </button>
-          <button className="medium" onClick={() => startGame("medium")}>
+          <button
+              onClick={() => startGame("medium")}
+              className="w-full py-3 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-shadow)] transition-colors"
+          >
             Medium
           </button>
-          <button className="hard" onClick={() => startGame("hard")}>
+          <button
+              onClick={() => startGame("hard")}
+              className="w-full py-3 rounded-full bg-[var(--green-shadow)] text-[var(--text-cream)] font-bold text-lg hover:brightness-90 transition-all"
+          >
             Hard
           </button>
+
+          <button
+              onClick={() => setActiveScreen("screen-intro")}
+              className="mt-4 text-sm text-[var(--text-dark)] underline underline-offset-4 hover:text-[var(--green-dark)] transition-colors"
+          >
+            ← Back to home
+          </button>
         </div>
-        <button className="back-to-home" onClick={() => setActiveScreen("screen-intro")}>
-          Back
-        </button>
       </div>
 
       {/* Game screen */}
-      <div className="screen-game" id="screen-game" style={{ display: activeScreen === "screen-game" ? "block" : "none" }}>
-        <div className="topnav">
-          <h1>Hangman</h1>
-          <button className="button-rules" onClick={() => setRulesModalVisible(true)}>
-            Rules
-          </button>
-          <button className="button-exit" onClick={() => setActiveScreen("screen-intro")}>
-            Exit
-          </button>
+      <div
+          id="screen-game"
+          style={{ display: activeScreen === "screen-game" ? "flex" : "none" }}
+          className="flex flex-col min-h-screen"
+      >
+        {/* Topnav */}
+        <div className="flex items-center justify-between px-6 py-3 bg-[var(--green-dark)]">
+          <h1 className="text-xl font-bold text-[var(--text-cream)]">Hangman</h1>
+          <div className="flex gap-3">
+            <button
+                className="px-4 py-1.5 rounded-full border-2 border-[var(--text-cream)] text-[var(--text-cream)] text-sm font-medium hover:bg-[var(--green)] transition-colors"
+                onClick={() => setRulesModalVisible(true)}
+            >
+              Rules
+            </button>
+            <button
+                className="px-4 py-1.5 rounded-full bg-[var(--text-cream)] text-[var(--green-dark)] text-sm font-medium hover:bg-[var(--pink)] transition-colors"
+                onClick={() => setActiveScreen("screen-intro")}
+            >
+              Exit
+            </button>
+          </div>
         </div>
+
         <div className="game-left">
           <img className="hangman-img" src={hangmanImageSrc} alt="hangman" />
           <p className="attempts">
