@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import './index.css';
+import confetti from 'canvas-confetti';
 
 // Word item interface: represents a word and its definition
 interface WordItem {
@@ -438,39 +439,86 @@ export default function Hangman(): React.JSX.Element {
           </div>
         </div>
 
-        <div className="game-left">
-          <img className="hangman-img" src={hangmanImageSrc} alt="hangman" />
-          <p className="attempts">
-            Left attempts: <b>{attemptsLeft}</b>
-          </p>
-          <p className="score">
-            Points: <b>{score}</b>
-          </p>
-        </div>
-        <div className="game-right">
-          <div className="keyboard" onClick={onKeyboardClick}>
-            {alphabet.map((letter) => {
-              const disabled = guessedLetters.includes(letter) || !gameActive;
-              return (
-                <button key={letter} data-letter={letter} disabled={disabled}>
-                  {letter}
-                </button>
-              );
-            })}
+        {/* Corps principal */}
+        <div className="flex flex-1 flex-col md:flex-row gap-6 px-6 py-6">
+
+          {/* Colonne gauche */}
+          <div className="flex flex-col items-center justify-center gap-6 md:w-1/2">
+            <img
+                className="w-48 md:w-64 rounded-2xl object-contain bg-white p-2 shadow-md"
+                src={hangmanImageSrc}
+                alt="hangman"
+            />
+            <p className="text-sm text-center text-[var(--text-dark)] italic max-w-xs bg-white/40 rounded-xl px-4 py-3">
+              <span className="font-bold not-italic">Hint : </span>{currentHint}
+            </p>
+            <button
+                className="px-6 py-2 rounded-full bg-[var(--green)] text-[var(--text-cream)] font-medium text-sm hover:bg-[var(--green-dark)] transition-colors"
+                onClick={() => skipWord()}
+            >
+              Skip — <span className="font-bold">{skipCostText}</span>
+            </button>
           </div>
-          <p className="hint">
-            Hint: <b>{currentHint}</b>
-          </p>
-          <ul className="word-display">
-            {currentWord.split("").map((ch, idx) => (
-              <li key={idx} className={`letter ${guessedLetters.includes(ch) ? "correct" : ""}`}>
-                {guessedLetters.includes(ch) ? ch : ""}
-              </li>
-            ))}
-          </ul>
-          <button className="skip" onClick={() => skipWord()}>
-            Skip (<span className="skip-cost">{skipCostText}</span>)
-          </button>
+
+          {/* Colonne droite */}
+          <div className="relative flex flex-col items-center justify-center gap-6 md:w-1/2">
+
+            {/* Mot à deviner */}
+            <ul className="flex flex-wrap justify-center gap-2 mt-4">
+              {currentWord.split("").map((ch, idx) => (
+                  <li
+                      key={idx}
+                      className="w-9 h-12 flex items-end justify-center pb-1 border-b-4 border-[var(--green-shadow)]"
+                  >
+                    <span className={`font-mono font-bold text-2xl text-[var(--green-dark)] transition-all duration-300 ${guessedLetters.includes(ch) ? "opacity-100" : "opacity-0"}`}>
+                      {guessedLetters.includes(ch) ? ch : ""}
+                    </span>
+                  </li>
+              ))}
+            </ul>
+
+            {/* Tentatives */}
+            <p className="text-sm font-medium text-[var(--text-dark)]">
+              Attempts left : <span className="font-bold text-[var(--green-dark)]">{attemptsLeft}</span>
+            </p>
+
+            {/* Clavier */}
+            <div
+                className="grid grid-cols-5 gap-2 w-full max-w-xs"
+                onClick={onKeyboardClick}
+            >
+              {alphabet.map((letter) => {
+                const isGuessed = guessedLetters.includes(letter);
+                const isCorrect = isGuessed && currentWord.includes(letter);
+                const isWrong = isGuessed && !currentWord.includes(letter);
+                return (
+                    <button
+                        key={letter}
+                        data-letter={letter}
+                        disabled={isGuessed || !gameActive}
+                        className={`
+                h-10 rounded-lg font-mono font-bold text-sm transition-all
+                ${isCorrect
+                            ? "bg-[var(--green)] text-[var(--text-cream)] opacity-80"
+                            : isWrong
+                                ? "bg-[var(--green-shadow)] text-[var(--text-cream)] opacity-40"
+                                : "bg-[var(--green-dark)] text-[var(--text-cream)] hover:bg-[var(--green-shadow)]"
+                        }
+              `}
+                    >
+                      {letter}
+                    </button>
+                );
+              })}
+            </div>
+
+            {/* Bulle score */}
+            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-[var(--green-dark)] flex flex-col items-center justify-center shadow-lg">
+              <span className="text-xs text-[var(--text-cream)] leading-none">pts</span>
+              <span className="text-lg font-bold text-[var(--text-cream)] leading-none">{score}</span>
+            </div>
+
+          </div>
         </div>
       </div>
 
