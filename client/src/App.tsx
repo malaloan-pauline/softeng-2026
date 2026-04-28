@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage'
+import Hangman from './games/hangman/index'
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
         <Route path="/quiz" element={<div>IT Match Quiz</div>} />
         <Route path="/feedback" element={<div>Students Feedback</div>} />
         <Route path="/leaderboard" element={<div>Leaderboard</div>} />
+        <Route path="/games/hangman" element={<Hangman />} />
+        <Route path="*" element={<Navigate to="/games/hangman" replace />} />
       </Routes>
     </BrowserRouter>
   )

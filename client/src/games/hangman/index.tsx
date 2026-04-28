@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './index.css';
 import confetti from 'canvas-confetti';
 
@@ -81,12 +82,16 @@ const SCORE_MULTIPLIERS: Record<"easy" | "medium" | "hard", number> = {
 };
 const FREE_SKIPS = 2;
 const SKIP_BASE_COST = 2;
+const GAMES_PATH = "/games";
+const ALPHABET = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
 // --------------------
 // Hangman component
 // --------------------
 
 export default function Hangman(): React.JSX.Element {
+  const navigate = useNavigate();
+
   // --------------------
   // Component state (mirrors original game state)
   // --------------------
@@ -115,12 +120,10 @@ export default function Hangman(): React.JSX.Element {
     gameActiveRef.current = gameActive;
   }, [gameActive]);
 
-  // --------------------
-  // Utility: alphabet array for keyboard
-  // --------------------
-  const alphabet = useMemo(() => {
-    return Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
-  }, []);
+  const guessedLettersRef = useRef(guessedLetters);
+  useEffect(() => {
+    guessedLettersRef.current = guessedLetters;
+  }, [guessedLetters]);
 
   // --------------------
   // pickWord: choose a new word for the current difficulty, avoiding repeats in session
@@ -168,13 +171,13 @@ export default function Hangman(): React.JSX.Element {
     (letter?: string) => {
       if (!letter) return;
       if (!gameActiveRef.current) return;
-      if (guessedLetters.includes(letter)) return;
+      if (guessedLettersRef.current.includes(letter)) return;
       setGuessedLetters((prev) => [...prev, letter]);
       if (!currentWord.includes(letter)) {
         setErrors((prev) => prev + 1);
       }
     },
-    [currentWord, guessedLetters]
+    [currentWord]
   );
 
   // --------------------
@@ -320,7 +323,7 @@ export default function Hangman(): React.JSX.Element {
 
   // ------<< render component >>-------
   return (
-    <div className="hangman-root">
+    <div className="hangman-root w-full">
       {/* Rules modal */}
       {rulesModalVisible && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
@@ -377,63 +380,70 @@ export default function Hangman(): React.JSX.Element {
       <div
           id="screen-intro"
           style={{ display: activeScreen === "screen-intro" ? "flex" : "none" }}
-          className="flex min-h-screen flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-6 py-4 md:px-8 md:py-10"
+          className="flex min-h-screen flex-col items-center justify-center px-6 py-4 md:px-8 md:py-10"
       >
-        {/* left screen */}
-        <div className="flex flex-col items-center gap-6 md:w-1/2">
-          <h1 className="text-5xl font-bold text-[var(--text-dark)] tracking-tight"
-              style={{fontFamily: "Soopa"}}>
-            Hangman
-          </h1>
+        {/* Contenu principal — deux colonnes */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 w-full flex-1">
 
-          <img
-              src="/images/intro.png"
-              alt="hangman illustration"
-              className="w-48 md:w-64 rounded-[var(--radius-md)] object-contain"
-          />
-
-          <div className="bg-white/40 rounded-2xl p-3 md:p-5 text-sm text-[var(--text-dark)] leading-relaxed w-full">
-            <h2 className="font-bold text-base mb-2">Rules</h2>
-            <p>
-              Guess the hidden CS word letter by letter. You have 6 attempts.
-              Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
-            </p>
+          {/* Colonne gauche */}
+          <div className="flex flex-col items-center gap-6 md:w-1/2">
+            <h1 className="text-5xl font-bold text-[var(--text-dark)] tracking-tight"
+                style={{fontFamily: "Soopa"}}>
+              Hangman
+            </h1>
+            <img
+                src="/images/intro.png"
+                alt="hangman illustration"
+                className="w-48 md:w-64 rounded-[var(--radius-md)] object-contain"
+            />
+            <div className="bg-white/40 rounded-2xl p-3 md:p-5 text-sm text-[var(--text-dark)] leading-relaxed w-full">
+              <h2 className="font-bold text-base mb-2">Rules</h2>
+              <p>
+                Guess the hidden CS word letter by letter. You have 6 attempts.
+                Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Colonne droite */}
-        <div className="flex flex-col items-center gap-4 md:w-1/3">
-          <p className="text-sm font-medium text-[var(--text-dark)] uppercase tracking-widest">
-            Choose difficulty
-          </p>
+          {/* Colonne droite */}
+          <div className="flex flex-col items-center gap-4 md:w-1/3">
+            <p className="text-sm font-medium text-[var(--text-dark)] uppercase tracking-widest">
+              Choose difficulty
+            </p>
+            <button
+                onClick={() => startGame("easy")}
+                className="w-full py-3 rounded-full bg-[var(--green)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-dark)] transition-colors"
+            >
+              Easy
+            </button>
+            <button
+                onClick={() => startGame("medium")}
+                className="w-full py-3 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-shadow)] transition-colors"
+            >
+              Medium
+            </button>
+            <button
+                onClick={() => startGame("hard")}
+                className="w-full py-3 rounded-full bg-[var(--green-shadow)] text-[var(--text-cream)] font-bold text-lg hover:brightness-90 transition-all"
+            >
+              Hard
+            </button>
+            <button
+                onClick={() => navigate(GAMES_PATH)}
+                className="mt-4 text-sm text-[var(--text-dark)] underline underline-offset-4 hover:text-[var(--green-dark)] transition-colors"
+            >
+              ← Back to games page
+            </button>
+          </div>
 
-          <button
-              onClick={() => startGame("easy")}
-              className="w-full py-3 rounded-full bg-[var(--green)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-dark)] transition-colors"
-          >
-            Easy
-          </button>
-          <button
-              onClick={() => startGame("medium")}
-              className="w-full py-3 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-shadow)] transition-colors"
-          >
-            Medium
-          </button>
-          <button
-              onClick={() => startGame("hard")}
-              className="w-full py-3 rounded-full bg-[var(--green-shadow)] text-[var(--text-cream)] font-bold text-lg hover:brightness-90 transition-all"
-          >
-            Hard
-          </button>
+        </div> {/* fin div deux colonnes */}
 
-          <button
-              onClick={() => setActiveScreen("screen-intro")}
-              className="mt-4 text-sm text-[var(--text-dark)] underline underline-offset-4 hover:text-[var(--green-dark)] transition-colors"
-          >
-            ← Back to home
-          </button>
-        </div>
-      </div>
+        {/* Footer — en dehors des colonnes */}
+        <p className="w-full text-xs text-[var(--text-dark)] opacity-50 text-center pb-4">
+          Copyrights © 2026 Hangman Game by Match IT
+        </p>
+
+      </div> {/* fin screen-intro */}
 
       {/* Game screen */}
       <div
@@ -487,7 +497,7 @@ export default function Hangman(): React.JSX.Element {
             {/* Mot à deviner */}
             <ul className="flex flex-wrap justify-center gap-2 mt-1 md:mt-4">
               {currentWord.split("").map((ch, idx) => (
-                  <li className="w-6 h-10 md:w-9 md:h-12 flex items-end justify-center pb-1 border-b-4 border-[var(--green-shadow)]">
+                  <li key={idx} className="w-6 h-10 md:w-9 md:h-12 flex items-end justify-center pb-1 border-b-4 border-[var(--green-shadow)]">
                     <span className={`font-mono font-bold text-lg md:text-2xl text-[var(--green-dark)] transition-all duration-300 ${guessedLetters.includes(ch) ? "opacity-100" : "opacity-0"}`}>
                       {guessedLetters.includes(ch) ? ch : ""}
                     </span>
@@ -505,7 +515,7 @@ export default function Hangman(): React.JSX.Element {
                 className="grid grid-cols-5 gap-1 md:gap-2 w-full max-w-xs"
                 onClick={onKeyboardClick}
             >
-              {alphabet.map((letter) => {
+              {ALPHABET.map((letter) => {
                 const isGuessed = guessedLetters.includes(letter);
                 const isCorrect = isGuessed && currentWord.includes(letter);
                 const isWrong = isGuessed && !currentWord.includes(letter);
@@ -537,6 +547,11 @@ export default function Hangman(): React.JSX.Element {
 
           </div>
         </div>
+
+        <p className="text-xs text-[var(--text-dark)] opacity-50 text-center py-2">
+          Copyrights © 2026 Hangman Game by Match IT
+        </p>
+
       </div>
 
       {/* End screen */}
