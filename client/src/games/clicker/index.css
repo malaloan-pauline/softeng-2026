@@ -9,6 +9,17 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Pakades';
+  src: url('/fonts/Pakades.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-pakades {
+  font-family: 'Pakades', sans-serif;
+}
+
 /* Italic */
 @font-face {
   font-family: 'Nunito';
