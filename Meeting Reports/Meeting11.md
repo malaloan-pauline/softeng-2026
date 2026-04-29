@@ -31,14 +31,14 @@ None
 -   Merged Meeting report 10 
 -   Google form validated + sent 
 -   Discussed on how to go forward with the merge of home page and each game branch
-        → decided to keep the branches and rebase dev onto our own respective branch first to avoid conflicts later on
-        git checkout dev
-        git pull
-        git checkout (respective branch)
-        git rebase dev
-        resolve commits
-        git push –force-with-lease
-        check if code is working
+        <br> → Decided to keep the branches and rebase dev onto our own respective branch first to avoid conflicts later on </br>
+        <br> git checkout dev </br>
+        <br> git pull </br>
+        <br> git checkout (respective branch) </br>
+        <br> git rebase dev </br>
+        <br> resolve commits </br>
+        <br> git push –force-with-lease </br>
+        <br> check if code is working </br>
 
 
 ### Next meeting :
