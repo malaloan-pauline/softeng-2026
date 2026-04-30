@@ -47,4 +47,4 @@ To be decided
 ### Agenda :
 - Meeting report 11
 - Rebase dev
-- Make sure respektive branches are up to date
+- Make sure respective branches are up to date
