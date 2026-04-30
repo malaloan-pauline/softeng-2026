@@ -20,11 +20,13 @@ None
 ### **Meeting objective :**
 * [x] Review meeting report 10
 * [x] Finalize and send Google Forms
+* [x] Merge home page into dev branch
 * [ ] Finalize website identity (ready to merge) 
 * [ ] Finalize all games
 * [ ] Finalize questions bank (QUIZ!)
 * [ ] Discuss what needs to be done for sprint 2
-* [ ] Merge home page and games by the end of next week 
+* [ ] Merge games by the end of next week 
+
 
 
 ### **Discussion :**
