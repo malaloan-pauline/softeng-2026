@@ -47,7 +47,6 @@ export default function HomePage() {
               <button className="nav-btn" onClick={() => navigate('/games')}> Games</button>
               <button className="nav-btn" onClick={() => navigate('/games/quiz')}> IT Match Quiz</button>
               <button className="nav-btn" onClick={() => navigate('/feedback')}> Students Feedback</button>
-              <button className="nav-btn" onClick={() => navigate('/games/hangman')}> Hangman</button>
             </nav>
 
             <section className="feedbacks-section">
