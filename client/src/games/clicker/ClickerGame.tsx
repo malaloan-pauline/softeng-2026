@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 type Upgrade = {
@@ -65,7 +66,8 @@ function scaledCost(baseCost: number, count: number) {
   return Math.floor(baseCost * Math.pow(1.15, count));
 }
 
-function ClickerGame({ onBack }: { onBack?: () => void }) {
+function ClickerGame() {
+  const navigate = useNavigate();
   const [click,          setclick]          = useState(0);
   const [clickPower,     setClickPower]     = useState(1);
   const [cps,            setCps]            = useState(0);
@@ -206,16 +208,14 @@ function ClickerGame({ onBack }: { onBack?: () => void }) {
     <div className="min-h-[100svh] bg-[#e8e4d4] dark:bg-[#386e3f] text-[#000000] dark:text-[#f5f0e8] flex flex-col items-center px-4 py-8 transition-colors duration-300">
 
       <div className="w-full flex items-center gap-2 mb-2">
-        {onBack ? (
-          <button
-            onClick={onBack}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] transition-colors duration-150 hover:bg-[#d2f7d5] dark:hover:bg-[#3a7045] text-[#c57269] dark:text-[#ffffff]"
-            aria-label="Back to game selection"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-            Games
-          </button>
-        ) : <span />}
+        <button
+          onClick={() => navigate('/games')}
+          className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg border border-[#c8e6c9] dark:border-[#2d4a33] bg-white dark:bg-[#2d5a35] transition-colors duration-150 hover:bg-[#d2f7d5] dark:hover:bg-[#3a7045] text-[#c57269] dark:text-[#ffffff]"
+          aria-label="Back to game selection"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          Games
+        </button>
         <div className="flex gap-2 ml-auto">
           <button
             onClick={() => setShowGuide(true)}
