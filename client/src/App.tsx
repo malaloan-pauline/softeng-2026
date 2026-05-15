@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage'
 import Hangman from './games/hangman'
 import OneStrokeGame from './games/OneStroke/OneStrokeGame'
+import ClickerGame from './games/clicker/ClickerGame'
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route path="/leaderboard" element={<div>Leaderboard</div>} />
         <Route path="/games/hangman" element={<Hangman />} />
         <Route path="/games/tictactoe" element={<div>TicTacToe</div>} />
-        <Route path="/games/clicker" element={<div>Clicker</div>} />
+        <Route path="/games/clicker" element={<ClickerGame />} />
         <Route path="/games/onestroke" element={<OneStrokeGame />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
