@@ -13,6 +13,7 @@ export default function Quiz() {
     'Operating Systems/CS Fundamentals': 0,
   })
   const [showResults, setShowResults] = useState(false)
+  const [showIntro, setShowIntro] = useState(true)
   
   // Swipe state : 
   const [isDragging, setIsDragging] = useState(false)
@@ -22,6 +23,8 @@ export default function Quiz() {
 
   const currentQuestion = QUIZ_QUESTIONS[currentIndex]
   const progress = ((currentIndex) / QUIZ_QUESTIONS.length) * 100
+
+  const startQuiz = () => {setShowIntro(false)}
 
   // Handle swipe/answer : 
   const handleAnswer = (liked: boolean) => {
@@ -134,6 +137,25 @@ export default function Quiz() {
       'Operating Systems/CS Fundamentals': 0,
     })
     setShowResults(false)
+    setShowIntro(true)
+  }
+
+  if (showIntro) {
+    return (
+      <div className="quiz-container">
+        <div className="intro-screen">
+          <h1 className="intro-title">IT Match Quiz</h1>
+          <h2>What's your ideal BINFO course match ?</h2>
+          <p className="intro-subtitle">
+            Swipe right if you like it, left if you don't. <br />
+            We'll match you to your perfect BINFO subjects. 
+          </p>
+          <button onClick={startQuiz} className="start-btn">
+            Let's Go →
+          </button>
+        </div>
+      </div>
+    )
   }
 
   if (showResults) {
