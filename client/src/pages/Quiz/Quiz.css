@@ -117,8 +117,9 @@
 }
 
 .btn-yes {
-  background: var(--green);
-  color: var(--text-light);
+  border-color: var(--green);  
+  background: var(--cream);
+  color: var(--green);
 }
 
 .btn-yes:hover {
