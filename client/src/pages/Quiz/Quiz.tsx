@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { QUIZ_QUESTIONS, CATEGORY_INFO, QuizCategory } from './quizData'
 import './Quiz.css'
 
@@ -12,6 +13,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 }
 
 export default function Quiz() {
+  const navigate = useNavigate()
   const [questions, setQuestions] = useState(() => shuffleArray(QUIZ_QUESTIONS))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<QuizCategory, number>>({
@@ -155,6 +157,9 @@ export default function Quiz() {
     return (
       <div className="quiz-container">
         <div className="intro-screen">
+          <button onClick={() => navigate('/')} className="back-home-btn">
+          ← Back home
+        </button>
           <h1 className="intro-title">IT Match Quiz</h1>
           <h2>What's your ideal BINFO course match ?</h2>
           <p className="intro-subtitle">
@@ -195,6 +200,9 @@ export default function Quiz() {
           
           <button onClick={restartQuiz} className="restart-btn">
             Retake Quiz →
+          </button>
+          <button onClick={() => navigate('/')} className="back-home-btn">
+            ← Back home
           </button>
         </div>
       </div>
