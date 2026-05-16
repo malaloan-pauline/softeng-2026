@@ -346,5 +346,44 @@
   .intro-screen {
     padding: var(--space-8) var(--space-4);;
   }
-  
+}
+
+.back-home-btn {
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-text);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 6px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.back-home-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-bg);
+  transform: translateY(-1px);
+}
+
+.back-home-btn:active {
+  transform: translateY(0);
+}
+
+.intro-screen .back-home-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+}
+
+.results-screen .back-home-btn {
+  margin-top: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
