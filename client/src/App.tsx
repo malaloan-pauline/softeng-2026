@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
-import Hangman from "./games/hangman";
+import Hangman from "./games/hangman/index";
 import OneStrokeGame from "./games/OneStroke/OneStrokeGame";
 import ClickerGame from "./games/clicker/ClickerGame";
 import Quiz from './pages/Quiz/Quiz'
