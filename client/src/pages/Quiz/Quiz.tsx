@@ -2,7 +2,17 @@ import { useState, useRef } from 'react'
 import { QUIZ_QUESTIONS, CATEGORY_INFO, QuizCategory } from './quizData'
 import './Quiz.css'
 
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export default function Quiz() {
+  const [questions, setQuestions] = useState(() => shuffleArray(QUIZ_QUESTIONS))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<QuizCategory, number>>({
     'Mathematics': 0,
@@ -21,7 +31,7 @@ export default function Quiz() {
   const [currentX, setCurrentX] = useState(0)
   const cardRef = useRef<HTMLDivElement>(null)
 
-  const currentQuestion = QUIZ_QUESTIONS[currentIndex]
+  const currentQuestion = questions[currentIndex]
   const progress = ((currentIndex) / QUIZ_QUESTIONS.length) * 100
 
   const startQuiz = () => {setShowIntro(false)}
@@ -35,7 +45,7 @@ export default function Quiz() {
       [category]: prev[category] + (liked ? 1 : 0)
     }))
 
-    if (currentIndex < QUIZ_QUESTIONS.length - 1) {
+    if (currentIndex < questions.length - 1) {
       setCurrentIndex(prev => prev + 1)
     } else {
       setShowResults(true)
@@ -127,6 +137,7 @@ export default function Quiz() {
 
   // Restart quiz
   const restartQuiz = () => {
+    setQuestions(shuffleArray(QUIZ_QUESTIONS))
     setCurrentIndex(0)
     setAnswers({
       'Mathematics': 0,
