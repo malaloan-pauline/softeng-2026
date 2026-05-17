@@ -182,19 +182,3 @@
     border-right-color: var(--border);
   }
 }
-
-
-.scoreboard {
-  display: flex;
-  gap: 3vw;
-  font-size: 2vw;
-  color: #7fbf8e; 
-  margin-bottom: 2vw;
-  font-weight: 600;
-}
-
-
-
-
-
-

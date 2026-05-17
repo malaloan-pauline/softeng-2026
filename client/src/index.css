@@ -1,8 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+﻿@import "tailwindcss";
 
-/* Your full custom CSS below */
 @layer base {
     :root {
         --text: #6b6375;
