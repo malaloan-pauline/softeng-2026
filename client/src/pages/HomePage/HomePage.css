@@ -182,7 +182,12 @@
 .topbar-logo:hover { background: rgba(114, 135, 81, 0.08); }
 
 .topbar-logo-img {
-    height: 32px;
+    height: 22px;
+    width: auto;
+}
+
+.topbar-computer-img {
+    height: 35px;
     width: auto;
 }
 
@@ -351,8 +356,15 @@
     line-height: 1;
 }
 
+.hero-icon {
+    height: 200px;
+    width: auto;
+    display: block;
+    margin: 0 auto 12px;
+}
+
 .hero-logo {
-    height: 100px;
+    height: 70px;
     width: auto;
     display: block;
     margin: 0 auto;
