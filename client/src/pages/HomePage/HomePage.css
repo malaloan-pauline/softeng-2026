@@ -25,27 +25,94 @@
 
 .halo {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(70px);
+    filter: blur(65px);
 }
 
+/* --- HALO VERT HAUT GAUCHE --- */
 .halo-green {
-    width: 560px; height: 480px;
-    background: radial-gradient(circle, rgba(210, 225, 160, 0.62) 0%, transparent 68%);
-    top: -160px; left: -140px;
+    width: 1000px; height: 700px;
+    background: radial-gradient(circle, rgba(210, 225, 160, 0.65) 0%, transparent 65%);
+    top: -200px; left: -60px;
+    border-radius: 55% 45% 62% 38% / 48% 58% 42% 62%;
 }
 
+.halo-green::before {
+    content: '';
+    position: absolute;
+    width: 340px; height: 300px;
+    background: radial-gradient(circle, rgba(178, 200, 110, 0.5) 0%, transparent 65%);
+    top: 100px; left: 140px;
+    border-radius: 42% 58% 38% 62% / 62% 38% 68% 32%;
+    filter: blur(55px);
+}
+
+.halo-green::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 250px;
+    background: radial-gradient(circle, rgba(200, 220, 140, 0.45) 0%, transparent 60%);
+    top: -60px; left: 320px;
+    border-radius: 68% 32% 52% 48% / 35% 65% 38% 62%;
+    filter: blur(50px);
+}
+
+/* --- HALO ROSE HAUT DROIT --- */
 .halo-pink {
-    width: 520px; height: 460px;
-    background: radial-gradient(circle, rgba(255, 100, 160, 0.38) 0%, transparent 65%);
-    top: -80px; right: -140px;
+    width: 1000px; height: 650px;
+    background: radial-gradient(circle, rgba(255, 100, 160, 0.42) 0%, transparent 63%);
+    top: -40px; right: -60px;
+    border-radius: 48% 52% 38% 62% / 60% 42% 58% 40%;
 }
 
-.halo-green-bottom {
-    width: 400px; height: 340px;
-    background: radial-gradient(circle, rgba(190, 215, 130, 0.32) 0%, transparent 70%);
-    bottom: -40px; left: 25%;
+.halo-pink::before {
+    content: '';
+    position: absolute;
+    width: 350px; height: 300px;
+    background: radial-gradient(circle, rgba(255, 80, 150, 0.35) 0%, transparent 65%);
+    top: 120px; right: 60px;
+    left: -40px;
+    border-radius: 60% 40% 68% 32% / 40% 62% 35% 68%;
+    filter: blur(60px);
 }
+
+.halo-pink::after {
+    content: '';
+    position: absolute;
+    width: 250px; height: 200px;
+    background: radial-gradient(circle, rgba(244, 150, 190, 0.4) 0%, transparent 60%);
+    top: -40px; left: -60px;
+    border-radius: 35% 65% 58% 42% / 65% 35% 62% 38%;
+    filter: blur(45px);
+}
+
+/* --- HALO VERT BAS CENTRE --- */
+.halo-green-bottom {
+    width: 500px; height: 700px;
+    background: radial-gradient(circle, rgba(190, 215, 130, 0.38) 0%, transparent 68%);
+    bottom: -300px; left: 30%;
+    border-radius: 62% 38% 45% 55% / 42% 58% 48% 52%;
+}
+
+.halo-green-bottom::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 350px;
+    background: radial-gradient(circle, rgba(178, 200, 120, 0.35) 0%, transparent 65%);
+    top: -60px; left: 160px;
+    border-radius: 38% 62% 55% 45% / 58% 40% 62% 38%;
+    filter: blur(55px);
+}
+
+.halo-green-bottom::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 200px;
+    background: radial-gradient(circle, rgba(200, 218, 140, 0.3) 0%, transparent 60%);
+    top: 50px; left: -80px;
+    border-radius: 52% 48% 38% 62% / 45% 62% 38% 58%;
+    filter: blur(50px);
+}
+
 
 /* ============================================================
    SIDEBAR OVERLAY

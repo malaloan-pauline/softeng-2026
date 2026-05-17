@@ -112,7 +112,7 @@ export default function HomePage() {
 
           <div className="topbar-center">
             <button className="topbar-link" onClick={() => navigate('/games')}>Games</button>
-            <button className="topbar-link" onClick={() => navigate('/games/quiz')}>Quiz</button>
+            <button className="topbar-link" onClick={() => navigate('/quiz')}>Quiz</button>
             <button className="topbar-link" onClick={() => navigate('/feedback')}>Feedbacks</button>
           </div>
 
@@ -154,7 +154,7 @@ export default function HomePage() {
               <button className="cta-btn cta-btn--primary" onClick={() => navigate('/games')}>
                 🎮 Play games
               </button>
-              <button className="cta-btn cta-btn--accent" onClick={() => navigate('/games/quiz')}>
+              <button className="cta-btn cta-btn--accent" onClick={() => navigate('/quiz')}>
                 ✨ Take the quiz
               </button>
               <button className="cta-btn" onClick={() => navigate('/feedback')}>
