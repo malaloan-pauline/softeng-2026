@@ -2,6 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import './HomePage.css';
 import logo from '../../assets/name_logo.png';
+import icon from '../../assets/icon.png';
+import iconDark from '../../assets/icon_light.png';
+import logoDark from '../../assets/name_logo_light.png';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -102,7 +105,8 @@ export default function HomePage() {
               aria-label="Ouvrir le menu Quick Access"
               aria-expanded={sidebarOpen}
           >
-            <img src={logo} alt="match IT" className="topbar-logo-img" />
+            <img src={theme === 'dark' ? iconDark : icon} alt="" className="topbar-computer-img" aria-hidden="true"/>
+            <img src={theme === 'dark' ? logoDark : logo} alt="match IT" className="topbar-logo-img" />
             <span className="topbar-logo-hint" aria-hidden="true">☰</span>
           </button>
 
@@ -139,8 +143,9 @@ export default function HomePage() {
           <span className="hero-eyebrow animate-in" style={{ '--delay': '0ms' } as React.CSSProperties}>
             Bachelor Computer Science
           </span>
+            <img src={theme === 'dark' ? iconDark : icon} alt="" className="hero-icon" aria-hidden="true" />
             <h1 className="hero-title animate-in" style={{ '--delay': '80ms' } as React.CSSProperties}>
-              <img src={logo} alt="match IT" className="hero-logo" />
+              <img src={theme === 'dark' ? logoDark : logo} alt="match IT" className="hero-logo" />
             </h1>
             <p className="hero-sub animate-in" style={{ '--delay': '160ms' } as React.CSSProperties}>
               Discover the Bachelor CS through games, quizzes and fun challenges.
