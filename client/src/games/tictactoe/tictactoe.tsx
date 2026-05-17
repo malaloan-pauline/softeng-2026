@@ -441,7 +441,7 @@ function updateScore(player: "I" | "T", points: number) {
             </button>
 
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/games")}
               className="
                 bg-[#a98467]
                 text-[#1E5C19]
@@ -452,7 +452,7 @@ function updateScore(player: "I" | "T", points: number) {
                 hover:bg-[#c79ab0]
               "
             >
-              Back to Menu
+              Back to Games
             </button>
 
           </div>
