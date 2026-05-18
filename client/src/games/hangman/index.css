@@ -11,6 +11,10 @@
 
 }
 
+.hangman-root {
+    padding-top: var(--topbar-h);
+}
+
 body {
     background-color: var(--cream);
     color: var(--text-dark);

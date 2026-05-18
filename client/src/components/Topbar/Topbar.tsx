@@ -1,0 +1,103 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Topbar.css';
+import logo from '../../assets/name_logo.png';
+import icon from '../../assets/icon.png';
+import iconDark from '../../assets/icon_light.png';
+import logoDark from '../../assets/name_logo_light.png';
+
+export default function Topbar() {
+  const navigate = useNavigate();
+  const [theme, setTheme] = useState<'light' | 'dark'>(() =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  );
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSidebarOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  return (
+    <>
+      {/* SIDEBAR OVERLAY */}
+      <div
+        className={`sidebar-overlay${sidebarOpen ? ' open' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* SIDEBAR */}
+      <aside
+        className={`sidebar${sidebarOpen ? ' open' : ''}`}
+        aria-label="Quick access"
+      >
+        <button
+          className="sidebar-close"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Fermer le menu"
+        >
+          ✕
+        </button>
+        <p className="sidebar-label">Quick access</p>
+
+        <div
+          className="sidebar-item sidebar-item--primary"
+          onClick={() => { navigate('/leaderboard'); setSidebarOpen(false); }}
+        >
+          <span className="sidebar-item-icon">🏆</span>
+          <span className="sidebar-item-title">Leaderboard</span>
+          <span className="sidebar-item-sub">Top players</span>
+        </div>
+
+        <div className="sidebar-item" onClick={() => setSidebarOpen(false)}>
+          <span className="sidebar-item-icon">⬛</span>
+          <span className="sidebar-item-title">QR Code</span>
+          <span className="sidebar-item-sub">Scan to play</span>
+          <div className="qr-placeholder" aria-label="QR Code">
+            {/* Replace with <QRCodeCanvas value={window.location.href} size={64} /> from qrcode.react */}
+            <div className="qr-mock" />
+          </div>
+        </div>
+      </aside>
+
+      {/* NAVBAR */}
+      <nav className="topbar">
+        <button
+          className="topbar-logo"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Ouvrir le menu Quick Access"
+          aria-expanded={sidebarOpen}
+        >
+          <img src={theme === 'dark' ? iconDark : icon} alt="" className="topbar-computer-img" aria-hidden="true" />
+          <img src={theme === 'dark' ? logoDark : logo} alt="match IT" className="topbar-logo-img" />
+          <span className="topbar-logo-hint" aria-hidden="true">☰</span>
+        </button>
+
+        <div className="topbar-center">
+          <button className="topbar-link" onClick={() => navigate('/games')}>Games</button>
+          <button className="topbar-link" onClick={() => navigate('/quiz')}>Quiz</button>
+          <button className="topbar-link" onClick={() => navigate('/feedback')}>Feedbacks</button>
+        </div>
+
+        <div className="topbar-right">
+          <button className="topbar-btn" onClick={() => navigate('/leaderboard')}>Leaderboard</button>
+          <button
+            className="theme-toggle"
+            onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+            aria-label={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+        </div>
+      </nav>
+    </>
+  );
+}
