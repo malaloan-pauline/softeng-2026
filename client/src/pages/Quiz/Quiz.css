@@ -6,15 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--bg);
-  overflow-y: auto;
-  z-index: 100;
+  padding: calc(var(--topbar-h) + 2rem) 1rem 2rem;
+  position: relative;
 }
 
 /* ── QUIZ SCREEN ── */
@@ -350,7 +343,7 @@
 
 .intro-screen .back-home-btn {
   position: absolute;
-  top: 1rem;
+  top: calc(var(--topbar-h) + 0.5rem);
   left: 1rem;
   z-index: 10;
 }

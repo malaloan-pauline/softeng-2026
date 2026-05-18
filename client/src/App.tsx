@@ -5,12 +5,14 @@ import OneStrokeGame from "./games/OneStroke/OneStrokeGame";
 import ClickerGame from "./games/clicker/ClickerGame";
 import TicTacToe from "./games/tictactoe/tictactoe";
 import Quiz from './pages/Quiz/Quiz'
+import Topbar from "./components/Topbar/Topbar";
 import "./App.css";
 
 
 function App() {
   return (
     <BrowserRouter>
+      <Topbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/games" element={<div>Games page</div>} />
