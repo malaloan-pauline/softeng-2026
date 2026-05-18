@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// GET top 10 for a specific game
+// GET top 3 for a specific game
 router.get("/:game", async (req, res) => {
   const { game } = req.params;
   const scores = await prisma.score.findMany({
