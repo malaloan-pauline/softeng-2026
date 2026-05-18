@@ -132,7 +132,7 @@ export default function HomePage() {
         <nav className="mobile-nav" aria-label="Navigation mobile">
           <button className="mobile-nav-item" onClick={() => navigate('/leaderboard')}>🏆<span>Board</span></button>
           <button className="mobile-nav-item mobile-nav-item--home" onClick={() => navigate('/')}>🏠<span>Home</span></button>
-          <button className="mobile-nav-item" onClick={() => {}}>⬛<span>QR</span></button>
+          <button className="mobile-nav-item" onClick={() => navigate('/feedback')}>🗣️<span>Feedbacks</span></button>
         </nav>
 
         {/* PAGE CONTENT */}
