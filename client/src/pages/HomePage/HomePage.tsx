@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
+import { feedbacks } from '../../data/feedbacks';
 import './HomePage.css';
 import logo from '../../assets/name_logo.png';
 import icon from '../../assets/icon.png';
@@ -30,6 +31,8 @@ export default function HomePage() {
   const addRef = (el: HTMLElement | null, index: number) => {
     sectionRefs.current[index] = el;
   };
+
+  const preview = useMemo(() => [...feedbacks].sort(() => Math.random() - 0.5).slice(0, 3), []);
 
   return (
     <div className="home-page">
@@ -86,16 +89,12 @@ export default function HomePage() {
         >
           <p className="section-label">— Student feedbacks —</p>
           <div className="feedback-grid">
-            {[
-              { author: 'Student 1', stars: 5, text: '"Great experience overall!"' },
-              { author: 'Student 2', stars: 4, text: '"Amazing, loved the quiz."' },
-              { author: 'Student 3', stars: 5, text: '"Super fun and informative!"' },
-            ].map((fb) => (
-              <div className="feedback-card" key={fb.author}>
+            {preview.map((fb, i) => (
+              <div className="feedback-card" key={i}>
                 <div className="feedback-accent-bar" />
-                <div className="feedback-stars">{'★'.repeat(fb.stars)}{'☆'.repeat(5 - fb.stars)}</div>
-                <p className="feedback-text">{fb.text}</p>
-                <span className="feedback-author">{fb.author}</span>
+                <div className="feedback-stars">{'★'.repeat(fb.rating)}{'☆'.repeat(5 - fb.rating)}</div>
+                <p className="feedback-text">"{fb.advice}"</p>
+                <span className="feedback-author">{fb.anonymous ? 'Anonymous' : fb.name}</span>
               </div>
             ))}
           </div>
