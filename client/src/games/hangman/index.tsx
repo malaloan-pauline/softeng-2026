@@ -422,7 +422,10 @@ export default function Hangman(): React.JSX.Element {
       {noPointsModalVisible && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
             <div className="bg-[var(--c-surface)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
-              <h2 className="text-xl font-bold text-[var(--c-text)]">Not enough points!</h2>
+              <h2 className="text-xl font-bold text-[var(--c-text)]"
+                  style={{ fontFamily: 'var(--font-display)' }}>
+                Not enough points!
+              </h2>
               <p className="text-sm text-[var(--c-text)] leading-relaxed">
                 You need <span className="font-bold">{skipCost} pts</span> to skip this word, but you have <span className="font-bold">{score} pts</span> at the moment. Keep guessing to earn more points!
               </p>
@@ -514,14 +517,14 @@ export default function Hangman(): React.JSX.Element {
             <button
                 onClick={() => startGame("easy")}
                 style={{ fontFamily: 'var(--font-display)' }}
-                className="w-full py-3 rounded-full bg-[var(--c-primary)] text-[var(--c-btn-text)] font-bold text-lg hover:brightness-90 transition-all"
+                className="w-full py-3 rounded-full bg-[var(--c-primary-lighter)] text-[var(--c-btn-text)] font-bold text-lg hover:brightness-95 transition-all"
             >
               Easy
             </button>
             <button
                 onClick={() => startGame("medium")}
                 style={{ fontFamily: 'var(--font-display)' }}
-                className="w-full py-3 rounded-full bg-[var(--c-primary)] text-[var(--c-btn-text)] font-bold text-lg hover:brightness-90 transition-all"
+                className="w-full py-3 rounded-full bg-[var(--c-primary-light)] text-[var(--c-btn-text)] font-bold text-lg hover:brightness-95 transition-all"
             >
               Medium
             </button>
@@ -571,30 +574,32 @@ export default function Hangman(): React.JSX.Element {
           className="flex flex-col min-h-screen bg-[var(--c-bg)]"
       >
         {/* Topnav */}
-        <div className="flex gap-3 mt-2 justify-center">
+        <div className="flex items-center justify-between w-full px-2 py-2">
           <button
-              className="px-5 py-2 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] text-[var(--c-text)] text-sm font-medium shadow-sm hover:bg-[var(--c-primary)] hover:text-white transition-colors"
-              onClick={() => setRulesModalVisible(true)}
-              style={{ fontFamily: 'var(--font-display)' }}
-          >
-            Rules
-          </button>
-          <button
-              className="px-5 py-2 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] text-[var(--c-text)] text-sm font-medium shadow-sm hover:bg-[var(--c-accent)] transition-colors"
+              className="px-3 py-1 rounded-full border border-[var(--c-border)] text-[var(--c-muted)] text-xs font-medium hover:bg-[var(--c-surface)] transition-colors"
               onClick={() => setActiveScreen("screen-intro")}
-              style={{ fontFamily: 'var(--font-display)' }}
           >
             ← Exit
+          </button>
+          <span className="inline-block text-xs font-medium tracking-[0.12em] uppercase bg-[var(--c-primary)]/10 px-4 py-1 rounded-full text-[var(--c-eyebrow-text)]"
+                style={{ fontFamily: 'var(--font-body)' }}>
+                {currentDifficulty}
+          </span>
+          <button
+              className="px-3 py-1 rounded-full border border-[var(--c-border)] text-[var(--c-muted)] text-xs font-medium hover:bg-[var(--c-surface)] transition-colors"
+              onClick={() => setRulesModalVisible(true)}
+          >
+            Rules
           </button>
         </div>
 
         {/* Corps principal */}
-        <div className="flex flex-1 flex-col md:flex-row gap-6 px-6 py-6">
+        <div className="flex flex-1 flex-col md:flex-row gap-3 md:gap-6 px-4 md:px-6 py-3 md:py-6">
 
           {/* Colonne gauche */}
-          <div className="flex flex-col items-center justify-center gap-3 md:gap-6 md:w-1/2">
+          <div className="flex flex-col items-center justify-center gap-2 md:gap-6 md:w-1/2">
             <img
-                className="w-70 md:w-170 object-contain"
+                className="w-65 md:w-170 object-contain"
                 src={hangmanImageSrc}
                 alt="hangman"
             />
@@ -611,7 +616,7 @@ export default function Hangman(): React.JSX.Element {
           </div>
 
           {/* Colonne droite */}
-          <div className="relative flex flex-col items-center justify-center gap-6 md:w-1/2">
+          <div className="relative flex flex-col items-center justify-center gap-3 md:gap-6 md:w-1/2">
 
             {/* Mot à deviner */}
             <ul className="flex flex-wrap justify-center gap-2 mt-1 md:mt-4">
@@ -644,13 +649,11 @@ export default function Hangman(): React.JSX.Element {
                         data-letter={letter}
                         disabled={isGuessed || !gameActive}
                         className={`
-                          h-10 rounded-lg font-mono font-bold text-sm transition-all
-                           ${isCorrect
-                            ? "bg-[var(--c-primary)] text-[var(--c-btn-text)] opacity-80"
-                            : isWrong
-                                ? "bg-[var(--c-primary)] text-[var(--c-btn-text)] opacity-40"
-                                : "bg-[var(--c-primary)] text-[var(--c-btn-text)] hover:bg-[var(--c-primary)]"
-                            }
+                          keyboard-key h-10 rounded-lg font-bold text-sm transition-all
+                          border border-[var(--c-primary)]/40
+                          ${isCorrect ? "key-correct"
+                            : isWrong ? "key-wrong"
+                                : "text-[var(--c-text)] hover:bg-[var(--c-primary)] hover:text-white shadow-sm"}
                         `}
                         style={{ fontFamily: 'var(--font-display)' }}
                     >
@@ -685,14 +688,15 @@ export default function Hangman(): React.JSX.Element {
             ${shaking ? "juicy__screenshake" : ""}
           `}
       >
-        <h1 className={`text-5xl font-bold m-0 ${endResult === "win" ? "text-[var(--c-surface)]" : "text-[var(--c-text)]"}`}>
+        <h1 className={`text-5xl font-bold m-0 ${endResult === "win" ? "text-[var(--c-surface)]" : "text-[var(--c-text)]"}`}
+            style={{ fontFamily: 'var(--font-display)' }}>
           {endResult === "win" ? "🎉 Success!" : "💀 Game Over"}
         </h1>
 
         <img
             src={`/images/${theme === 'dark' ? 'dark' : 'light'}/${endResult === 'win' ? 'success' : 'dead'}.png`}
             alt={endResult === 'win' ? 'Success' : 'Game over'}
-            className="w-80 md:w-80 object-contain"
+            className="w-70 md:w-80 object-contain"
         />
 
         <p className={`text-sm font-medium ${endResult === "win" ? "text-[var(--c-surface)]" : "text-[var(--c-text)]"}`}>

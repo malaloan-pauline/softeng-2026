@@ -147,3 +147,23 @@ body {
         transform: scale(0.9);
     }
 }
+
+.hangman-root .keyboard-key {
+    background: linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--c-surface) 90%, white 10%) 0%,
+            var(--c-surface) 100%
+    );
+    backdrop-filter: blur(4px);
+}
+
+.hangman-root .keyboard-key.key-correct {
+    background: var(--c-primary);
+    color: white;
+}
+
+.hangman-root .keyboard-key.key-wrong {
+    background: var(--c-primary);
+    color: white;
+    opacity: 0.3;
+}
