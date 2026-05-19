@@ -5,6 +5,8 @@ import logo from '../../assets/name_logo.png';
 import icon from '../../assets/icon.png';
 import iconDark from '../../assets/icon_light.png';
 import logoDark from '../../assets/name_logo_light.png';
+import sideIconDark from '../../assets/sidebar_dark.png';
+import sideIconLight from '../../assets/sidebar_light.png';
 
 export default function Topbar() {
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ export default function Topbar() {
         <button
           className="sidebar-close"
           onClick={() => setSidebarOpen(false)}
-          aria-label="Fermer le menu"
+          aria-label="Close menu"
         >
           ✕
         </button>
@@ -50,11 +52,12 @@ export default function Topbar() {
 
         <div
           className="sidebar-item sidebar-item--primary"
-          onClick={() => { navigate('/leaderboard'); setSidebarOpen(false); }}
+          onClick={() => { navigate('/'); setSidebarOpen(false); }}
         >
-          <span className="sidebar-item-icon">🏆</span>
-          <span className="sidebar-item-title">Leaderboard</span>
-          <span className="sidebar-item-sub">Top players</span>
+
+          <span className="sidebar-item-icon">🏠</span>
+          <span className="sidebar-item-title">Match IT</span>
+          <span className="sidebar-item-sub">Home Page</span>
         </div>
 
         <div className="sidebar-item" onClick={() => setSidebarOpen(false)}>
@@ -65,6 +68,15 @@ export default function Topbar() {
             {/* Replace with <QRCodeCanvas value={window.location.href} size={64} /> from qrcode.react */}
             <div className="qr-mock" />
           </div>
+        </div>
+
+        <div className="sidebar-footer">
+          <img
+              src={theme === 'dark' ? sideIconDark : sideIconLight}
+              alt=""
+              className="sidebar-footer-logo"
+              aria-hidden="true"
+          />
         </div>
       </aside>
 
