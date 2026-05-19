@@ -21,7 +21,7 @@ function App() {
         <Route path="/games" element={<GamesPage />} />
         <Route path="/quiz" element={<Quiz/>} />
         <Route path="/feedback" element={<div>Students Feedback</div>} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/leaderboard" element={<div> Feedback </div>} />
         <Route path="/games/hangman" element={<Hangman />} />
         <Route path="/games/tictactoe" element={<TicTacToe />} />
         <Route path="/games/clicker" element={<ClickerGame />} />
