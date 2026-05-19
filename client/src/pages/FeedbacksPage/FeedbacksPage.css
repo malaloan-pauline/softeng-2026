@@ -1,0 +1,234 @@
+.feedbacks-page,
+.feedbacks-page *,
+.feedbacks-page *::before,
+.feedbacks-page *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.feedbacks-page {
+    position: relative;
+    min-height: 100dvh;
+    background: var(--c-bg);
+    font-family: var(--font-body);
+    color: var(--c-text);
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   PAGE CONTENT
+   ============================================================ */
+.feedbacks-page__content {
+    position: relative;
+    z-index: 1;
+    padding-top: var(--topbar-h);
+    padding-bottom: 48px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.feedbacks-hero {
+    text-align: center;
+    padding: 56px 40px 40px;
+}
+
+.feedbacks-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--c-eyebrow-text);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(114, 135, 81, 0.1);
+    padding: 4px 14px;
+    border-radius: var(--r-xl);
+    margin-bottom: 20px;
+}
+
+.feedbacks-title {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--c-title);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 14px;
+}
+
+.feedbacks-sub {
+    font-size: 15px;
+    color: var(--c-muted);
+    max-width: 380px;
+    margin: 0 auto 20px;
+    line-height: 1.65;
+}
+
+.feedbacks-avg {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--c-surface);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--r-xl);
+    padding: 6px 18px;
+}
+
+.feedbacks-avg__stars {
+    color: var(--c-primary-light);
+    font-size: 16px;
+    letter-spacing: 0.05em;
+}
+
+.feedbacks-avg__num {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-text);
+}
+
+/* ============================================================
+   MASONRY GRID
+   ============================================================ */
+.feedbacks-masonry {
+    columns: 2;
+    column-gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8px 40px 40px;
+}
+
+@media (min-width: 800px) {
+    .feedbacks-masonry { columns: 3; }
+}
+
+/* ============================================================
+   FEEDBACK CARD
+   ============================================================ */
+.fb-card {
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+    background: var(--c-surface);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 18px 16px 16px;
+    margin-bottom: 16px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.fb-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(114, 135, 81, 0.12);
+}
+
+.fb-card__accent-bar {
+    width: 22px;
+    height: 3px;
+    background: var(--c-accent);
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.fb-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.fb-card__stars {
+    color: var(--c-primary-light);
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+}
+
+.fb-card__author {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--c-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fb-card__anon-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--c-eyebrow-text);
+    background: rgba(114, 135, 81, 0.1);
+    padding: 1px 7px;
+    border-radius: var(--r-xl);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.fb-card__opinion {
+    font-size: 20px;
+    color: var(--c-text);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid var(--c-border);
+}
+
+/* Detail rows */
+.fb-card__details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    row-gap: 6px;
+    column-gap: 10px;
+}
+
+.fb-card__details dt {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-top: 2px;
+    white-space: nowrap;
+}
+
+.fb-card__details dd {
+    font-size: 15px;
+    color: var(--c-text);
+    line-height: 1.5;
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.feedbacks-footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--c-muted);
+    padding: 16px 0 12px;
+    border-top: 0.5px solid var(--c-border);
+    margin: 0 40px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+    .feedbacks-hero    { padding: 48px 24px 32px; }
+    .feedbacks-title   { font-size: 38px; }
+    .feedbacks-masonry { columns: 1; padding: 8px 24px 32px; }
+    .feedbacks-footer  { margin: 0 24px; }
+}
