@@ -3,6 +3,13 @@
     padding-top: var(--topbar-h);
 }
 
+#screen-intro,
+#screen-game,
+#screen-end {
+    position: relative;
+    z-index: 1;
+}
+
 body {
     background-color: var(--c-bg);
     color: var(--c-text);
