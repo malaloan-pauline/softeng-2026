@@ -5,6 +5,7 @@ import OneStrokeGame from "./games/OneStroke/OneStrokeGame";
 import ClickerGame from "./games/clicker/ClickerGame";
 import TicTacToe from "./games/tictactoe/tictactoe";
 import Quiz from './pages/Quiz/Quiz'
+import Leaderboard from "./leaderboard/Leaderboard";
 import GamesPage from './pages/GamesPage/GamesPage';
 import FeedbacksPage from './pages/FeedbacksPage/FeedbacksPage';
 import Topbar from "./components/Topbar/Topbar";
@@ -19,7 +20,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/games" element={<GamesPage />} />
         <Route path="/quiz" element={<Quiz/>} />
-        <Route path="/feedback" element={<FeedbacksPage />} />
+        <Route path="/feedback" element={<div>Students Feedback</div>} />
         <Route path="/leaderboard" element={<div>Leaderboard</div>} />
         <Route path="/games/hangman" element={<Hangman />} />
         <Route path="/games/tictactoe" element={<TicTacToe />} />
