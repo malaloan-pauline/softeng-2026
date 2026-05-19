@@ -6,6 +6,7 @@ import ClickerGame from "./games/clicker/ClickerGame";
 import TicTacToe from "./games/tictactoe/tictactoe";
 import Quiz from './pages/Quiz/Quiz'
 import GamesPage from './pages/GamesPage/GamesPage';
+import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import FeedbacksPage from './pages/FeedbacksPage/FeedbacksPage';
 import Topbar from "./components/Topbar/Topbar";
 import "./App.css";
