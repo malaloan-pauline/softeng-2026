@@ -121,6 +121,17 @@ export default function Hangman(): React.JSX.Element {
   const [resetModalVisible, setResetModalVisible] = useState<boolean>(false);
   const [lastRoundBonus, setLastRoundBonus] = useState<number>(0);
   const [shaking, setShaking] = useState(false);
+  const [theme, setTheme] = useState(
+      document.documentElement.getAttribute('data-theme') || 'light'
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setTheme(document.documentElement.getAttribute('data-theme') || 'light');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
 
   // Persist score to localStorage
   useEffect(() => {
@@ -320,7 +331,7 @@ export default function Hangman(): React.JSX.Element {
   // UI helpers for displays
   // --------------------
   const attemptsLeft = MAX_ATTEMPTS - errors;
-  const hangmanImageSrc = `/images/${errors}.png`;
+  const hangmanImageSrc = `/images/${theme === 'dark' ? 'dark' : 'light'}/${errors}.png`;
 
   const skipCostText = useMemo(() => {
     if (skipsUsed < FREE_SKIPS) {
@@ -341,28 +352,18 @@ export default function Hangman(): React.JSX.Element {
 
   // ------<< render component >>-------
   return (
-    <div className="hangman-root w-full"
-         style={{
-           '--cream': '#e8e4d4',
-           '--green': '#7a9e7e',
-           '--green-dark': '#5c7a60',
-           '--green-shadow': '#4a6650',
-           '--text-dark': '#4a5e4c',
-           '--text-cream': '#e8e4d4',
-           '--pink': '#f9dfe0',
-           '--pink-dark': '#d4787a',
-         } as React.CSSProperties}>
+    <div className="hangman-root w-full">
       {/* Rules modal */}
       {rulesModalVisible && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
-              <h2 className="text-xl font-bold text-[var(--text-dark)]">Rules</h2>
-              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+            <div className="bg-[var(--c-surface)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--c-text)]">Rules</h2>
+              <p className="text-sm text-[var(--c-text)] leading-relaxed">
                 Guess the hidden CS word letter by letter. You have 6 attempts.
                 Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
               </p>
               <button
-                  className="self-end px-5 py-2 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-medium text-sm hover:bg-[var(--green-shadow)] transition-colors"
+                  className="self-end px-5 py-2 rounded-full bg-[var(--c-primary)] text-[var(--c-surface)] font-medium text-sm hover:bg-[var(--c-primary)] transition-colors"
                   onClick={() => setRulesModalVisible(false)}
               >
                 Got it
@@ -374,14 +375,14 @@ export default function Hangman(): React.JSX.Element {
       {/* Skip modal */}
       {skipModalVisible && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
-              <h2 className="text-xl font-bold text-[var(--text-dark)]">Skip info</h2>
-              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+            <div className="bg-[var(--c-surface)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--c-text)]">Skip info</h2>
+              <p className="text-sm text-[var(--c-text)] leading-relaxed">
                 First two skips are free. Afterwards each skip costs points and increases by +2 each time.
               </p>
               <div className="flex gap-3 self-end">
                 <button
-                    className="px-5 py-2 rounded-full border-2 border-[var(--green-dark)] text-[var(--text-dark)] font-medium text-sm hover:bg-white/40 transition-colors"
+                    className="px-5 py-2 rounded-full border-2 border-[var(--c-primary)] text-[var(--c-text)] font-medium text-sm hover:bg-[var(--c-surface)]/60 transition-colors"
                     onClick={() => {
                       setSkipModalVisible(false);
                       setSkipExplained(true);
@@ -390,7 +391,7 @@ export default function Hangman(): React.JSX.Element {
                   Cancel
                 </button>
                 <button
-                    className="px-5 py-2 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-medium text-sm hover:bg-[var(--green-shadow)] transition-colors"
+                    className="px-5 py-2 rounded-full bg-[var(--c-primary)] text-[var(--c-surface)] font-medium text-sm hover:bg-[var(--c-primary)] transition-colors"
                     onClick={() => {
                       setSkipModalVisible(false);
                       setSkipExplained(true);
@@ -407,14 +408,14 @@ export default function Hangman(): React.JSX.Element {
       {/* No points modal */}
       {noPointsModalVisible && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
-              <h2 className="text-xl font-bold text-[var(--text-dark)]">Not enough points!</h2>
-              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+            <div className="bg-[var(--c-surface)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--c-text)]">Not enough points!</h2>
+              <p className="text-sm text-[var(--c-text)] leading-relaxed">
                 You need <span className="font-bold">{skipCost} pts</span> to skip this word, but you have <span className="font-bold">{score} pts</span> at the moment. Keep guessing to earn more points!
               </p>
               <div className="flex self-end">
                 <button
-                    className="px-5 py-2 rounded-full bg-[var(--pink-mid)] text-[var(--text-dark)] font-medium text-sm hover:bg-[var(--pink-dark)] transition-colors"
+                    className="px-5 py-2 rounded-full bg-[var(--c-accent)] text-[var(--c-text)] font-medium text-sm hover:bg-[var(--c-accent)] transition-colors"
                     onClick={() => setNoPointsModalVisible(false)}
                 >
                   Got it
@@ -427,20 +428,20 @@ export default function Hangman(): React.JSX.Element {
       {/* Reset points modal */}
       {resetModalVisible && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="bg-[var(--cream)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
-              <h2 className="text-xl font-bold text-[var(--text-dark)]">Reset points</h2>
-              <p className="text-sm text-[var(--text-dark)] leading-relaxed">
+            <div className="bg-[var(--c-surface)] rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-[var(--c-text)]">Reset points</h2>
+              <p className="text-sm text-[var(--c-text)] leading-relaxed">
                 You currently have <span className="font-bold">{score} pts</span>. Do you want to reset your score to zero?
               </p>
               <div className="flex gap-3 self-end">
                 <button
-                    className="px-5 py-2 rounded-full border-2 border-[var(--green-dark)] text-[var(--text-dark)] font-medium text-sm hover:bg-white/40 transition-colors"
+                    className="px-5 py-2 rounded-full border-2 border-[var(--c-primary)] text-[var(--c-text)] font-medium text-sm hover:bg-[var(--c-surface)]/60 transition-colors"
                     onClick={() => setResetModalVisible(false)}
                 >
                   Cancel
                 </button>
                 <button
-                    className="px-5 py-2 rounded-full bg-[var(--pink-mid)] text-[var(--text-dark)] font-medium text-sm hover:bg-[var(--pink-dark)] transition-colors"
+                    className="px-5 py-2 rounded-full bg-[var(--c-accent)] text-[var(--c-text)] font-medium text-sm hover:bg-[var(--c-accent)] transition-colors"
                     onClick={() => {
                       setScore(0);
                       setResetModalVisible(false);
@@ -464,55 +465,58 @@ export default function Hangman(): React.JSX.Element {
 
           {/* Colonne gauche */}
           <div className="intro-col-left flex flex-col items-center gap-6">
-            <h1 className="text-5xl font-bold text-[var(--text-dark)] tracking-tight m-0"
+            <h1 className="text-5xl font-bold text-[var(--c-text)] tracking-tight m-0"
                 style={{fontFamily: "Soopa"}}>
               Hangman
             </h1>
-            <img
-                src="/images/intro.png"
-                alt="hangman illustration"
-                className="w-48 md:w-64 rounded-[var(--radius-md)] object-contain"
-            />
-            <div className="bg-white/40 rounded-2xl p-3 md:p-5 text-sm text-[var(--text-dark)] leading-relaxed w-full">
-              <h2 className="font-bold text-base mb-2 text-center">Rules</h2>
-              <p>
-                Guess the hidden CS word letter by letter. You have 6 attempts.
-                Each wrong guess draws the hangman closer to his fate. Use the hint wisely!
-              </p>
+
+            <div className="flex flex-col gap-4 w-100">
+              <img
+                  src={`/images/${theme === 'dark' ? 'dark' : 'light'}/intro.png`}
+                  className="h-80 w-full object-contain block"
+                  alt="hangman illustration"
+              />
+              <div className="bg-[var(--c-surface)]/60 rounded-2xl p-4 text-sm text-[var(--c-text)] leading-relaxed">
+                <h2 className="font-bold text-base mb-2 text-center">Rules</h2>
+                <p>
+                  Guess the hidden CS word letter by letter. You have 6 attempts.
+                  Each wrong guess draws the computer closer to a program crash... Use the hint wisely!
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Colonne droite */}
           <div className="intro-col-right flex flex-col items-center gap-4">
-            <p className="text-sm font-medium text-[var(--text-dark)] uppercase tracking-widest">
+            <p className="text-sm font-medium text-[var(--c-text)] uppercase tracking-widest">
               Choose difficulty
             </p>
             <button
                 onClick={() => startGame("easy")}
-                className="w-full py-3 rounded-full bg-[var(--green)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-dark)] transition-colors"
+                className="w-full py-3 rounded-full bg-[var(--c-primary)] text-[var(--c-surface)] font-bold text-lg hover:bg-[var(--c-primary)] transition-colors"
             >
               Easy
             </button>
             <button
                 onClick={() => startGame("medium")}
-                className="w-full py-3 rounded-full bg-[var(--green-dark)] text-[var(--text-cream)] font-bold text-lg hover:bg-[var(--green-shadow)] transition-colors"
+                className="w-full py-3 rounded-full bg-[var(--c-primary)] text-[var(--c-surface)] font-bold text-lg hover:bg-[var(--c-primary)] transition-colors"
             >
               Medium
             </button>
             <button
                 onClick={() => startGame("hard")}
-                className="w-full py-3 rounded-full bg-[var(--green-shadow)] text-[var(--text-cream)] font-bold text-lg hover:brightness-90 transition-all"
+                className="w-full py-3 rounded-full bg-[var(--c-primary)] text-[var(--c-surface)] font-bold text-lg hover:brightness-90 transition-all"
             >
               Hard
             </button>
             <div className="flex flex-col items-center gap-1 md:flex-row md:justify-between w-full mt-2 px-1">
-              <span className="text-sm text-[var(--text-dark)] font-medium">
+              <span className="text-sm text-[var(--c-text)] font-medium">
                 Your score: <span className="font-bold">{score} pts</span>
               </span>
               {score > 0 && (
                 <button
                     onClick={() => setResetModalVisible(true)}
-                    className="text-xs text-[var(--text-dark)] opacity-60 underline underline-offset-2 hover:opacity-100 transition-opacity"
+                    className="text-xs text-[var(--c-text)] opacity-60 underline underline-offset-2 hover:opacity-100 transition-opacity"
                 >
                   Reset points
                 </button>
@@ -520,7 +524,7 @@ export default function Hangman(): React.JSX.Element {
             </div>
             <button
                 onClick={() => navigate(GAMES_PATH)}
-                className="mt-2 text-sm text-[var(--text-dark)] underline underline-offset-4 hover:text-[var(--green-dark)] transition-colors"
+                className="mt-2 text-sm text-[var(--c-text)] underline underline-offset-4 hover:text-[var(--c-primary)] transition-colors"
             >
               ← Back to games page
             </button>
@@ -529,7 +533,7 @@ export default function Hangman(): React.JSX.Element {
         </div> {/* fin div deux colonnes */}
 
         {/* Footer — en dehors des colonnes */}
-        <p className="w-full text-xs text-[var(--text-dark)] opacity-50 text-center pt-3 pb-4">
+        <p className="w-full text-xs text-[var(--c-text)] opacity-50 text-center pt-3 pb-4">
           Copyrights © 2026 Hangman Game by Match IT
         </p>
 
@@ -539,25 +543,22 @@ export default function Hangman(): React.JSX.Element {
       <div
           id="screen-game"
           style={{ display: activeScreen === "screen-game" ? "flex" : "none" }}
-          className="flex flex-col min-h-screen"
+          className="flex flex-col min-h-screen bg-[var(--c-bg)]"
       >
         {/* Topnav */}
-        <div className="flex items-center justify-between px-6 py-3 bg-[var(--green-dark)]">
-          <h1 className="text-xl font-bold text-[var(--text-cream)] m-0">Hangman</h1>
-          <div className="flex gap-3">
-            <button
-                className="px-4 py-1.5 rounded-full border-2 border-[var(--text-cream)] text-[var(--text-cream)] text-sm font-medium hover:bg-[var(--green)] transition-colors"
-                onClick={() => setRulesModalVisible(true)}
-            >
-              Rules
-            </button>
-            <button
-                className="px-4 py-1.5 rounded-full bg-[var(--text-cream)] text-[var(--green-dark)] text-sm font-medium hover:bg-[var(--pink)] transition-colors"
-                onClick={() => setActiveScreen("screen-intro")}
-            >
-              Exit
-            </button>
-          </div>
+        <div className="flex gap-3 mt-2 justify-center">
+          <button
+              className="px-5 py-2 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] text-[var(--c-text)] text-sm font-medium shadow-sm hover:bg-[var(--c-primary)] hover:text-white transition-colors"
+              onClick={() => setRulesModalVisible(true)}
+          >
+            Rules
+          </button>
+          <button
+              className="px-5 py-2 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] text-[var(--c-text)] text-sm font-medium shadow-sm hover:bg-[var(--c-accent)] transition-colors"
+              onClick={() => setActiveScreen("screen-intro")}
+          >
+            ← Exit
+          </button>
         </div>
 
         {/* Corps principal */}
@@ -566,15 +567,15 @@ export default function Hangman(): React.JSX.Element {
           {/* Colonne gauche */}
           <div className="flex flex-col items-center justify-center gap-3 md:gap-6 md:w-1/2">
             <img
-                className="w-48 md:w-64 rounded-2xl object-contain bg-white p-2 shadow-md"
+                className="w-48 md:w-64 rounded-2xl object-contain bg-[var(--c-surface)] p-2 shadow-md"
                 src={hangmanImageSrc}
                 alt="hangman"
             />
-            <p className="text-sm text-center text-[var(--text-dark)] italic max-w-xs bg-white/40 rounded-xl px-4 py-3">
+            <p className="text-sm text-center text-[var(--c-text)] italic max-w-xs bg-[var(--c-surface)]/60 rounded-xl px-4 py-3">
               <span className="font-bold not-italic">Hint : </span>{currentHint}
             </p>
             <button
-                className="px-6 py-2 rounded-full bg-[var(--pink-mid)] text-[var(--text-dark)] font-medium text-sm hover:bg-[var(--pink-dark)] transition-colors"
+                className="px-6 py-2 rounded-full bg-[var(--c-accent)] text-[var(--c-text)] font-medium text-sm hover:bg-[var(--c-accent)] transition-colors"
                 onClick={() => skipWord()}
             >
               Skip — <span className="font-bold">{skipCostText}</span>
@@ -587,8 +588,8 @@ export default function Hangman(): React.JSX.Element {
             {/* Mot à deviner */}
             <ul className="flex flex-wrap justify-center gap-2 mt-1 md:mt-4">
               {currentWord.split("").map((ch, idx) => (
-                  <li key={idx} className="w-6 h-10 md:w-9 md:h-12 flex items-end justify-center pb-1 border-b-4 border-[var(--green-shadow)]">
-                    <span className={`font-mono font-bold text-lg md:text-2xl text-[var(--green-dark)] transition-all duration-300 ${guessedLetters.includes(ch) ? "opacity-100" : "opacity-0"}`}>
+                  <li key={idx} className="w-6 h-10 md:w-9 md:h-12 flex items-end justify-center pb-1 border-b-4 border-[var(--c-primary)]">
+                    <span className={`font-mono font-bold text-lg md:text-2xl text-[var(--c-primary)] transition-all duration-300 ${guessedLetters.includes(ch) ? "opacity-100" : "opacity-0"}`}>
                       {guessedLetters.includes(ch) ? ch : ""}
                     </span>
                   </li>
@@ -596,8 +597,8 @@ export default function Hangman(): React.JSX.Element {
             </ul>
 
             {/* Tentatives */}
-            <p className="text-sm font-medium text-[var(--text-dark)]">
-              Attempts left : <span className="font-bold text-[var(--green-dark)]">{attemptsLeft}</span>
+            <p className="text-sm font-medium text-[var(--c-text)]">
+              Attempts left : <span className="font-bold text-[var(--c-primary)]">{attemptsLeft}</span>
             </p>
 
             {/* Clavier */}
@@ -617,10 +618,10 @@ export default function Hangman(): React.JSX.Element {
                         className={`
                           h-10 rounded-lg font-mono font-bold text-sm transition-all
                           ${isCorrect
-                            ? "bg-[var(--green)] text-[var(--text-cream)] opacity-80"
+                            ? "bg-[var(--c-primary)] text-[var(--c-surface)] opacity-80"
                             : isWrong
-                                ? "bg-[var(--green-shadow)] text-[var(--text-cream)] opacity-40"
-                                : "bg-[var(--green-dark)] text-[var(--text-cream)] hover:bg-[var(--green-shadow)]"
+                                ? "bg-[var(--c-primary)] text-[var(--c-surface)] opacity-40"
+                                : "bg-[var(--c-primary)] text-[var(--c-surface)] hover:bg-[var(--c-primary)]"
                           }
                         `}
                     >
@@ -631,14 +632,14 @@ export default function Hangman(): React.JSX.Element {
             </div>
 
             {/* Bulle score */}
-            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-[var(--pink-mid)] flex flex-col items-center justify-center shadow-lg juicy__hover">              <span className="text-xs text-[var(--text-dark)] leading-none">pts</span>
-              <span className="text-lg font-bold text-[var(--text-dark)] leading-none">{score}</span>
+            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-[var(--c-accent)] flex flex-col items-center justify-center shadow-lg juicy__hover">              <span className="text-xs text-[var(--c-text)] leading-none">pts</span>
+              <span className="text-lg font-bold text-[var(--c-text)] leading-none">{score}</span>
             </div>
 
           </div>
         </div>
 
-        <p className="text-xs text-[var(--text-dark)] opacity-50 text-center py-2">
+        <p className="text-xs text-[var(--c-text)] opacity-50 text-center py-2">
           Copyrights © 2026 Hangman Game by Match IT
         </p>
 
@@ -650,35 +651,35 @@ export default function Hangman(): React.JSX.Element {
           style={{ display: activeScreen === "screen-end" ? "flex" : "none" }}
           className={`
             flex flex-col items-center justify-center gap-6 min-h-screen px-8 py-10 transition-colors duration-500
-            ${endResult === "win" ? "bg-[var(--green)]" : "bg-[var(--pink)]"}
+            ${endResult === "win" ? "bg-[var(--c-primary)]" : "bg-[var(--c-accent)]"}
             ${shaking ? "juicy__screenshake" : ""}
           `}
       >
-        <h1 className={`text-5xl font-bold m-0 ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+        <h1 className={`text-5xl font-bold m-0 ${endResult === "win" ? "text-[var(--c-surface)]" : "text-[var(--c-text)]"}`}>
           {endResult === "win" ? "🎉 Success!" : "💀 Game Over"}
         </h1>
 
-        <p className={`text-sm font-medium ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+        <p className={`text-sm font-medium ${endResult === "win" ? "text-[var(--c-surface)]" : "text-[var(--c-text)]"}`}>
           The correct word was
         </p>
-        <p className={`text-2xl font-mono font-bold tracking-widest ${endResult === "win" ? "text-[var(--text-cream)]" : "text-[var(--text-dark)]"}`}>
+        <p className={`text-2xl font-mono font-bold tracking-widest ${endResult === "win" ? "text-[var(--c-surface)]" : "text-[var(--c-text)]"}`}>
           {currentWord}
         </p>
 
         {lastRoundBonus > 0 && (
-          <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-white/30 text-[var(--text-cream)] font-semibold text-sm shadow-md">
+          <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--c-surface)]/30 text-[var(--c-surface)] font-semibold text-sm shadow-md">
             <span>⭐</span>
             <span>Perfect round! +{lastRoundBonus} bonus pts</span>
           </div>
         )}
         {lastRoundBonus < 0 && (
-          <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-black/20 text-[var(--text-dark)] font-semibold text-sm shadow-md">
+          <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--c-text)]/20 text-[var(--c-text)] font-semibold text-sm shadow-md">
             <span>💸</span>
             <span> - {Math.abs(lastRoundBonus)} pts!</span>
           </div>
         )}
 
-        <div className={`px-6 py-3 rounded-full text-2xl font-bold shadow-md ${endResult === "win" ? "bg-white/30 text-[var(--text-cream)]" : "bg-white/60 text-[var(--text-dark)]"}`}>
+        <div className={`px-6 py-3 rounded-full text-2xl font-bold shadow-md ${endResult === "win" ? "bg-[var(--c-surface)]/30 text-[var(--c-surface)]" : "bg-[var(--c-surface)]/60 text-[var(--c-text)]"}`}>
           {score} pts
         </div>
 
@@ -686,14 +687,14 @@ export default function Hangman(): React.JSX.Element {
           {endResult === "win" && (
               <>
                 <button
-                    className="w-full py-3 rounded-full bg-white/30 text-[var(--text-cream)] font-bold text-lg hover:bg-white/50 transition-colors"
+                    className="w-full py-3 rounded-full bg-[var(--c-surface)]/30 text-[var(--c-surface)] font-bold text-lg hover:bg-white/50 transition-colors"
                     onClick={() => startGame(currentDifficulty)}
                 >
                   Play again
                 </button>
                 {currentDifficulty !== "hard" && (
                     <button
-                        className="w-full py-3 rounded-full bg-[var(--text-cream)] text-[var(--green-dark)] font-bold text-lg hover:brightness-95 transition-all"
+                        className="w-full py-3 rounded-full bg-[var(--c-surface)] text-[var(--c-primary)] font-bold text-lg hover:brightness-95 transition-all"
                         onClick={() => {
                           if (currentDifficulty === "easy") startGame("medium");
                           else if (currentDifficulty === "medium") startGame("hard");
@@ -706,7 +707,7 @@ export default function Hangman(): React.JSX.Element {
           )}
           {endResult === "loss" && (
               <button
-                  className="w-full py-3 rounded-full bg-[var(--text-dark)] text-[var(--text-cream)] font-bold text-lg hover:brightness-110 transition-all"
+                  className="w-full py-3 rounded-full bg-[var(--c-text)] text-[var(--c-surface)] font-bold text-lg hover:brightness-110 transition-all"
                   onClick={() => startGame(currentDifficulty)}
               >
                 Try again
@@ -715,8 +716,8 @@ export default function Hangman(): React.JSX.Element {
           <button
               className={`w-full py-3 rounded-full border-2 font-bold text-lg transition-colors
         ${endResult === "win"
-                  ? "border-[var(--text-cream)] text-[var(--text-cream)] hover:bg-white/20"
-                  : "border-[var(--text-dark)] text-[var(--text-dark)] hover:bg-black/10"
+                  ? "border-[var(--c-surface)] text-[var(--c-surface)] hover:bg-white/20"
+                  : "border-[var(--c-text)] text-[var(--c-text)] hover:bg-black/10"
               }`}
               onClick={() => setActiveScreen("screen-intro")}
           >

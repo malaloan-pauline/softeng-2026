@@ -1,24 +1,12 @@
-:root {
-    --cream:        #f2e8cf;
-    --green:        #7a9e7e;
-    --green-dark:   #5c7a60;
-    --green-shadow: #4a6650;
-    --text-dark:    #4a5e4c;
-    --text-cream:   #f2e8cf;
-    --pink:         #f9dfe0;
-    --pink-mid:     #ffafcc;
-    --pink-dark:    #ff99b3;
-
-}
 
 .hangman-root {
     padding-top: var(--topbar-h);
 }
 
 body {
-    background-color: var(--cream);
-    color: var(--text-dark);
-    font-family: 'Cal Sans', sans-serif;
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
 }
 

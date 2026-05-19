@@ -2,7 +2,7 @@
 
 
 body {
-    background-color: #F2E8CF;
+    background-color: var(--c-bg);
 }
 
 
@@ -11,9 +11,9 @@ body {
 #ttt-container {
     width: 100%;
     min-height: 100svh;
-    background: #F2E8CF;
-    color: #1E5C19;
-    font-family: 'NunitoSans', 'Nunito', system-ui, sans-serif;
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-body);
     display: flex;
     flex-direction: column;
     align-items: center;
