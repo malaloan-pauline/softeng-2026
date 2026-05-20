@@ -95,6 +95,11 @@ export default function OneStrokeGame() {
     setScreen('home');
   }
 
+  function handleResetPoints() {
+  setLastPointsEarned(0);
+  sessionStorage.setItem('oneStrokePoints', '0');
+  } 
+
   function handleNextLevel() {
     const nextIndex = currentLevelIndex + 1;
 
@@ -119,9 +124,20 @@ export default function OneStrokeGame() {
           </button>
           <HomeScreen onSelectLevel={handleSelectLevel} />
 
-          <div className="points-box">
+          <div className="points-panel">
+            <div className="points-box">
             You earned {lastPointsEarned} points 
+            </div>
+
+            <button
+              type="button"
+              className="reset-points-button"
+              onClick={handleResetPoints}
+            >
+              Reset points
+            </button>
           </div>
+          
         </>
         
       )}
