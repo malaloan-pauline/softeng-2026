@@ -55,10 +55,12 @@
 }
  
 .leaderboard-root .chrome {
-  position: sticky; top: 0; z-index: 5;
+  position: sticky;
+  top: var(--topbar-h, 54px); /* sits below the navbar */
+  z-index: 10; /* higher than navbar */
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 22px;
-  background: linear-gradient(var(--c-bg) 78%, transparent);
+  background: transparent;
 }
  
 .leaderboard-root .pill {
