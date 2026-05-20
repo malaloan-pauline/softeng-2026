@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useMemo } from 'react';
-import { feedbacks } from '../../data/feedbacks';
+import {feedbacks, randomAnonymousName} from '../../data/feedbacks';
 import './HomePage.css';
 import logo from '../../assets/name_logo.png';
 import icon from '../../assets/icon.png';
 import iconDark from '../../assets/icon_light.png';
 import logoDark from '../../assets/name_logo_light.png';
+import { anonymousNames } from '../../data/feedbacks';
+
 export default function HomePage() {
   const navigate = useNavigate();
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -32,7 +34,7 @@ export default function HomePage() {
     sectionRefs.current[index] = el;
   };
 
-  const preview = useMemo(() => [...feedbacks].sort(() => Math.random() - 0.5).slice(0, 3), []);
+  const preview = useMemo(() => [...feedbacks].sort(() => Math.random() - 0.5).slice(0, 4), []);
 
   return (
     <div className="home-page">
@@ -94,7 +96,10 @@ export default function HomePage() {
                 <div className="feedback-accent-bar" />
                 <div className="feedback-stars">{'★'.repeat(fb.rating)}{'☆'.repeat(5 - fb.rating)}</div>
                 <p className="feedback-text">"{fb.advice}"</p>
-                <span className="feedback-author">{fb.anonymous ? 'Anonymous' : fb.name}</span>
+                <span className="feedback-author">
+                  {fb.anonymous ? randomAnonymousName() : fb.name}
+                  {fb.anonymous && <span className="feedback-anon-tag">anon</span>}
+                </span>
               </div>
             ))}
           </div>

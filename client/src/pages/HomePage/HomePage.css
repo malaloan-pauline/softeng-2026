@@ -350,6 +350,18 @@
     font-weight: 500;
 }
 
+.feedback-anon-tag {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--c-eyebrow-text);
+    background: rgba(114, 135, 81, 0.1);
+    padding: 1px 7px;
+    border-radius: var(--r-xl);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: 6px;
+}
+
 /* ============================================================
    FOOTER
    ============================================================ */
