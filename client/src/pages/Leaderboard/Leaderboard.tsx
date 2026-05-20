@@ -125,7 +125,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
           type="button"
           onClick={() => (onBack ? onBack() : window.history.back())}
         >
-          <span className="arrow">←</span> HomePage
+          <span className="arrow">←</span> Home
         </button>
       </header>
  <BackgroundHalos />

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import Hangman from "./games/hangman/index";
@@ -9,12 +10,22 @@ import GamesPage from './pages/GamesPage/GamesPage';
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import FeedbacksPage from './pages/FeedbacksPage/FeedbacksPage';
 import Topbar from "./components/Topbar/Topbar";
+import UsernameModal from "./user-system/UsernameModal";
 import "./App.css";
 
 
 function App() {
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem('matchit_player')) {
+      setShowModal(true);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
+      {showModal && <UsernameModal onClose={() => setShowModal(false)} />}
       <Topbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
