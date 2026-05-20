@@ -26,11 +26,6 @@ export interface Level {
 }
 
 // LEVEL 1 : EASY — Star (5 points)
-//        0 (top)
-//      /   \
-//    4       1
-//     \     /
-//      3 - 2
 const starLevel: Level = {
   id: 1,
   name: 'Star',
@@ -52,10 +47,6 @@ const starLevel: Level = {
 }
 
 // LEVEL 2 — MEDIUM — House (6 points)
-//      0
-//    1 - 2
-//    |   |
-//    3 - 4
 const houseLevel: Level = {
   id: 2,
   name: 'House',
@@ -78,15 +69,6 @@ const houseLevel: Level = {
 }
 
 // LEVEL 3 — HARD — 3D Rectangle (8 points)
-// Front face: 0,1,2,3  Back face: 4,5,6
-//   4 ──── 5
-//   |╲       ╲
-//   |  0 ──── 1
-//   |  |      |
-//   6  |      |
-//    \ |      |
-//      3 ──── 2
-
 const rectLevel: Level = {
   id: 3,
   name: '3D Rectangle',
@@ -117,7 +99,7 @@ const rectLevel: Level = {
   ]
 }
 
-// LEVEL 4 : CHALLENGE — Flower (9 points)
+// LEVEL 4 : CHALLENGE — Flower (15 points)
 // Outer octagon: 1-8, Inner octagon: 9-16
 const flowerLevel: Level = {
   id: 4,

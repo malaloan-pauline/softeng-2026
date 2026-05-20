@@ -169,6 +169,7 @@ export default function OneStrokeGame() {
         <WinScreen
           levelName={currentLevel.difficulty}
           elapsedTime={elapsedTime}
+          pointsEarned={getPointsForDifficulty(currentLevel.difficulty)}
           isLastLevel={currentLevelIndex === levels.length - 1}
           onNext={handleNextLevel}
           onHome={handleBackHome}
@@ -209,6 +210,7 @@ function HomeScreen({ onSelectLevel }: HomeScreenProps) {
 interface WinScreenProps {
   levelName: string;
   elapsedTime: number;
+  pointsEarned: number;
   isLastLevel: boolean;
   onNext: () => void;
   onHome: () => void;
@@ -217,6 +219,7 @@ interface WinScreenProps {
 function WinScreen({
   levelName,
   elapsedTime,
+  pointsEarned,
   isLastLevel,
   onNext,
   onHome,
@@ -245,6 +248,7 @@ function WinScreen({
       <p>
         You completed level <strong>{levelName}</strong> in {formatTime(elapsedTime)}!
       </p>
+      <p className="win-points">You won {pointsEarned} points !!</p>
 
       <div className="win-buttons">
         {!isLastLevel && (
