@@ -164,7 +164,7 @@
 }
 
 .fb-card__opinion {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--c-text);
     line-height: 1.6;
     font-style: italic;
@@ -182,7 +182,7 @@
 }
 
 .fb-card__details dt {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--c-muted);
     text-transform: uppercase;
@@ -192,7 +192,7 @@
 }
 
 .fb-card__details dd {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--c-text);
     line-height: 1.5;
 }
