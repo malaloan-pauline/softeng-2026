@@ -4,6 +4,8 @@
     --c-primary-lighter: #b2bb7b;
     --c-accent:          #f4beca;
     --c-accent-text:     #7a3a4a;
+    --c-eyebrow-text: #7a3a4a;
+    --c-btn-text: #ffffff;
 
     --c-bg:      #f7f0e0;
     --c-surface: #fdf8ee;
@@ -34,4 +36,6 @@
     --c-border:  rgba(178, 187, 123, 0.13);
     --c-text:    #eceadb;
     --c-muted:   #9a9e80;
+    --c-eyebrow-text: #f4beca;
+    --c-btn-text: #f7f0e0;
 }
