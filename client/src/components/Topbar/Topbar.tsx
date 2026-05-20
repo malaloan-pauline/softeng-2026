@@ -127,7 +127,7 @@ export default function Topbar() {
       {/* MOBILE BOTTOM NAV */}
       <nav className={`mobile-nav${navVisible ? '' : ' mobile-nav--hidden'}`} aria-label="Navigation mobile">
         <button className="mobile-nav-item" onClick={() => navigate('/leaderboard')}>🏆<span>Board</span></button>
-        <button className="mobile-nav-item mobile-nav-item--home" onClick={() => navigate('/games')}>🎮<span>Games</span></button>
+        <button className="mobile-nav-item mobile-nav-item--home" onClick={() => navigate('/')}>🏠<span>Home</span></button>
         <button className="mobile-nav-item" onClick={() => navigate('/feedback')}>🗣️<span>Feedbacks</span></button>
       </nav>
     </>

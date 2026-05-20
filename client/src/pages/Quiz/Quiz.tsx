@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { QUIZ_QUESTIONS, CATEGORY_INFO, QuizCategory } from './quizData'
 import './Quiz.css'
+import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos'
 
 const shuffleArray = <T,>(array: T[]): T[] => {
   const shuffled = [...array]
@@ -26,8 +27,8 @@ export default function Quiz() {
   })
   const [showResults, setShowResults] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
-  
-  // Swipe state : 
+
+  // Swipe state :
   const [isDragging, setIsDragging] = useState(false)
   const [startX, setStartX] = useState(0)
   const [currentX, setCurrentX] = useState(0)
@@ -36,12 +37,12 @@ export default function Quiz() {
   const currentQuestion = questions[currentIndex]
   const progress = ((currentIndex) / QUIZ_QUESTIONS.length) * 100
 
-  const startQuiz = () => {setShowIntro(false)}
+  const startQuiz = () => { setShowIntro(false) }
 
-  // Handle swipe/answer : 
+  // Handle swipe/answer :
   const handleAnswer = (liked: boolean) => {
     const category = currentQuestion.category
-    
+
     setAnswers(prev => ({
       ...prev,
       [category]: prev[category] + (liked ? 1 : 0)
@@ -54,7 +55,7 @@ export default function Quiz() {
     }
   }
 
-  // Swipe handlers : 
+  // Swipe handlers :
   const handleDragStart = (clientX: number) => {
     setIsDragging(true)
     setStartX(clientX)
@@ -69,10 +70,10 @@ export default function Quiz() {
   const handleDragEnd = () => {
     if (!isDragging) return
     setIsDragging(false)
-    
+
     const diff = currentX - startX
     const threshold = 100 // pixels to trigger swipe
-    
+
     if (Math.abs(diff) > threshold) {
       if (diff > 0) {
         // Swiped right = liked
@@ -82,44 +83,26 @@ export default function Quiz() {
         handleAnswer(false)
       }
     }
-    
+
     setCurrentX(0)
     setStartX(0)
   }
 
   // Mouse events
-  const onMouseDown = (e: React.MouseEvent) => {
-    handleDragStart(e.clientX)
-  }
-
-  const onMouseMove = (e: React.MouseEvent) => {
-    handleDragMove(e.clientX)
-  }
-
-  const onMouseUp = () => {
-    handleDragEnd()
-  }
+  const onMouseDown = (e: React.MouseEvent) => { handleDragStart(e.clientX) }
+  const onMouseMove = (e: React.MouseEvent) => { handleDragMove(e.clientX) }
+  const onMouseUp = () => { handleDragEnd() }
 
   // Touch events
-  const onTouchStart = (e: React.TouchEvent) => {
-    handleDragStart(e.touches[0].clientX)
-  }
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    handleDragMove(e.touches[0].clientX)
-  }
-
-  const onTouchEnd = () => {
-    handleDragEnd()
-  }
+  const onTouchStart = (e: React.TouchEvent) => { handleDragStart(e.touches[0].clientX) }
+  const onTouchMove = (e: React.TouchEvent) => { handleDragMove(e.touches[0].clientX) }
+  const onTouchEnd = () => { handleDragEnd() }
 
   // Calculate card transform
   const getCardStyle = () => {
     if (!isDragging) return {}
-    
     const diff = currentX - startX
-    const rotation = diff / 20 // rotation based on drag
-    
+    const rotation = diff / 20
     return {
       transform: `translateX(${diff}px) rotate(${rotation}deg)`,
       transition: 'none'
@@ -155,18 +138,21 @@ export default function Quiz() {
 
   if (showIntro) {
     return (
-      <div className="quiz-container">
+      <div className="quiz-container" style={{ fontFamily: 'var(--font-body)' }}>
+        <BackgroundHalos />
         <div className="intro-screen">
-          <button onClick={() => navigate('/')} className="back-home-btn">
-          ← Back home
-        </button>
+          <span className="quiz-eyebrow">Bachelor Computer Science</span>
           <h1 className="intro-title">IT Match Quiz</h1>
-          <h2>What's your ideal BINFO course match ?</h2>
+          <h2>What's your ideal BINFO course match?</h2>
           <p className="intro-subtitle">
-            Swipe right if you like it, left if you don't. <br />
-            We'll match you to your perfect BINFO subjects. 
+            Swipe right if you like it, left if you don't.<br />
+            We'll match you to your perfect BINFO subjects.
           </p>
-          <button onClick={startQuiz} className="start-btn">
+          <button
+            onClick={startQuiz}
+            className="start-btn"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             Let's Go →
           </button>
         </div>
@@ -176,16 +162,18 @@ export default function Quiz() {
 
   if (showResults) {
     const results = getTopCategories()
-    
+
     return (
-      <div className="quiz-container">
+      <div className="quiz-container" style={{ fontFamily: 'var(--font-body)' }}>
+        <BackgroundHalos />
         <div className="results-screen">
           <h1>Your Course Profile</h1>
           <p className="results-subtitle">Based on your answers, here are your best matches</p>
-          
+
           <div className="results-list">
             {results.map(({ category, score, percentage }) => (
               <div key={category} className="result-item">
+                <div className="result-accent-bar" />
                 <div className="result-header">
                   <h3>{CATEGORY_INFO[category].name}</h3>
                   <span className="result-score">{percentage.toFixed(0)}%</span>
@@ -197,11 +185,19 @@ export default function Quiz() {
               </div>
             ))}
           </div>
-          
-          <button onClick={restartQuiz} className="restart-btn">
+
+          <button
+            onClick={restartQuiz}
+            className="restart-btn"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             Retake Quiz →
           </button>
-          <button onClick={() => navigate('/')} className="back-home-btn">
+          <button
+            onClick={() => navigate('/')}
+            className="back-home-btn"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             ← Back home
           </button>
         </div>
@@ -210,7 +206,8 @@ export default function Quiz() {
   }
 
   return (
-    <div className="quiz-container">
+    <div className="quiz-container" style={{ fontFamily: 'var(--font-body)' }}>
+      <BackgroundHalos />
       <div className="quiz-screen">
         {/* Progress Bar */}
         <div className="progress-bar">
@@ -222,7 +219,7 @@ export default function Quiz() {
 
         {/* Card */}
         <div className="card-container">
-          <div 
+          <div
             ref={cardRef}
             className="quiz-card"
             style={getCardStyle()}
@@ -240,10 +237,18 @@ export default function Quiz() {
 
         {/* Buttons */}
         <div className="button-container">
-          <button onClick={() => handleAnswer(false)} className="btn-no">
+          <button
+            onClick={() => handleAnswer(false)}
+            className="btn-no"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             ✕
           </button>
-          <button onClick={() => handleAnswer(true)} className="btn-yes">
+          <button
+            onClick={() => handleAnswer(true)}
+            className="btn-yes"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             ❤
           </button>
         </div>
