@@ -117,6 +117,12 @@ export default function OneStrokeGame() {
 
   return (
     <div className="game-container">
+      <div className="points-panel">
+            <div className="points-box">
+            Total points : {lastPointsEarned} 
+            </div>
+      </div>
+
       {screen === 'home' && (
         <>
           <button className="btn-back-menu" onClick={() => navigate('/games')}>
@@ -124,20 +130,13 @@ export default function OneStrokeGame() {
           </button>
           <HomeScreen onSelectLevel={handleSelectLevel} />
 
-          <div className="points-panel">
-            <div className="points-box">
-            You earned {lastPointsEarned} points 
-            </div>
-
             <button
               type="button"
-              className="reset-points-button"
+              className="reset-points-button reset-points-floating"
               onClick={handleResetPoints}
             >
               Reset points
             </button>
-          </div>
-          
         </>
         
       )}

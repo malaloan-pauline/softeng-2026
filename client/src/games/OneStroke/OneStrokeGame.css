@@ -423,6 +423,11 @@ html, body {
     width: min(88vw, 320px);
     min-width: 0;
   }
+
+  .reset-points-floating {
+    top: calc(var(--topbar-h) + 2.8rem);
+    right: 0.75rem;
+  }
 }
 
 .game-footer {
@@ -473,4 +478,11 @@ html, body {
   color: var(--green);
   margin-top: -0.25rem;
   margin-bottom: 0.5rem;
+}
+
+.reset-points-floating {
+  position: fixed;
+  top: calc(var(--topbar-h) + 3.4rem);
+  right: 1rem;
+  z-index: 999;
 }
