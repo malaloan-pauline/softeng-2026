@@ -465,3 +465,12 @@ html, body {
   background: var(--green);
   color: var(--text-cream);
 }
+
+.win-points {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--green);
+  margin-top: -0.25rem;
+  margin-bottom: 0.5rem;
+}
