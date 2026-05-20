@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Topbar.css';
 import logo from '../../assets/name_logo.png';
@@ -14,6 +14,19 @@ export default function Topbar() {
     window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   );
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const current = window.scrollY;
+      setNavVisible(current < lastScrollY.current || current < 50);
+      lastScrollY.current = current;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -104,12 +117,20 @@ export default function Topbar() {
           <button
             className="theme-toggle"
             onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-            aria-label={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Swtich to dark mode'}
           >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
         </div>
       </nav>
+
+      {/* MOBILE BOTTOM NAV */}
+      <nav className={`mobile-nav${navVisible ? '' : ' mobile-nav--hidden'}`} aria-label="Navigation mobile">
+        <button className="mobile-nav-item" onClick={() => navigate('/leaderboard')}>🏆<span>Board</span></button>
+        <button className="mobile-nav-item mobile-nav-item--home" onClick={() => navigate('/games')}>🎮<span>Games</span></button>
+        <button className="mobile-nav-item" onClick={() => navigate('/feedback')}>🗣️<span>Feedbacks</span></button>
+      </nav>
     </>
+
   );
 }
