@@ -5,6 +5,19 @@ import { feedbacks, randomAnonymousName } from '../../data/feedbacks';
 import { useNavigate } from 'react-router-dom';
 
 const avgRating = feedbacks.reduce((sum, f) => sum + f.rating, 0) / feedbacks.length;
+const anonymousNames = [
+  "Malicious Computer",
+  "Segfault Steve",
+  "Null Pointer",
+  "Stack Overflow",
+  "404 Student",
+  "Infinite Loop",
+  "Binary Ghost",
+  "Root Access",
+  "Kernel Panic",
+  "Undefined Behavior",
+];
+const randomAnonymousName = () => anonymousNames[Math.floor(Math.random() * anonymousNames.length)];
 
 function Stars({ rating, className }: { rating: number; className: string }) {
   return (
