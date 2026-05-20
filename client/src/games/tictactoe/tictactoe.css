@@ -1,11 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap');
-
-
-body {
-    background-color: var(--c-bg);
-}
-
-
 /* -------layout-------- */
 
 #ttt-container {
@@ -32,6 +24,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .ttt-navbar__actions {
@@ -48,40 +41,33 @@ body {
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     font-weight: 600;
-    border-radius: 0.5rem;
-    border: 1px solid #c8d5b9;
-    background: #ffffff;
-    color: #6A994E;
+    border-radius: var(--r-md);
+    border: 1px solid var(--c-border);
+    background: var(--c-surface);
+    color: var(--c-primary);
     cursor: pointer;
     transition: background 0.15s;
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: var(--font-display);
     display: flex;
     align-items: center;
     gap: 0.375rem;
 }
 
 .ttt-btn:hover {
-    background: #c8d5b9;
+    background: rgba(114, 135, 81, 0.12);
 }
 
-/* back arrow button */
 .ttt-btn--back {
-    color: #a98467;
+    color: var(--c-muted);
 }
 
-/* danger / restart button */
 .ttt-btn--danger {
-    border-color: #f9a8b4;
-    color: #dc2626;
+    border-color: var(--c-accent);
+    color: var(--c-accent-text);
 }
 
 .ttt-btn--danger:hover {
-    background: #fee2e2;
-}
-
-/* icon-only button */
-.ttt-btn--icon {
-    padding: 0.5rem;
+    background: rgba(244, 190, 202, 0.2);
 }
 
 
@@ -93,19 +79,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.25rem;
 }
 
 
-/* -------title-------- */
+/* -------title — keep display font, use primary color token-------- */
 
 .ttt-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #6A994E;
+    color: var(--c-primary);
     letter-spacing: -0.5px;
     margin: 0 0 0.25rem;
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: var(--font-display);
     text-align: center;
 }
 
@@ -113,19 +99,19 @@ body {
 /* -------scoreboard bar-------- */
 
 .ttt-score {
-    background: #ffffff;
-    border: 1px solid #c8d5b9;
-    border-radius: 1rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-xl);
     padding: 0.75rem 2rem;
     display: flex;
     gap: 2.5rem;
-    box-shadow: 0 4px 16px rgba(60, 80, 60, 0.15);
+    box-shadow: 0 4px 16px rgba(114, 135, 81, 0.1);
     font-size: 1rem;
-    color: #6A994E;
+    color: var(--c-primary);
 }
 
 .ttt-score strong {
-    color: #6A994E;
+    color: var(--c-primary);
     font-weight: 700;
 }
 
@@ -134,7 +120,7 @@ body {
 
 .ttt-message {
     font-size: 1rem;
-    color: #6A994E;
+    color: var(--c-muted);
     text-align: center;
     margin: 0;
 }
@@ -143,11 +129,11 @@ body {
 /* -------game board panel-------- */
 
 .ttt-panel {
-    background: #ffffff;
-    border: 1px solid #c8d5b9;
-    border-radius: 1rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
     padding: 1.5rem;
-    box-shadow: 0 4px 16px rgba(60, 80, 60, 0.15);
+    box-shadow: 0 4px 16px rgba(114, 135, 81, 0.1);
     display: flex;
     justify-content: center;
     width: 100%;
@@ -174,26 +160,24 @@ body {
     align-items: center;
     justify-content: center;
 
-    background:    #A7C957;
-    border:        2px solid #6A994E;
-    border-radius: 0.5rem;
+    background:    var(--c-primary-lighter);
+    border:        2px solid var(--c-primary);
+    border-radius: var(--r-md);
 
-    /* big symbol text */
     font-size:   clamp(2rem, 8vw, 4rem);
     font-weight: 700;
-    font-family: 'Chakra Petch', sans-serif;
-    color:        #a98467;
+    font-family: var(--font-display);
+    color:        var(--c-accent-text);
 
     cursor:     pointer;
     transition: background 0.2s ease, transform 0.2s ease;
 
-    /* reset default button appearance */
     appearance: none;
     -webkit-appearance: none;
 }
 
 .ttt-cell:hover:not(:disabled) {
-    background: #c8d5b9;
+    background: var(--c-primary-light);
     transform:  scale(1.05);
 }
 
@@ -201,17 +185,14 @@ body {
     cursor: default;
 }
 
-/* player I symbol: warm colour */
 .ttt-cell--player {
-    color: #a98467;
+    color: var(--c-accent-text);
 }
 
-/* AI T symbol: green */
 .ttt-cell--ai {
-    color: #1E5C19;
+    color: var(--c-primary);
 }
 
-/* pop-in animation when a symbol is placed */
 @keyframes ttt-pop {
     0%   { transform: scale(0.6); opacity: 0.3; }
     70%  { transform: scale(1.1); }
@@ -242,131 +223,183 @@ body {
 }
 
 
-/* -------modal backdrop + card-------- */
+/* -------win / lose / draw — top banner-------- */
 
-.ttt-modal-backdrop {
+.ttt-popup {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 999;
-}
-
-.ttt-modal {
-    background: #5c3d2e;
-    color: #ffffff;
-    border-radius: 0.75rem 0.75rem 0 0;
-    padding: 2rem;
+    top: calc(var(--topbar-h) + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 1.25rem 1.5rem;
     min-width: 260px;
-    max-width: 90vw;
+    max-width: min(400px, 92vw);
+    width: max-content;
     text-align: center;
-    box-shadow: 0 4px 16px rgba(60, 80, 60, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    z-index: 200;
 }
 
-.ttt-modal h2 {
-    font-size: 1.5rem;
+.ttt-popup__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--c-text);
+    margin: 0 0 0.25rem;
+    font-family: var(--font-display);
+}
+
+.ttt-popup__points {
+    font-size: 0.85rem;
+    color: var(--c-primary);
     font-weight: 600;
-    margin: 0 0 0.5rem;
-    font-family: 'Chakra Petch', sans-serif;
+    margin: 0 0 0.2rem;
 }
 
-.ttt-modal p {
-    font-size: 0.9rem;
+.ttt-popup__score {
+    font-size: 0.85rem;
+    color: var(--c-muted);
     margin: 0 0 1rem;
-    opacity: 0.85;
 }
 
-.ttt-modal__actions {
+.ttt-popup__actions {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.625rem;
     justify-content: center;
-    margin-top: 0.5rem;
+    flex-wrap: wrap;
 }
+
+
+/* -------shared modal buttons-------- */
 
 .ttt-modal__btn {
-    background: #a98467;
-    color: #1E5C19;
+    background: var(--c-primary);
+    color: var(--c-btn-text);
     border: none;
-    padding: 0.6rem 1.4rem;
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
+    padding: 0.55rem 1.25rem;
+    border-radius: var(--r-xl);
+    font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
-    font-family: 'Chakra Petch', sans-serif;
+    transition: background 0.2s, opacity 0.2s;
+    font-family: var(--font-display);
+    white-space: nowrap;
 }
 
 .ttt-modal__btn:hover {
-    background: #c79ab0;
+    background: var(--c-primary-light);
 }
 
 .ttt-modal__btn--outline {
     background: transparent;
-    border: 1px solid #ffffff;
-    color: #ffffff;
+    border: 1.5px solid var(--c-border);
+    color: var(--c-text);
 }
 
 .ttt-modal__btn--outline:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(114, 135, 81, 0.08);
+}
+
+.ttt-modal__btn--accent {
+    background: var(--c-accent);
+    color: var(--c-accent-text);
+    border: none;
+}
+
+.ttt-modal__btn--accent:hover {
+    opacity: 0.85;
 }
 
 
-/* -------rules card-------- */
+/* -------centered overlay (rules + reset confirm)-------- */
 
-.ttt-rules {
-    background: #F5DEB3;
-    color: #1E5C19;
-    border-radius: 0.75rem;
+.ttt-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    backdrop-filter: blur(4px);
+}
+
+.ttt-dialog {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
     padding: 1.5rem;
     width: 91.666%;
-    max-width: 28rem;
-    box-shadow: 0 4px 16px rgba(60, 80, 60, 0.15);
+    max-width: 24rem;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
-.ttt-rules h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-align: center;
-    margin: 0 0 1rem;
-    font-family: 'Chakra Petch', sans-serif;
-}
-
-.ttt-rules h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 1rem 0 0.5rem;
-    font-family: 'Chakra Petch', sans-serif;
-}
-
-.ttt-rules ul {
-    list-style: disc;
-    margin-left: 1.5rem;
-    line-height: 1.7;
-    margin-bottom: 0.25rem;
-}
-
-.ttt-rules p {
-    margin: 0 0 0.5rem;
-}
-
-.ttt-rules__close {
-    margin-top: 1.5rem;
-    width: 100%;
-    background: #a98467;
-    color: #1E5C19;
+.ttt-dialog__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
     border: none;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
-    font-family: 'Chakra Petch', sans-serif;
+    color: var(--c-muted);
+    font-size: 0.875rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: var(--r-md);
+    transition: background 0.15s;
+    line-height: 1;
 }
 
-.ttt-rules__close:hover {
-    background: #c79ab0;
+.ttt-dialog__close:hover {
+    background: rgba(114, 135, 81, 0.08);
+    color: var(--c-text);
+}
+
+.ttt-dialog__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--c-text);
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    text-align: center;
+}
+
+.ttt-dialog__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.ttt-dialog__list li {
+    font-size: 0.875rem;
+    color: var(--c-text);
+    padding: 0.4rem 0.65rem;
+    border-left: 3px solid var(--c-primary);
+    background: rgba(114, 135, 81, 0.06);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    line-height: 1.5;
+}
+
+.ttt-dialog__text {
+    font-size: 0.875rem;
+    color: var(--c-text);
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+}
+
+.ttt-dialog__confirm {
+    width: 100%;
+}
+
+.ttt-dialog__actions {
+    display: flex;
+    gap: 0.625rem;
+    justify-content: flex-end;
 }
 
 
@@ -376,7 +409,7 @@ body {
     margin-top: auto;
     padding-top: 2rem;
     font-size: 0.8rem;
-    color: #6A994E;
+    color: var(--c-muted);
     text-align: center;
 }
 
@@ -384,6 +417,12 @@ body {
 /* -------responsive: phone (max-width: 560px)-------- */
 
 @media (max-width: 560px) {
+    #ttt-container {
+        padding-top: calc(var(--topbar-h) + 1rem);
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
     .ttt-title {
         font-size: 1.8rem;
     }
@@ -406,6 +445,19 @@ body {
     .ttt-panel {
         padding: 1rem;
     }
+
+    .ttt-popup {
+        width: 92vw;
+        max-width: 92vw;
+    }
+
+    .ttt-popup__actions {
+        flex-direction: column;
+    }
+
+    .ttt-popup__actions .ttt-modal__btn {
+        width: 100%;
+    }
 }
 
 
@@ -419,9 +471,5 @@ body {
     .ttt-board {
         max-width: 360px;
         gap: 0.65rem;
-    }
-
-    .ttt-cell {
-        border-radius: 0.65rem;
     }
 }
