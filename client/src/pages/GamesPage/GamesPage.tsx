@@ -76,6 +76,12 @@ export default function GamesPage() {
           ))}
         </div>
 
+        <div className="games-back">
+          <button className="back-btn" onClick={() => navigate('/')}>
+            ← Back to Home
+          </button>
+        </div>
+
         <footer className="games-footer">
           Copyright © 2026 match IT — Group C
         </footer>

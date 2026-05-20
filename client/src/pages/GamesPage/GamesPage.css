@@ -143,6 +143,30 @@
     transform: translateY(-1px);
 }
 
+.games-back {
+  text-align: center;
+  padding: 8px 0 32px;
+}
+
+.back-btn {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-muted);
+  background: none;
+  border: 0.5px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 8px;
+}
+
+.back-btn:hover {
+  background: var(--c-surface);
+  color: var(--c-text);
+}
+
 /* ============================================================
    SCROLL REVEAL
    ============================================================ */
