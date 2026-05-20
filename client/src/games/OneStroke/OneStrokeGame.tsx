@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import confetti from 'canvas-confetti'; 
+import confetti from 'canvas-confetti';
 import { levels } from './levels';
 import './OneStrokeGame.css';
 import PuzzleCanvas from './PuzzleCanvas';
+import { submitScore } from '../../user-system/submitScore';
 
 type Screen = 'home' | 'playing' | 'win';
 
@@ -73,18 +74,13 @@ export default function OneStrokeGame() {
   function handleWin() {
     setTimerRunning(false);
 
-  const pointsEarned = getPointsForDifficulty(currentLevel.difficulty);
-  const previousPoints = Number(sessionStorage.getItem('oneStrokePoints') || 0);
-  const totalPoints = previousPoints + pointsEarned;
+    const pointsEarned = getPointsForDifficulty(currentLevel.difficulty);
+    const previousPoints = Number(sessionStorage.getItem('oneStrokePoints') || 0);
+    const totalPoints = previousPoints + pointsEarned;
 
-  setLastPointsEarned(totalPoints);
-  sessionStorage.setItem('oneStrokePoints', String(totalPoints));
-
-    console.log({
-      game: 'OneStroke',
-      difficulty: currentLevel.difficulty,
-      points: pointsEarned,
-    });
+    setLastPointsEarned(totalPoints);
+    sessionStorage.setItem('oneStrokePoints', String(totalPoints));
+    submitScore({ game: 'onestroke', metric: 1, points: pointsEarned });
 
     setScreen('win');
   }
