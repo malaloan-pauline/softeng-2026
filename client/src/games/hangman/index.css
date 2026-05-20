@@ -1,20 +1,19 @@
-:root {
-    --cream:        #f2e8cf;
-    --green:        #7a9e7e;
-    --green-dark:   #5c7a60;
-    --green-shadow: #4a6650;
-    --text-dark:    #4a5e4c;
-    --text-cream:   #f2e8cf;
-    --pink:         #f9dfe0;
-    --pink-mid:     #ffafcc;
-    --pink-dark:    #ff99b3;
 
+.hangman-root {
+    padding-top: var(--topbar-h);
+}
+
+#screen-intro,
+#screen-game,
+#screen-end {
+    position: relative;
+    z-index: 1;
 }
 
 body {
-    background-color: var(--cream);
-    color: var(--text-dark);
-    font-family: 'Cal Sans', sans-serif;
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -35,7 +34,7 @@ body {
         width: 33.333%;
         max-width: 300px;
     }
-}s
+}
 
 /*-------fonts--------*/
 @font-face {
@@ -147,4 +146,24 @@ body {
     50% {
         transform: scale(0.9);
     }
+}
+
+.hangman-root .keyboard-key {
+    background: linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--c-surface) 90%, white 10%) 0%,
+            var(--c-surface) 100%
+    );
+    backdrop-filter: blur(4px);
+}
+
+.hangman-root .keyboard-key.key-correct {
+    background: var(--c-primary);
+    color: white;
+}
+
+.hangman-root .keyboard-key.key-wrong {
+    background: var(--c-primary);
+    color: white;
+    opacity: 0.3;
 }

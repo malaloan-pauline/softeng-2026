@@ -1,8 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Your full custom CSS below */
 @layer base {
     :root {
         --text: #6b6375;
@@ -21,19 +18,34 @@
         --mono: ui-monospace, Consolas, monospace;
 
         --cream: #e8e4d4;
+        --cream-dark: #d4c9a8;
         --green: #7a9e7e;
         --green-dark: #5c7a60;
         --green-shadow: #4a6650;
         --text-dark: #4a5e4c;
+        --text-light: #fdf6e8;
+        --text-muted: #6b7a63;
         --text-cream: #e8e4d4;
         --pink: #f9dfe0;
         --pink-dark: #d4787a;
+        --surface-card: #fdfaf3;
+
+        --color-text: #4a5e4c;
+        --color-primary: #7a9e7e;
+        --color-bg: #e8e4d4;
+
+        --space-4: 1rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+
+        --shadow-btn: 0 4px 0 #4a6650;
+        --radius-full: 999px;
 
         font: 18px/145% var(--sans);
         letter-spacing: 0.18px;
         color-scheme: light dark;
         color: var(--text);
-        background: var(--bg);
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
@@ -65,6 +77,7 @@
 
     body {
         margin: 0;
+        background-color: var(--c-bg);
     }
 
     .home-page {
@@ -116,10 +129,7 @@
 }
 
 #root {
-    width: 1126px;
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
+    width: 100%;
     min-height: 100svh;
     display: flex;
     flex-direction: column;
