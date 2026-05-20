@@ -253,7 +253,7 @@ function WinScreen({
           </button>
         )}
         <button className="btn btn-secondary" onClick={onHome}>
-          ← Level Select
+          ← Select Level
         </button>
       </div>
     </div>
