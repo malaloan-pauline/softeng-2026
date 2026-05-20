@@ -141,7 +141,7 @@ export default function Quiz() {
       <div className="quiz-container" style={{ fontFamily: 'var(--font-body)' }}>
         <BackgroundHalos />
         <div className="intro-screen">
-          <span className="quiz-eyebrow">Bachelor Computer Science</span>
+          <span className="quiz-eyebrow">Are you and IT a match ?</span>
           <h1 className="intro-title">IT Match Quiz</h1>
           <h2>What's your ideal BINFO course match?</h2>
           <p className="intro-subtitle">
