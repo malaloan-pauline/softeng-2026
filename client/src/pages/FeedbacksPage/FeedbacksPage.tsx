@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import './FeedbacksPage.css';
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
 import { feedbacks, randomAnonymousName } from '../../data/feedbacks';
+import { useNavigate } from 'react-router-dom';
 
 const avgRating = feedbacks.reduce((sum, f) => sum + f.rating, 0) / feedbacks.length;
 
@@ -14,6 +15,7 @@ function Stars({ rating, className }: { rating: number; className: string }) {
 }
 
 export default function FeedbacksPage() {
+  const navigate = useNavigate();
   const gridRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -34,6 +36,9 @@ export default function FeedbacksPage() {
   return (
     <div className="feedbacks-page">
       <BackgroundHalos />
+      <button className="back-btn-top" onClick={() => navigate('/')}>
+        ← Home
+      </button>
       <main className="feedbacks-page__content">
 
         <section className="feedbacks-hero">

@@ -6,7 +6,6 @@ import logo from '../../assets/name_logo.png';
 import icon from '../../assets/icon.png';
 import iconDark from '../../assets/icon_light.png';
 import logoDark from '../../assets/name_logo_light.png';
-import { anonymousNames } from '../../data/feedbacks';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ export default function HomePage() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0 }
     );
     sectionRefs.current.forEach((el) => {
       if (el) observer.observe(el);
@@ -44,13 +43,6 @@ export default function HomePage() {
         <div className="halo halo-pink" />
         <div className="halo halo-green-bottom" />
       </div>
-
-      {/* MOBILE BOTTOM NAV */}
-      <nav className="mobile-nav" aria-label="Navigation mobile">
-        <button className="mobile-nav-item" onClick={() => navigate('/leaderboard')}>🏆<span>Board</span></button>
-        <button className="mobile-nav-item mobile-nav-item--home" onClick={() => navigate('/')}>🏠<span>Home</span></button>
-        <button className="mobile-nav-item" onClick={() => navigate('/feedback')}>🗣️<span>Feedbacks</span></button>
-      </nav>
 
       {/* PAGE CONTENT */}
       <main className="page-content">
