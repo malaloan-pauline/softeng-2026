@@ -18,5 +18,21 @@ export const feedbacks: Feedback[] = [
   { name: "Alex", anonymous: true, rating: 4, opinion: "Well-organised lessons. Small classes allowed professors to give targeted feedback.", liked: "Interactivity (Wooclap) and practical work (group projects, Graphic Design).", favSubject: "Programming 2", challenge: "Group projects — communication, compromises, deadlines.", advice: "Friendly towards students with different levels of experience." },
   { name: "Pauline A. Malalo-an", anonymous: false, rating: 4, opinion: "A good program that teaches you hands on, with lots of projects throughout the year.", liked: "Even for someone with no programming background, it does not feel overwhelming.", favSubject: "Subjects with lots of coding", challenge: "Time management and impostor syndrome.", advice: "Not knowing anything about Informatics should not deter you from choosing this bachelor!" },
   { name: "Pella Massarou", anonymous: false, rating: 4, opinion: "Very good, many interesting subjects, practical experience, however sometimes lacking organisation.", liked: "Opportunities to improve, supportive professors.", favSubject: "Cybersecurity (upcoming)", challenge: "Mathematical subjects at the beginning.", advice: "Prepare for group work and don't leave things last minute!" },
-  { name: "Y.Z.", anonymous: false, rating: 4, opinion: "A challenging but rewarding program that gives you a solid foundation in both theory and practice. The variety of subjects lets you explore different areas of CS and find what you're passionate about.", liked: "The hands-on projects and working with real tools used in the industry. The friends and some teachers.", favSubject: "Droit de l'informatique, Software Engineering, Graphic Design", challenge: "Keeping up with all the projects, especially during the 5th semester.", advice: "Don't be afraid if you feel overwhelmed at first — everyone does. Stay curious, work on personal projects outside of class, and don't leave things to the last minute!" },
+  { name: "Y.Z.", anonymous: false, rating: 4, opinion: "A challenging but rewarding program that gives you a solid foundation in both theory and practice. The variety of subjects lets you explore different areas of CS and find what you're passionate about.", liked: "The hands-on projects and working with real tools used in the industry. The friends and some teachers.", favSubject: "Droit de l'informatique, Software Engineering, Graphic Design", challenge: "Keeping up with all the projects, especially during the 4th semester.", advice: "Don't be afraid if you feel overwhelmed at first — everyone does. Stay curious, work on personal projects outside of class, and don't leave things to the last minute!" },
 ];
+
+export const anonymousNames = [
+  "Malicious Computer",
+  "Segfault Steve",
+  "Null Pointer",
+  "Stack Overflow",
+  "404 Student",
+  "Infinite Loop",
+  "Binary Ghost",
+  "Root Access",
+  "Kernel Panic",
+  "Undefined Behavior",
+];
+
+export const randomAnonymousName = () =>
+    anonymousNames[Math.floor(Math.random() * anonymousNames.length)];

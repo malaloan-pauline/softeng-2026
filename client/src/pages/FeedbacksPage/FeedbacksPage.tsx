@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import './FeedbacksPage.css';
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
-import { feedbacks } from '../../data/feedbacks';
+import { feedbacks, randomAnonymousName } from '../../data/feedbacks';
 
 const avgRating = feedbacks.reduce((sum, f) => sum + f.rating, 0) / feedbacks.length;
 
@@ -53,7 +53,7 @@ export default function FeedbacksPage() {
               <div className="fb-card__header">
                 <Stars rating={fb.rating} className="fb-card__stars" />
                 <span className="fb-card__author">
-                  {fb.name}
+                  {fb.anonymous ? randomAnonymousName() : fb.name}
                   {fb.anonymous && <span className="fb-card__anon-tag">anon</span>}
                 </span>
               </div>
