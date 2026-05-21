@@ -49,4 +49,34 @@ router.post("/", async (req, res) => {
   }
 });
 
+// GET player profile by uuid
+router.get('/player/:uuid', async (req, res) => {
+  try {
+    const player = await prisma.player.findUnique({
+      where: { uuid: req.params.uuid },
+      select: { id: true, pseudo: true, uuid: true, totalPoints: true, createdAt: true },
+    });
+    if (!player) return res.status(404).json({ error: 'Player not found' });
+    res.json(player);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch player' });
+  }
+});
+
+// PATCH -> update player pseudo by uuid
+router.patch('/player', async (req, res) => {
+  try {
+    const { uuid, pseudo } = req.body;
+    const player = await prisma.player.update({
+      where: { uuid },
+      data: { pseudo },
+    });
+    res.json(player);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update username' });
+  }
+});
+
 module.exports = router;

@@ -1,6 +1,6 @@
 import { useState, type KeyboardEvent } from 'react';
 import { usePlayer } from './usePlayer';
-import './UsernameModal.css';
+import './index.css';
 
 interface UsernameModalProps {
   onClose: () => void;
