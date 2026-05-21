@@ -23,6 +23,21 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    const stored = localStorage.getItem('matchit_player');
+    if (!stored) return;
+    const { uuid, pseudo } = JSON.parse(stored);
+
+    // Silently sync pseudo to database on every app load
+    fetch('http://localhost:3000/api/leaderboard/player', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ uuid, pseudo }),
+    }).catch(() => {
+      // Fail silently, this is a background sync
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       {showModal && <UsernameModal onClose={() => setShowModal(false)} />}

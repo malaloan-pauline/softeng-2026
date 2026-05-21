@@ -39,7 +39,7 @@ export default function ProfileModal({ onClose }: ProfileModalProps) {
         return res.json() as Promise<PlayerStats>;
       })
       .then(data => { setStats(data); setLoading(false); })
-      .catch(() => { setFetchError(true); setLoading(false); });
+      .catch((err) => { console.error('[ProfileModal] fetch failed:', err); setFetchError(true); setLoading(false); });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -66,7 +66,7 @@ export default function ProfileModal({ onClose }: ProfileModalProps) {
         </button>
 
         {/* ─── Profile picture placeholder ────────────────────────────────────────
-            Future sprint: replace this div with an avatar <img> or <input type="file">.
+            replace this div with an avatar <img> or <input type="file">.
             Upload the file, get back a URL, and store it in avatarUrl on the Player
             object in localStorage (see usePlayer.ts). Display it here as a round image.
             ──────────────────────────────────────────────────────────────────────── */}
