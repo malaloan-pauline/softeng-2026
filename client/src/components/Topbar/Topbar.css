@@ -142,6 +142,7 @@
     margin-left: -8px;
     border-radius: var(--r-md);
     transition: background 0.15s;
+    flex: 1;
 }
 .topbar-logo:hover { background: rgba(114, 135, 81, 0.08); }
 
@@ -190,6 +191,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex: 1; 
+    justify-content: flex-end; 
 }
 
 .topbar-btn {
