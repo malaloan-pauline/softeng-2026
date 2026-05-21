@@ -1,6 +1,7 @@
 
 .hangman-root {
     padding-top: var(--topbar-h);
+    background: var(--c-bg);
 }
 
 #screen-intro,
@@ -40,27 +41,6 @@ body {
 @font-face {
     font-family: 'Soopa';
     src: url('/fonts/soopafre.ttf') format('truetype');
-    font-weight: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Mickle';
-    src: url('/fonts/mickle.ttf') format('truetype');
-    font-weight: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Starborn';
-    src: url('/fonts/starborn.ttf') format('truetype');
-    font-weight: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'HeyComic';
-    src: url('/fonts/heycomic.ttf') format('truetype');
     font-weight: normal;
     font-display: swap;
 }

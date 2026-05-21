@@ -474,98 +474,95 @@ export default function Hangman(): React.JSX.Element {
       )}
 
       {/* Intro screen */}
-      <div
-          id="screen-intro"
-          style={{ display: activeScreen === "screen-intro" ? "flex" : "none" }}
-          className="flex min-h-screen flex-col items-center justify-center px-6 py-4 md:px-8 md:py-10"
-      >
-        {/* Contenu principal — deux colonnes */}
-        <div className="intro-columns flex items-center justify-center gap-8 md:gap-12 w-full flex-1">
+        <div
+            id="screen-intro"
+            style={{ display: activeScreen === "screen-intro" ? "flex" : "none" }}
+            className="flex min-h-screen flex-col items-center justify-center px-4 py-4"
+        >
+          <div className="intro-columns flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 w-full flex-1">
 
-          {/* Colonne gauche */}
-          <div className="intro-col-left flex flex-col items-center gap-6">
-            <h1 className="text-9xl font-bold text-[var(--c-text)] tracking-tight m-0"
-                style={{fontFamily: "Soopa"}}>
-              Hang’IT
-            </h1>
+            {/* Colonne gauche */}
+            <div className="intro-col-left flex flex-col items-center gap-3 md:gap-6">
+              <h1 className="text-7xl md:text-9xl font-bold text-[var(--c-text)] tracking-tight m-0"
+                  style={{fontFamily: "Soopa"}}>
+                Hang'IT
+              </h1>
 
-            <div className="flex flex-col gap-4 w-100">
-              <img
-                  src={`/images/${theme === 'dark' ? 'dark' : 'light'}/intro.png`}
-                  className="h-80 w-full object-contain block"
-                  alt="hangman illustration"
-              />
-              <div className="bg-[var(--c-surface)]/60 rounded-2xl p-4 text-sm text-[var(--c-text)] leading-relaxed">
-                <h2 className="font-bold text-base mb-2 text-center"
-                    style={{ fontFamily: 'var(--font-display)' }}>
-                  Rules
-                </h2>
-                <p>
-                  Guess the hidden CS word letter by letter. You have 6 attempts.
-                  Each wrong guess draws the computer closer to a program crash... Use the hint wisely!
-                </p>
+              <div className="flex flex-col gap-3 w-72 md:w-100">
+                <img
+                    src={`/images/${theme === 'dark' ? 'dark' : 'light'}/intro.png`}
+                    className="h-52 md:h-80 w-full object-contain block"
+                    alt="hangman illustration"
+                />
+                <div className="bg-[var(--c-surface)]/60 rounded-2xl p-3 md:p-4 text-sm text-[var(--c-text)] leading-relaxed">
+                  <h2 className="font-bold text-base mb-2 text-center"
+                      style={{ fontFamily: 'var(--font-display)' }}>
+                    Rules
+                  </h2>
+                  <p className="text-xs md:text-sm">
+                    Guess the hidden CS word letter by letter. You have 6 attempts.
+                    Each wrong guess draws the computer closer to a program crash... Use the hint wisely!
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Colonne droite */}
-          <div className="intro-col-right flex flex-col items-center gap-4">
-            <span className="inline-block text-xs font-medium tracking-[0.12em] uppercase bg-[var(--c-primary)]/10 px-4 py-1 rounded-full text-[var(--c-eyebrow-text)]"
-                  style={{ fontFamily: 'var(--font-body)' }}>
-                    Choose difficulty
-            </span>
-            <button
-                onClick={() => startGame("easy")}
-                style={{ fontFamily: 'var(--font-display)' }}
-                className="w-full py-3 rounded-full bg-[var(--c-primary-lighter)] text-[var(--c-btn-text)] font-bold text-lg hover:brightness-95 transition-all"
-            >
-              Easy
-            </button>
-            <button
-                onClick={() => startGame("medium")}
-                style={{ fontFamily: 'var(--font-display)' }}
-                className="w-full py-3 rounded-full bg-[var(--c-primary-light)] text-[var(--c-btn-text)] font-bold text-lg hover:brightness-95 transition-all"
-            >
-              Medium
-            </button>
-            <button
-                onClick={() => startGame("hard")}
-                style={{ fontFamily: 'var(--font-display)' }}
-                className="w-full py-3 rounded-full bg-[var(--c-primary)] text-[var(--c-btn-text)] font-bold text-lg hover:brightness-90 transition-all"
-            >
-              Hard
-            </button>
-            <div className="flex flex-col items-center gap-1 md:flex-row md:justify-between w-full mt-2 px-1">
-              <span className="text-sm text-[var(--c-text)] font-medium">
-                Your score: <span className="font-bold">{score} pts</span>
-              </span>
-              {score > 0 && (
-                <button
-                    onClick={() => setResetModalVisible(true)}
-                    style={{ fontFamily: 'var(--font-display)' }}
-                    className="text-xs text-[var(--c-text)] opacity-60 underline underline-offset-2 hover:opacity-100 transition-opacity"
-                >
-                  Reset points
-                </button>
-              )}
+            {/* Colonne droite */}
+            <div className="intro-col-right flex flex-col items-center gap-3 w-72 md:w-auto">
+      <span className="inline-block text-xs font-medium tracking-[0.12em] uppercase bg-[var(--c-primary)]/10 px-4 py-1 rounded-full text-[var(--c-eyebrow-text)]"
+            style={{ fontFamily: 'var(--font-body)' }}>
+        Choose difficulty
+      </span>
+              <button
+                  onClick={() => startGame("easy")}
+                  style={{ fontFamily: 'var(--font-display)' }}
+                  className="w-full py-2 md:py-3 rounded-full bg-[var(--c-primary-lighter)] text-[var(--c-btn-text)] font-bold text-base md:text-lg hover:brightness-95 transition-all"
+              >
+                Easy
+              </button>
+              <button
+                  onClick={() => startGame("medium")}
+                  style={{ fontFamily: 'var(--font-display)' }}
+                  className="w-full py-2 md:py-3 rounded-full bg-[var(--c-primary-light)] text-[var(--c-btn-text)] font-bold text-base md:text-lg hover:brightness-95 transition-all"
+              >
+                Medium
+              </button>
+              <button
+                  onClick={() => startGame("hard")}
+                  style={{ fontFamily: 'var(--font-display)' }}
+                  className="w-full py-2 md:py-3 rounded-full bg-[var(--c-primary)] text-[var(--c-btn-text)] font-bold text-base md:text-lg hover:brightness-90 transition-all"
+              >
+                Hard
+              </button>
+              <div className="flex flex-col items-center gap-1 md:flex-row md:justify-between w-full mt-1 px-1">
+        <span className="text-sm text-[var(--c-text)] font-medium">
+          Your score: <span className="font-bold">{score} pts</span>
+        </span>
+                {score > 0 && (
+                    <button
+                        onClick={() => setResetModalVisible(true)}
+                        style={{ fontFamily: 'var(--font-display)' }}
+                        className="text-xs text-[var(--c-text)] opacity-60 underline underline-offset-2 hover:opacity-100 transition-opacity"
+                    >
+                      Reset points
+                    </button>
+                )}
+              </div>
+              <button
+                  onClick={() => navigate(GAMES_PATH)}
+                  style={{ fontFamily: 'var(--font-display)' }}
+                  className="text-sm text-[var(--c-text)] underline underline-offset-4 hover:text-[var(--c-primary)] transition-colors"
+              >
+                ← Back to games page
+              </button>
             </div>
-            <button
-                onClick={() => navigate(GAMES_PATH)}
-                style={{ fontFamily: 'var(--font-display)' }}
-                className="mt-2 text-sm text-[var(--c-text)] underline underline-offset-4 hover:text-[var(--c-primary)] transition-colors"
-            >
-              ← Back to games page
-            </button>
+
           </div>
 
-        </div> {/* fin div deux colonnes */}
-
-        {/* Footer — en dehors des colonnes */}
-        <p className="w-full text-xs text-[var(--c-text)] opacity-50 text-center pt-3 pb-4">
-          Copyrights © 2026 Hangman Game by Match IT
-        </p>
-
-      </div> {/* fin screen-intro */}
+          <p className="w-full text-xs text-[var(--c-text)] opacity-50 text-center pt-3 pb-4">
+            Copyrights © 2026 Hangman Game by Match IT
+          </p>
+        </div>
 
       {/* Game screen */}
       <div
@@ -578,6 +575,7 @@ export default function Hangman(): React.JSX.Element {
           <button
               className="px-3 py-1 rounded-full border border-[var(--c-border)] text-[var(--c-muted)] text-xs font-medium hover:bg-[var(--c-surface)] transition-colors"
               onClick={() => setActiveScreen("screen-intro")}
+              style={{ fontFamily: 'var(--font-body)' }}
           >
             ← Exit
           </button>
@@ -586,8 +584,9 @@ export default function Hangman(): React.JSX.Element {
                 {currentDifficulty}
           </span>
           <button
-              className="px-3 py-1 rounded-full border border-[var(--c-border)] text-[var(--c-muted)] text-xs font-medium hover:bg-[var(--c-surface)] transition-colors"
+              className="px-4 py-1 rounded-full border border-[var(--c-border)] text-[var(--c-muted)] text-xs font-medium hover:bg-[var(--c-surface)] transition-colors"
               onClick={() => setRulesModalVisible(true)}
+              style={{ fontFamily: 'var(--font-body)' }}
           >
             Rules
           </button>
@@ -693,11 +692,15 @@ export default function Hangman(): React.JSX.Element {
           {endResult === "win" ? "🎉 Success!" : "💀 Game Over"}
         </h1>
 
-        <img
-            src={`/images/${theme === 'dark' ? 'dark' : 'light'}/${endResult === 'win' ? 'success' : 'dead'}.png`}
-            alt={endResult === 'win' ? 'Success' : 'Game over'}
-            className="w-70 md:w-80 object-contain"
-        />
+        <div className="w-50 md:w-80 h-48 md:h-80 flex items-center justify-center">
+          {activeScreen === "screen-end" && (
+              <img
+                  src={`/images/${theme === 'dark' ? 'dark' : 'light'}/${endResult === 'win' ? 'success' : 'dead'}.png`}
+                  alt={endResult === 'win' ? 'Success' : 'Game over'}
+                  className="w-50 md:w-80 object-contain"
+              />
+          )}
+        </div>
 
         <p className={`text-sm font-medium ${endResult === "win" ? "text-[var(--c-surface)]" : "text-[var(--c-text)]"}`}>
           The correct word was

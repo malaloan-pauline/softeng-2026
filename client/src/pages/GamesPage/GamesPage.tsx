@@ -5,28 +5,29 @@ import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
 
 const GAMES = [
   {
-    title: 'Hangman',
+    title: 'Hang’IT',
     description: 'Guess the hidden word letter by letter before the computer crashes. The words are Computer Science related!',
     route: '/games/hangman',
-    emoji: '🔤',
+    path: 'hangman',
+  },
+  {
+    title: 'Tic’IT',
+    description: 'Classic Tic Tac Toe, three in a row. Beat the AI!',
+    route: '/games/tictactoe',
+    path: 'tictactoe',
   },
   {
     title: 'Clicker',
-    description: 'Click as fast as you can and beat the high score.',
+    description: 'Click as fast as you can and beat the high score! Clicking unlocks bonuses...',
     route: '/games/clicker',
-    emoji: '👆',
+    path: 'clicker',
   },
-  {
-    title: 'Tic Tac Toe',
-    description: 'Classic three in a row. Beat the AI!',
-    route: '/games/tictactoe',
-    emoji: '⬜',
-  },
+
   {
     title: 'One Stroke',
     description: 'Draw each puzzle in a single continuous stroke without lifting your pen. Harder than you think...',
     route: '/games/onestroke',
-    emoji: '✏️',
+    path: 'onestroke',
   },
 ];
 
@@ -63,7 +64,18 @@ export default function GamesPage() {
         <div className="games-grid scroll-reveal" ref={gridRef}>
           {GAMES.map((game) => (
             <div className="game-card" key={game.route}>
-              <span className="game-card__emoji" aria-hidden="true">{game.emoji}</span>
+              <div className="game-card__img-wrapper">
+                <img
+                    src={`/images/light/${game.path}.png`}
+                    alt={game.title}
+                    className="game-card__img game-card__img--light"
+                />
+                <img
+                    src={`/images/dark/${game.path}.png`}
+                    alt={game.title}
+                    className="game-card__img game-card__img--dark"
+                />
+              </div>
               <h2 className="game-card__title">{game.title}</h2>
               <p className="game-card__desc">{game.description}</p>
               <button
