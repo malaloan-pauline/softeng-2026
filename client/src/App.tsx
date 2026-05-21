@@ -10,7 +10,7 @@ import GamesPage from './pages/GamesPage/GamesPage';
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import FeedbacksPage from './pages/FeedbacksPage/FeedbacksPage';
 import Topbar from "./components/Topbar/Topbar";
-import UsernameModal from "./user-system/UsernameModal";
+import UsernameModal from "./user-system/Username";
 import "./App.css";
 
 

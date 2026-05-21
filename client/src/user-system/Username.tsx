@@ -25,6 +25,12 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
     if (e.key === 'Enter') handleSubmit();
   }
 
+  function handleGuest() {
+    const digits = Math.floor(1000 + Math.random() * 9000);
+    savePlayer(`Guest_${digits}`);
+    onClose();
+  }
+
   return (
     <div className="username-modal-overlay">
       <div className="username-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -59,6 +65,10 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
           disabled={value.trim().length < 2}
         >
           Let's play!
+        </button>
+
+        <button className="username-modal__guest" onClick={handleGuest}>
+          Continue as Guest
         </button>
       </div>
     </div>

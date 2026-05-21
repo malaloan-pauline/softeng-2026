@@ -7,6 +7,12 @@ import iconDark from '../../assets/icon_light.png';
 import logoDark from '../../assets/name_logo_light.png';
 import sideIconDark from '../../assets/sidebar_dark.png';
 import sideIconLight from '../../assets/sidebar_light.png';
+import ChangeUsernameModal from '../../user-system/ChangeUsername';
+
+function readPseudo(): string | null {
+  const stored = localStorage.getItem('matchit_player');
+  return stored ? (JSON.parse(stored) as { pseudo: string }).pseudo : null;
+}
 
 export default function Topbar() {
   const navigate = useNavigate();
@@ -27,6 +33,9 @@ export default function Topbar() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
+  const [pseudo, setPseudo] = useState<string | null>(readPseudo);
+  const [showChangeModal, setShowChangeModal] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -40,8 +49,22 @@ export default function Topbar() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  useEffect(() => {
+    const refresh = () => setPseudo(readPseudo());
+    window.addEventListener('matchit:player-updated', refresh);
+    return () => window.removeEventListener('matchit:player-updated', refresh);
+  }, []);
+
   return (
     <>
+      {showChangeModal && pseudo !== null && (
+        <ChangeUsernameModal
+          currentPseudo={pseudo}
+          onSave={() => { setPseudo(readPseudo()); setShowChangeModal(false); }}
+          onCancel={() => setShowChangeModal(false)}
+        />
+      )}
+
       {/* SIDEBAR OVERLAY */}
       <div
         className={`sidebar-overlay${sidebarOpen ? ' open' : ''}`}
@@ -114,6 +137,18 @@ export default function Topbar() {
 
         <div className="topbar-right">
           <button className="topbar-btn" onClick={() => navigate('/leaderboard')}>Leaderboard</button>
+          {pseudo !== null && (
+            <button
+              className="topbar-player-pill"
+              onClick={() => setShowChangeModal(true)}
+              title="Change username"
+              aria-label={`Logged in as ${pseudo}. Click to change username.`}
+            >
+              {/*Placeholder until pfp*/}
+              <span className="topbar-player-pill__icon">👤</span>
+              <span className="topbar-player-pill__name">{pseudo}</span>
+            </button>
+          )}
           <button
             className="theme-toggle"
             onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './index.css';
 import confetti from 'canvas-confetti';
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
-import { submitScore } from '../../user-system/submitScore';
+import { submitScore } from '../../user-system/Score';
 
 // Word item interface: represents a word and its definition
 interface WordItem {
