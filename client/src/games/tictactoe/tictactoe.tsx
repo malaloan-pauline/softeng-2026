@@ -233,7 +233,7 @@ export default function TicTacToe() {
       </nav>
 
       <main className="ttt-main">
-        <h1 className="ttt-title">Tict'IT Game</h1>
+        <h1 className="ttt-title">Tict'IT</h1>
 
         {/* scoreboard */}
         <div className="ttt-score">
