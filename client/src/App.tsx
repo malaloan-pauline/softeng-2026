@@ -26,13 +26,13 @@ function App() {
   useEffect(() => {
     const stored = localStorage.getItem('matchit_player');
     if (!stored) return;
-    const { uuid, pseudo } = JSON.parse(stored);
+    const { uuid, pseudo, avatarUrl } = JSON.parse(stored);
 
-    // Silently sync pseudo to database on every app load
+    // Silently sync pseudo and avatarUrl to database on every app load
     fetch('http://localhost:3000/api/leaderboard/player', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ uuid, pseudo }),
+      body: JSON.stringify({ uuid, pseudo, avatarUrl }),
     }).catch(() => {
       // Fail silently, this is a background sync
     });
