@@ -21,22 +21,25 @@ router.get("/", async (req, res) => {
 // POST a new score: adds points to the player's total
 router.post("/", async (req, res) => {
   try {
-    const { pseudo, uuid, game, metric, points } = req.body;
+    const { pseudo, uuid, game, metric, points, avatarUrl } = req.body;
+    const avatar = avatarUrl ?? '/src/assets/users/default.png';
 
-    // Find or create the player
     let player = await prisma.player.findUnique({ where: { uuid } });
     if (!player) {
       player = await prisma.player.create({
-        data: { pseudo, uuid },
+        data: { pseudo, uuid, avatarUrl: avatar },
+      });
+    } else {
+      player = await prisma.player.update({
+        where: { uuid },
+        data: { pseudo, avatarUrl: avatar },
       });
     }
 
-    // Save the individual game score
     const score = await prisma.score.create({
       data: { playerId: player.id, game, metric },
     });
 
-    // Add points to the player's total
     player = await prisma.player.update({
       where: { uuid },
       data: { totalPoints: { increment: points } },
@@ -54,7 +57,7 @@ router.get('/player/:uuid', async (req, res) => {
   try {
     const player = await prisma.player.findUnique({
       where: { uuid: req.params.uuid },
-      select: { id: true, pseudo: true, uuid: true, totalPoints: true, createdAt: true },
+      select: { id: true, pseudo: true, uuid: true, avatarUrl: true, totalPoints: true, createdAt: true },
     });
     if (!player) return res.status(404).json({ error: 'Player not found' });
     res.json(player);
@@ -64,18 +67,20 @@ router.get('/player/:uuid', async (req, res) => {
   }
 });
 
-// PATCH -> update player pseudo by uuid
+// PATCH -> update player pseudo and avatarUrl by uuid
 router.patch('/player', async (req, res) => {
   try {
-    const { uuid, pseudo } = req.body;
+    const { uuid, pseudo, avatarUrl } = req.body;
+    const data = { pseudo };
+    if (avatarUrl) data.avatarUrl = avatarUrl;
     const player = await prisma.player.update({
       where: { uuid },
-      data: { pseudo },
+      data,
     });
     res.json(player);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update username' });
+    res.status(500).json({ error: 'Failed to update player' });
   }
 });
 

@@ -12,6 +12,7 @@ model Player {
   id          Int      @id @default(autoincrement())
   pseudo      String
   uuid        String   @unique
+  avatarUrl   String   @default("/src/assets/users/default.png")
   totalPoints Int      @default(0)
   createdAt   DateTime @default(now())
   scores      Score[]
