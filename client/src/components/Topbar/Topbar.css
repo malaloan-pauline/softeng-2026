@@ -271,6 +271,15 @@
 @media (max-width: 640px) {
     .topbar-center { display: none; }
     .topbar-right .topbar-btn:not(.topbar-btn--filled) { display: none; }
-    .topbar-player-pill__name { display: none; }
-    .topbar-player-pill { padding: 5px 8px; }
+    .topbar-player-pill {
+        padding: 4px 8px;
+        max-width: 100px; /* truncates long names cleanly */
+        font-size: 11px;
+    }
+    .topbar-player-pill__name {
+        display: block; /* ← keep it visible */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
