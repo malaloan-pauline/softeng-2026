@@ -2,7 +2,7 @@ import { useState, useRef  } from "react";
 import { useNavigate } from "react-router-dom";
 import "./tictactoe.css";
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
-import { submitScore } from '../../user-system/Score';
+import { submitScore, syncTotalPoints } from '../../user-system/Score';
 
 type ConfettiParticle = {
   id: number; x: number; color: string;
@@ -205,7 +205,20 @@ export default function TicTacToe() {
     setLastRoundPoints(0);
   }
 
-  function resetPoints() {
+  async function resetPoints() {
+    const stored = localStorage.getItem('matchit_player');
+    if (stored && scoreI > 0) {
+      try {
+        const { uuid } = JSON.parse(stored);
+        const res = await fetch(`http://localhost:3000/api/leaderboard/player/${uuid}`);
+        if (res.ok) {
+          const player = await res.json();
+          await syncTotalPoints(Math.max(0, player.totalPoints - scoreI));
+        }
+      } catch {
+        // fail silently
+      }
+    }
     setScoreI(0);
     setScoreAI(0);
     localStorage.setItem("scoreI", "0");

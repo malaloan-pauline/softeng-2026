@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './index.css';
 import confetti from 'canvas-confetti';
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
-import { submitScore } from '../../user-system/Score';
+import { submitScore, syncTotalPoints } from '../../user-system/Score';
 
 // Word item interface: represents a word and its definition
 interface WordItem {
@@ -463,7 +463,20 @@ export default function Hangman(): React.JSX.Element {
                 </button>
                 <button
                     className="px-5 py-2 rounded-full bg-[var(--c-accent)] text-[var(--c-text)] font-medium text-sm hover:bg-[var(--c-accent)] transition-colors"
-                    onClick={() => {
+                    onClick={async () => {
+                      const stored = localStorage.getItem('matchit_player');
+                      if (stored && score > 0) {
+                        try {
+                          const { uuid } = JSON.parse(stored);
+                          const res = await fetch(`http://localhost:3000/api/leaderboard/player/${uuid}`);
+                          if (res.ok) {
+                            const player = await res.json();
+                            await syncTotalPoints(Math.max(0, player.totalPoints - score));
+                          }
+                        } catch {
+                          // fail silently
+                        }
+                      }
                       setScore(0);
                       setResetModalVisible(false);
                     }}

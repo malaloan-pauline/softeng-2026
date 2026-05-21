@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-import { submitScore } from '../../user-system/Score';
+import { submitScore, syncTotalPoints } from '../../user-system/Score';
 
 type Upgrade = {
   id: number;
@@ -147,7 +147,21 @@ function ClickerGame() {
     return () => clearTimeout(t);
   }, [click]);
 
-  function Restart() {
+  async function Restart() {
+    const stored = localStorage.getItem('matchit_player');
+    if (stored && leaderboardPts > 0) {
+      try {
+        const { uuid } = JSON.parse(stored);
+        const res = await fetch(`http://localhost:3000/api/leaderboard/player/${uuid}`);
+        if (res.ok) {
+          const player = await res.json();
+          const newTotal = Math.max(0, player.totalPoints - leaderboardPts);
+          await syncTotalPoints(newTotal);
+        }
+      } catch {
+        // fail silently
+      }
+    }
     setclick(0);
     setTotalEarned(0);
     setClickPower(1);

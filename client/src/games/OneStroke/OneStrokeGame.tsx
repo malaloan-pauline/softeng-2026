@@ -4,7 +4,7 @@ import confetti from 'canvas-confetti';
 import { levels } from './levels';
 import './OneStrokeGame.css';
 import PuzzleCanvas from './PuzzleCanvas';
-import { submitScore } from '../../user-system/Score';
+import { submitScore, syncTotalPoints } from '../../user-system/Score';
 
 type Screen = 'home' | 'playing' | 'win';
 
@@ -91,10 +91,23 @@ export default function OneStrokeGame() {
     setScreen('home');
   }
 
-  function handleResetPoints() {
-  setLastPointsEarned(0);
-  sessionStorage.setItem('oneStrokePoints', '0');
-  } 
+  async function handleResetPoints() {
+    const stored = localStorage.getItem('matchit_player');
+    if (stored && lastPointsEarned > 0) {
+      try {
+        const { uuid } = JSON.parse(stored);
+        const res = await fetch(`http://localhost:3000/api/leaderboard/player/${uuid}`);
+        if (res.ok) {
+          const player = await res.json();
+          await syncTotalPoints(Math.max(0, player.totalPoints - lastPointsEarned));
+        }
+      } catch {
+        // fail silently
+      }
+    }
+    setLastPointsEarned(0);
+    sessionStorage.setItem('oneStrokePoints', '0');
+  }
 
   function handleNextLevel() {
     const nextIndex = currentLevelIndex + 1;
