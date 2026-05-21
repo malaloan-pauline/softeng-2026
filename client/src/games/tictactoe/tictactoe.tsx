@@ -2,7 +2,7 @@ import { useState, useRef  } from "react";
 import { useNavigate } from "react-router-dom";
 import "./tictactoe.css";
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
-import { submitScore } from '../../user-system/submitScore';
+import { submitScore } from '../../user-system/Score';
 
 type ConfettiParticle = {
   id: number; x: number; color: string;
