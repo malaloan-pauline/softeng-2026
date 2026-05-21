@@ -32,13 +32,24 @@ interface PodiumCardProps {
   place: 1 | 2 | 3;
   player: Player;
   isMe: boolean;
+  myAvatarUrl?: string;
 }
- 
-const PodiumCard: React.FC<PodiumCardProps> = ({ place, player, isMe }) => (
+
+const PodiumCard: React.FC<PodiumCardProps> = ({ place, player, isMe, myAvatarUrl }) => (
   <div className={`pod pod--${place}`}>
     <div className="ring">
-      <div className="rank">{place}</div>
-      <div className="medal" aria-hidden="true">🥇</div>
+      {isMe
+        ? <img
+            src={myAvatarUrl}
+            alt="your avatar"
+            style={{
+              width: '100%', height: '100%',
+              objectFit: 'cover', borderRadius: '50%',
+            }}
+            onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }}
+          />
+        : <div className="rank">{place}</div>
+      }
     </div>
     <div className="name">
       {player.pseudo}
@@ -49,19 +60,24 @@ const PodiumCard: React.FC<PodiumCardProps> = ({ place, player, isMe }) => (
     </div>
   </div>
 );
- 
+
 // List row
 interface ListRowProps {
   place: number;
   player: Player;
   isMe: boolean;
+  myAvatarUrl?: string;
 }
- 
-const ListRow: React.FC<ListRowProps> = ({ place, player, isMe }) => (
+
+const ListRow: React.FC<ListRowProps> = ({ place, player, isMe, myAvatarUrl }) => (
   <div className="row">
     <div className="rank-num">{place}</div>
     <div className="avatar">
-      <span>{initialsFor(player.pseudo)}</span>
+      {isMe
+        ? <img src={myAvatarUrl} alt="your avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }} />
+        : <span>{initialsFor(player.pseudo)}</span>
+      }
+
     </div>
     <div>
       <div className="name">
@@ -86,10 +102,11 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError]     = React.useState<string | null>(null);
  
-  // Resolve current user uuid from prop or localStorage
-  const myUuid = currentUserUuid ?? (typeof window !== 'undefined'
-    ? window.localStorage.getItem('uuid') ?? ''
-    : '');
+  // Resolve current user uuid and avatarUrl from localStorage
+  const stored = localStorage.getItem('matchit_player');
+  const myPlayer = stored ? JSON.parse(stored) : null;
+  const myUuid: string = currentUserUuid ?? myPlayer?.uuid ?? '';
+  const myAvatarUrl: string = myPlayer?.avatarUrl ?? '/src/assets/users/default.png';
  
   // Fetch leaderboard from backend
   React.useEffect(() => {
@@ -165,11 +182,12 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
                 place={(i + 1) as 1 | 2 | 3}
                 player={p}
                 isMe={p.uuid === myUuid}
+                myAvatarUrl={myAvatarUrl}
               />
             ))}
           </section>
         )}
- 
+
         {/* Rest of list */}
         {!loading && !error && rest.length > 0 && (
           <section className="list-card" aria-label="Ranked players">
@@ -179,6 +197,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
                 place={idx + 4}
                 player={p}
                 isMe={p.uuid === myUuid}
+                myAvatarUrl={myAvatarUrl}
               />
             ))}
           </section>

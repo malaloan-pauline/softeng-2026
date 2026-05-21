@@ -257,8 +257,10 @@
 }
 
 .topbar-player-pill__icon {
-    font-size: 13px;
-    line-height: 1;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
     flex-shrink: 0;
 }
 
