@@ -4,7 +4,7 @@ import confetti from 'canvas-confetti';
 import { levels } from './levels';
 import './OneStrokeGame.css';
 import PuzzleCanvas from './PuzzleCanvas';
-import { submitScore } from '../../user-system/submitScore';
+import { submitScore } from '../../user-system/Score';
 
 type Screen = 'home' | 'playing' | 'win';
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-import { submitScore } from '../../user-system/submitScore';
+import { submitScore } from '../../user-system/Score';
 
 type Upgrade = {
   id: number;

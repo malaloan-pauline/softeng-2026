@@ -100,3 +100,50 @@
 .username-modal__submit:not(:disabled):hover {
   background: var(--c-primary-light, #8a9a5e);
 }
+
+.username-modal__guest {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1.5px solid var(--c-border, rgba(114, 135, 81, 0.3));
+  border-radius: var(--r-md, 10px);
+  background: transparent;
+  color: var(--c-muted, #6b6e5a);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.username-modal__guest:hover {
+  border-color: var(--c-muted, #6b6e5a);
+  color: var(--c-text, #1c1f14);
+}
+
+.username-modal__current {
+  font-size: 0.9rem;
+  color: var(--c-muted, #6b6e5a);
+  text-align: center;
+  margin: -0.25rem 0 0;
+}
+
+.username-modal__current strong {
+  color: var(--c-text, #1c1f14);
+}
+
+.username-modal__cancel {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1.5px solid var(--c-border, rgba(114, 135, 81, 0.3));
+  border-radius: var(--r-md, 10px);
+  background: transparent;
+  color: var(--c-muted, #6b6e5a);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.username-modal__cancel:hover {
+  border-color: var(--c-muted, #6b6e5a);
+  color: var(--c-text, #1c1f14);
+}
