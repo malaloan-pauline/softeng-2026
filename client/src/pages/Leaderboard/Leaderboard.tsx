@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './index.css';
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
+import { API_URL } from '../../config/api';
  
 export interface Player {
   id: number;
@@ -100,7 +101,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
   React.useEffect(() => {
     async function fetchLeaderboard() {
       try {
-        const res = await fetch('http://localhost:3000/api/leaderboard');
+        const res = await fetch(`${API_URL}/api/leaderboard`);
         if (!res.ok) throw new Error('Failed to fetch leaderboard');
         const data: Player[] = await res.json();
         // Sort by totalPoints descending (backend already does this, but ensuring)
