@@ -95,6 +95,11 @@ export default function OneStrokeGame() {
     setScreen('home');
   }
 
+  function handleResetPoints() {
+  setLastPointsEarned(0);
+  sessionStorage.setItem('oneStrokePoints', '0');
+  } 
+
   function handleNextLevel() {
     const nextIndex = currentLevelIndex + 1;
 
@@ -112,6 +117,12 @@ export default function OneStrokeGame() {
 
   return (
     <div className="game-container">
+      <div className="points-panel">
+            <div className="points-box">
+            Total points : {lastPointsEarned} 
+            </div>
+      </div>
+
       {screen === 'home' && (
         <>
           <button className="btn-back-menu" onClick={() => navigate('/games')}>
@@ -119,9 +130,13 @@ export default function OneStrokeGame() {
           </button>
           <HomeScreen onSelectLevel={handleSelectLevel} />
 
-          <div className="points-box">
-            You earned {lastPointsEarned} points 
-          </div>
+            <button
+              type="button"
+              className="reset-points-button reset-points-floating"
+              onClick={handleResetPoints}
+            >
+              Reset points
+            </button>
         </>
         
       )}
@@ -153,6 +168,7 @@ export default function OneStrokeGame() {
         <WinScreen
           levelName={currentLevel.difficulty}
           elapsedTime={elapsedTime}
+          pointsEarned={getPointsForDifficulty(currentLevel.difficulty)}
           isLastLevel={currentLevelIndex === levels.length - 1}
           onNext={handleNextLevel}
           onHome={handleBackHome}
@@ -193,6 +209,7 @@ function HomeScreen({ onSelectLevel }: HomeScreenProps) {
 interface WinScreenProps {
   levelName: string;
   elapsedTime: number;
+  pointsEarned: number;
   isLastLevel: boolean;
   onNext: () => void;
   onHome: () => void;
@@ -201,6 +218,7 @@ interface WinScreenProps {
 function WinScreen({
   levelName,
   elapsedTime,
+  pointsEarned,
   isLastLevel,
   onNext,
   onHome,
@@ -229,6 +247,7 @@ function WinScreen({
       <p>
         You completed level <strong>{levelName}</strong> in {formatTime(elapsedTime)}!
       </p>
+      <p className="win-points">You won {pointsEarned} points !!</p>
 
       <div className="win-buttons">
         {!isLastLevel && (
@@ -237,7 +256,7 @@ function WinScreen({
           </button>
         )}
         <button className="btn btn-secondary" onClick={onHome}>
-          ← Level Select
+          ← Select Level
         </button>
       </div>
     </div>
