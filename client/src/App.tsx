@@ -1,120 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
+import Hangman from "./games/hangman/index";
+import OneStrokeGame from "./games/OneStroke/OneStrokeGame";
+import ClickerGame from "./games/clicker/ClickerGame";
+import TicTacToe from "./games/tictactoe/tictactoe";
+import Quiz from './pages/Quiz/Quiz'
+import GamesPage from './pages/GamesPage/GamesPage';
+import Leaderboard from "./pages/Leaderboard/Leaderboard";
+import FeedbacksPage from './pages/FeedbacksPage/FeedbacksPage';
+import Topbar from "./components/Topbar/Topbar";
+import UsernameModal from "./user-system/Username";
+import "./App.css";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem('matchit_player')) {
+      setShowModal(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('matchit_player');
+    if (!stored) return;
+    const { uuid, pseudo, avatarUrl } = JSON.parse(stored);
+
+    // Silently sync pseudo and avatarUrl to database on every app load
+    fetch('http://localhost:3000/api/leaderboard/player', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ uuid, pseudo, avatarUrl }),
+    }).catch(() => {
+      // Fail silently, this is a background sync
+    });
+  }, []);
 
   return (
-      <>
-        <section id="center">
-          <div className="hero">
-            <img src={heroImg} className="base" width="170" height="179" alt="" />
-            <img src={reactLogo} className="framework" alt="React logo" />
-            <img src={viteLogo} className="vite" alt="Vite logo" />
-          </div>
-          <div>
-            <h1>Get started</h1>
-            <p>
-              Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-            </p>
-          </div>
-          <button
-              className="counter"
-              onClick={() => setCount((count) => count + 1)}
-          >
-            Count is {count}
-          </button>
-        </section>
-
-        <div className="ticks"></div>
-
-        <section id="next-steps">
-          <div id="docs">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#documentation-icon"></use>
-            </svg>
-            <h2>Documentation</h2>
-            <p>Your questions, answered</p>
-            <ul>
-              <li>
-                <a href="https://vite.dev/" target="_blank">
-                  <img className="logo" src={viteLogo} alt="" />
-                  Explore Vite
-                </a>
-              </li>
-              <li>
-                <a href="https://react.dev/" target="_blank">
-                  <img className="button-icon" src={reactLogo} alt="" />
-                  Learn more
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div id="social">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#social-icon"></use>
-            </svg>
-            <h2>Connect with us</h2>
-            <p>Join the Vite community</p>
-            <ul>
-              <li>
-                <a href="https://github.com/vitejs/vite" target="_blank">
-                  <svg
-                      className="button-icon"
-                      role="presentation"
-                      aria-hidden="true"
-                  >
-                    <use href="/icons.svg#github-icon"></use>
-                  </svg>
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://chat.vite.dev/" target="_blank">
-                  <svg
-                      className="button-icon"
-                      role="presentation"
-                      aria-hidden="true"
-                  >
-                    <use href="/icons.svg#discord-icon"></use>
-                  </svg>
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a href="https://x.com/vite_js" target="_blank">
-                  <svg
-                      className="button-icon"
-                      role="presentation"
-                      aria-hidden="true"
-                  >
-                    <use href="/icons.svg#x-icon"></use>
-                  </svg>
-                  X.com
-                </a>
-              </li>
-              <li>
-                <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                  <svg
-                      className="button-icon"
-                      role="presentation"
-                      aria-hidden="true"
-                  >
-                    <use href="/icons.svg#bluesky-icon"></use>
-                  </svg>
-                  Bluesky
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <div className="ticks"></div>
-        <section id="spacer"></section>
-      </>
+    <BrowserRouter>
+      {showModal && <UsernameModal onClose={() => setShowModal(false)} />}
+      <Topbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/games" element={<GamesPage />} />
+        <Route path="/quiz" element={<Quiz/>} />
+        <Route path="/feedback" element={<FeedbacksPage />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/games/hangman" element={<Hangman />} />
+        <Route path="/games/tictactoe" element={<TicTacToe />} />
+        <Route path="/games/clicker" element={<ClickerGame />} />
+        <Route path="/games/onestroke" element={<OneStrokeGame />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

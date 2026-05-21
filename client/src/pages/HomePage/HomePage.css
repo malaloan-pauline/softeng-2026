@@ -1,0 +1,386 @@
+.home-page,
+.home-page *,
+.home-page *::before,
+.home-page *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.home-page {
+    position: relative;
+    min-height: 100dvh;
+    background: var(--c-bg);
+    font-family: var(--font-body);
+    color: var(--c-text);
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   HALOS DE FOND
+   ============================================================ */
+.bg-halos {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.halo {
+    position: absolute;
+    filter: blur(65px);
+}
+
+/* --- HALO VERT HAUT GAUCHE --- */
+.halo-green {
+    width: 1000px; height: 700px;
+    background: radial-gradient(circle, rgba(210, 225, 160, 0.65) 0%, transparent 65%);
+    top: -200px; left: -60px;
+    border-radius: 55% 45% 62% 38% / 48% 58% 42% 62%;
+}
+
+.halo-green::before {
+    content: '';
+    position: absolute;
+    width: 340px; height: 300px;
+    background: radial-gradient(circle, rgba(178, 200, 110, 0.5) 0%, transparent 65%);
+    top: 100px; left: 140px;
+    border-radius: 42% 58% 38% 62% / 62% 38% 68% 32%;
+    filter: blur(55px);
+}
+
+.halo-green::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 250px;
+    background: radial-gradient(circle, rgba(200, 220, 140, 0.45) 0%, transparent 60%);
+    top: -60px; left: 320px;
+    border-radius: 68% 32% 52% 48% / 35% 65% 38% 62%;
+    filter: blur(50px);
+}
+
+/* --- HALO ROSE HAUT DROIT --- */
+.halo-pink {
+    width: 1000px; height: 650px;
+    background: radial-gradient(circle, rgba(255, 100, 160, 0.42) 0%, transparent 63%);
+    top: -40px; right: -60px;
+    border-radius: 48% 52% 38% 62% / 60% 42% 58% 40%;
+}
+
+.halo-pink::before {
+    content: '';
+    position: absolute;
+    width: 350px; height: 300px;
+    background: radial-gradient(circle, rgba(255, 80,  150, 0.35) 0%, transparent 65%);
+    top: 120px; right: 60px;
+    left: -40px;
+    border-radius: 60% 40% 68% 32% / 40% 62% 35% 68%;
+    filter: blur(60px);
+}
+
+.halo-pink::after {
+    content: '';
+    position: absolute;
+    width: 250px; height: 200px;
+    background: radial-gradient(circle, rgba(244, 150, 190, 0.4) 0%, transparent 60%);
+    top: -40px; left: -60px;
+    border-radius: 35% 65% 58% 42% / 65% 35% 62% 38%;
+    filter: blur(45px);
+}
+
+/* --- HALO VERT BAS CENTRE --- */
+.halo-green-bottom {
+    width: 500px; height: 700px;
+    background: radial-gradient(circle, rgba(190, 215, 130, 0.38) 0%, transparent 68%);
+    bottom: -300px; left: 30%;
+    border-radius: 62% 38% 45% 55% / 42% 58% 48% 52%;
+}
+
+.halo-green-bottom::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 350px;
+    background: radial-gradient(circle, rgba(178, 200, 120, 0.35) 0%, transparent 65%);
+    top: -60px; left: 160px;
+    border-radius: 38% 62% 55% 45% / 58% 40% 62% 38%;
+    filter: blur(55px);
+}
+
+.halo-green-bottom::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 200px;
+    background: radial-gradient(circle, rgba(200, 218, 140, 0.3) 0%, transparent 60%);
+    top: 50px; left: -80px;
+    border-radius: 52% 48% 38% 62% / 45% 62% 38% 58%;
+    filter: blur(50px);
+}
+
+/* ============================================================
+   MOBILE BOTTOM NAV
+   ============================================================ */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 30;
+    height: var(--mobile-nav-h);
+    background: rgba(253, 248, 238, 0.92);
+    backdrop-filter: blur(12px);
+    border-top: 0.5px solid var(--c-border);
+    justify-content: space-around;
+    align-items: center;
+}
+
+[data-theme="dark"] .mobile-nav { background: rgba(30, 29, 18, 0.92); }
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    color: var(--c-muted);
+    padding: 6px 16px;
+    border-radius: var(--r-md);
+    transition: color 0.15s;
+}
+.mobile-nav-item span { font-family: var(--font-body); font-size: 10px; }
+.mobile-nav-item--home { color: var(--c-primary); font-weight: 600; }
+
+@media (max-width: 640px) {
+    .mobile-nav { display: flex; }
+}
+
+/* ============================================================
+   PAGE CONTENT
+   ============================================================ */
+.page-content {
+    position: relative;
+    z-index: 1;
+    padding-top: var(--topbar-h);
+    padding-bottom: calc(var(--mobile-nav-h) + 16px);
+}
+
+@media (min-width: 641px) {
+    .page-content { padding-bottom: 32px; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero-section {
+    text-align: center;
+    padding: 64px 40px 48px;
+}
+
+.animate-in {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: var(--delay, 0ms);
+}
+
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--c-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(114, 135, 81, 0.1);
+    padding: 4px 14px;
+    border-radius: var(--r-xl);
+    margin-bottom: 24px;
+}
+
+.hero-title {
+    margin: 0 0 18px;
+    line-height: 1;
+}
+
+.hero-icon {
+    height: 200px;
+    width: auto;
+    display: block;
+    margin: 0 auto 12px;
+}
+
+/* Theme-based icon switching via CSS (double-class for specificity over .hero-icon/.hero-logo) */
+.hero-icon.hero-icon--dark  { display: none; }
+.hero-logo.hero-logo--dark  { display: none; }
+[data-theme="dark"] .hero-icon.hero-icon--light { display: none; }
+[data-theme="dark"] .hero-icon.hero-icon--dark  { display: block; }
+[data-theme="dark"] .hero-logo.hero-logo--light { display: none; }
+[data-theme="dark"] .hero-logo.hero-logo--dark  { display: block; }
+
+.hero-logo {
+    height: 70px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.hero-sub {
+    font-size: 15px;
+    color: var(--c-muted);
+    max-width: 380px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 11px 26px;
+    border-radius: var(--r-xl);
+    border: 0.5px solid var(--c-border);
+    background: var(--c-surface);
+    color: var(--c-text);
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.15s;
+}
+.cta-btn:hover {
+    background: rgba(178, 187, 123, 0.25);
+    border-color: var(--c-primary-lighter);
+}
+.cta-btn--primary {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+    color: #fff;
+}
+.cta-btn--primary:hover { background: var(--c-primary-light); }
+
+.cta-btn--accent {
+    background: var(--c-accent);
+    border-color: var(--c-accent);
+    color: var(--c-accent-text);
+}
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+.divider {
+    height: 0.5px;
+    background: var(--c-border);
+    margin: 0 40px;
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================
+   FEEDBACKS
+   ============================================================ */
+.feedbacks-section { padding: 40px 40px; }
+
+.section-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--c-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.feedback-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.feedback-card {
+    background: var(--c-surface);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 16px 14px 14px;
+    transition: box-shadow 0.15s;
+}
+.feedback-card:hover { box-shadow: 0 4px 16px rgba(114, 135, 81, 0.1); }
+
+.feedback-accent-bar {
+    width: 22px; height: 3px;
+    background: var(--c-accent);
+    border-radius: 2px;
+    margin-bottom: 8px;
+}
+
+.feedback-stars {
+    color: var(--c-primary-light);
+    font-size: 12px;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+}
+
+.feedback-text {
+    font-size: 13px;
+    color: var(--c-text);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.feedback-author {
+    font-size: 11px;
+    color: var(--c-muted);
+    font-weight: 500;
+}
+
+.feedback-anon-tag {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--c-eyebrow-text);
+    background: rgba(114, 135, 81, 0.1);
+    padding: 1px 7px;
+    border-radius: var(--r-xl);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: 6px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.page-footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--c-muted);
+    padding: 16px 0 12px;
+    border-top: 0.5px solid var(--c-border);
+    margin: 0 40px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+    .hero-section      { padding: 48px 24px 36px; }
+    .hero-logo         { height: 56px; }
+    .feedbacks-section { padding: 32px 24px; }
+    .divider           { margin: 0 24px; }
+    .page-footer       { margin: 0 24px; }
+}

@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js"
+    "dev": "npx prisma generate && npx prisma migrate deploy && node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "express": "^5.2.1"
+    "@prisma/client": "^5.22.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "prisma": "^5.22.0"
   }
 }
