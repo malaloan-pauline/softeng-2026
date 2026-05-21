@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
+import { submitScore } from '../../user-system/Score';
 
 type Upgrade = {
   id: number;
@@ -106,6 +107,7 @@ function ClickerGame() {
           sessionStorage.setItem('clicker-lb-pts', String(next));
           return next;
         });
+        submitScore({ game: 'clicker', metric: recent, points: tier.points });
       }
     }
   }

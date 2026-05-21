@@ -7,6 +7,19 @@ import iconDark from '../../assets/icon_light.png';
 import logoDark from '../../assets/name_logo_light.png';
 import sideIconDark from '../../assets/sidebar_dark.png';
 import sideIconLight from '../../assets/sidebar_light.png';
+import ProfileModal from '../../user-system/ProfileModal';
+
+function readPseudo(): string | null {
+  const stored = localStorage.getItem('matchit_player');
+  return stored ? (JSON.parse(stored) as { pseudo: string }).pseudo : null;
+}
+
+function readAvatarUrl(): string {
+  const stored = localStorage.getItem('matchit_player');
+  return stored
+    ? ((JSON.parse(stored) as { avatarUrl?: string }).avatarUrl ?? '/src/assets/users/default.png')
+    : '/src/assets/users/default.png';
+}
 
 export default function Topbar() {
   const navigate = useNavigate();
@@ -27,6 +40,11 @@ export default function Topbar() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
+  const [pseudo, setPseudo] = useState<string | null>(readPseudo);
+  const [avatarUrl, setAvatarUrl] = useState<string>(readAvatarUrl);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const pillRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -40,8 +58,23 @@ export default function Topbar() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  useEffect(() => {
+    const refresh = () => { setPseudo(readPseudo()); setAvatarUrl(readAvatarUrl()); };
+    window.addEventListener('matchit:player-updated', refresh);
+    return () => window.removeEventListener('matchit:player-updated', refresh);
+  }, []);
+
+  function closeProfile() {
+    setShowProfileModal(false);
+    pillRef.current?.focus();
+  }
+
   return (
     <>
+      {showProfileModal && (
+        <ProfileModal onClose={closeProfile} />
+      )}
+
       {/* SIDEBAR OVERLAY */}
       <div
         className={`sidebar-overlay${sidebarOpen ? ' open' : ''}`}
@@ -67,7 +100,6 @@ export default function Topbar() {
           className="sidebar-item sidebar-item--primary"
           onClick={() => { navigate('/'); setSidebarOpen(false); }}
         >
-
           <span className="sidebar-item-icon">🏠</span>
           <span className="sidebar-item-title">Match IT</span>
           <span className="sidebar-item-sub">Home Page</span>
@@ -85,10 +117,10 @@ export default function Topbar() {
 
         <div className="sidebar-footer">
           <img
-              src={theme === 'dark' ? sideIconDark : sideIconLight}
-              alt=""
-              className="sidebar-footer-logo"
-              aria-hidden="true"
+            src={theme === 'dark' ? sideIconDark : sideIconLight}
+            alt=""
+            className="sidebar-footer-logo"
+            aria-hidden="true"
           />
         </div>
       </aside>
@@ -114,6 +146,23 @@ export default function Topbar() {
 
         <div className="topbar-right">
           <button className="topbar-btn" onClick={() => navigate('/leaderboard')}>Leaderboard</button>
+          {pseudo !== null && (
+            <button
+              ref={pillRef}
+              className="topbar-player-pill"
+              onClick={() => setShowProfileModal(true)}
+              title="View profile"
+              aria-label={`Logged in as ${pseudo}. Click to view profile.`}
+            >
+              <img
+                src={avatarUrl}
+                alt={pseudo ?? 'avatar'}
+                style={{ width: 20, height: 20, borderRadius: '50%', objectFit: 'cover' }}
+                onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }}
+              />
+              <span className="topbar-player-pill__name">{pseudo}</span>
+            </button>
+          )}
           <button
             className="theme-toggle"
             onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}

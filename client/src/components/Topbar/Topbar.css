@@ -142,6 +142,7 @@
     margin-left: -8px;
     border-radius: var(--r-md);
     transition: background 0.15s;
+    flex: 1;
 }
 .topbar-logo:hover { background: rgba(114, 135, 81, 0.08); }
 
@@ -190,6 +191,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex: 1; 
+    justify-content: flex-end; 
 }
 
 .topbar-btn {
@@ -233,7 +236,52 @@
 }
 .theme-toggle:hover { background: rgba(114, 135, 81, 0.08); }
 
+.topbar-player-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px 5px 8px;
+    border-radius: var(--r-xl);
+    border: 0.5px solid var(--c-border);
+    background: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--c-text);
+    transition: background 0.15s;
+    max-width: 130px;
+}
+
+.topbar-player-pill:hover {
+    background: rgba(114, 135, 81, 0.08);
+}
+
+.topbar-player-pill__icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.topbar-player-pill__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 @media (max-width: 640px) {
     .topbar-center { display: none; }
     .topbar-right .topbar-btn:not(.topbar-btn--filled) { display: none; }
+    .topbar-player-pill {
+        padding: 4px 8px;
+        max-width: 100px; /* truncates long names cleanly */
+        font-size: 11px;
+    }
+    .topbar-player-pill__name {
+        display: block; /* ← keep it visible */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }

@@ -2,6 +2,7 @@ import { useState, useRef  } from "react";
 import { useNavigate } from "react-router-dom";
 import "./tictactoe.css";
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
+import { submitScore } from '../../user-system/Score';
 
 type ConfettiParticle = {
   id: number; x: number; color: string;
@@ -97,12 +98,14 @@ export default function TicTacToe() {
         updateScore("I", 2);
         setShowPopup(true);
         spawnConfetti();
+        submitScore({ game: 'tictactoe', metric: 1, points: 2 });
       } else if (result === "tie") {
         setLastRoundPoints(1);
         updateScore("I", 1);
         updateScore("T", 1);
         setMessage("It's a tie!");
         setShowPopup(true);
+        submitScore({ game: 'tictactoe', metric: 0, points: 1 });
       }
       return;
     }
@@ -131,6 +134,7 @@ export default function TicTacToe() {
             setLastRoundPoints(0);
             setMessage("AI won!");
             setShowPopup(true);
+            submitScore({ game: 'tictactoe', metric: 0, points: 0 });
           } else if (result === "I") {
             setLastRoundPoints(2);
             updateScore("I", 2);
@@ -141,6 +145,7 @@ export default function TicTacToe() {
             updateScore("T", 1);
             setMessage("It's a tie!");
             setShowPopup(true);
+            submitScore({ game: 'tictactoe', metric: 0, points: 1 });
           }
           return;
         }
@@ -170,6 +175,7 @@ export default function TicTacToe() {
         setLastRoundPoints(0);
         setMessage("AI won!");
         setShowPopup(true);
+        submitScore({ game: 'tictactoe', metric: 0, points: 0 });
       } else if (result === "I") {
         setLastRoundPoints(2);
         updateScore("I", 2);
@@ -180,6 +186,7 @@ export default function TicTacToe() {
         updateScore("T", 1);
         setMessage("It's a tie!");
         setShowPopup(true);
+        submitScore({ game: 'tictactoe', metric: 0, points: 1 });
       }
       return;
     }

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './index.css';
 import confetti from 'canvas-confetti';
 import BackgroundHalos from '../../components/BackgroundHalos/BackgroundHalos';
+import { submitScore } from '../../user-system/Score';
 
 // Word item interface: represents a word and its definition
 interface WordItem {
@@ -292,6 +293,7 @@ export default function Hangman(): React.JSX.Element {
       setActiveScreen("screen-end");
       setEndResult("win");
       setGameActive(false);
+      submitScore({ game: 'hangman', metric: MAX_ATTEMPTS - errors, points: points + bonus });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guessedLetters]);
@@ -310,6 +312,7 @@ export default function Hangman(): React.JSX.Element {
       setActiveScreen("screen-end");
       setEndResult("loss");
       setGameActive(false);
+      submitScore({ game: 'hangman', metric: 0, points: 0 });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors]);
