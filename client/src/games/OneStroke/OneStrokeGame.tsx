@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../../config/api';
 import { useNavigate } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 import { levels } from './levels';
@@ -96,7 +97,7 @@ export default function OneStrokeGame() {
     if (stored && lastPointsEarned > 0) {
       try {
         const { uuid } = JSON.parse(stored);
-        const res = await fetch(`http://localhost:3000/api/leaderboard/player/${uuid}`);
+        const res = await fetch(`${API_URL}/api/leaderboard/player/${uuid}`);
         if (res.ok) {
           const player = await res.json();
           await syncTotalPoints(Math.max(0, player.totalPoints - lastPointsEarned));

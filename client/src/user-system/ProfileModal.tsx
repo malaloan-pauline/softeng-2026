@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Player } from './usePlayer';
 import './ProfileModal.css';
+import { API_URL } from '../config/api';
 
 interface PlayerStats {
   totalPoints: number;
@@ -35,7 +36,7 @@ export default function ProfileModal({ onClose }: ProfileModalProps) {
   useEffect(() => {
     if (!player?.uuid) { setLoading(false); return; }
 
-    fetch(`http://localhost:3000/api/leaderboard/player/${player.uuid}`)
+    fetch(`${API_URL}/api/leaderboard/player/${player.uuid}`)
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<PlayerStats>;

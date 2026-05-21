@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { API_URL } from './config/api';
 import HomePage from "./pages/HomePage/HomePage";
 import Hangman from "./games/hangman/index";
 import OneStrokeGame from "./games/OneStroke/OneStrokeGame";
@@ -29,7 +30,7 @@ function App() {
     const { uuid, pseudo, avatarUrl } = JSON.parse(stored);
 
     // Silently sync pseudo and avatarUrl to database on every app load
-    fetch('http://localhost:3000/api/leaderboard/player', {
+    fetch(`${API_URL}/api/leaderboard/player`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ uuid, pseudo, avatarUrl }),

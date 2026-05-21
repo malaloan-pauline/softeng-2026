@@ -1,4 +1,5 @@
 import type { Player } from './usePlayer';
+import { API_URL } from '../config/api';
 
 export type Game = 'clicker' | 'hangman' | 'tictactoe' | 'onestroke';
 
@@ -9,7 +10,7 @@ export async function syncTotalPoints(totalPoints: number): Promise<void> {
   if (!stored) return;
   const { uuid } = JSON.parse(stored);
   try {
-    await fetch('http://localhost:3000/api/leaderboard/player/points', {
+    await fetch(`${API_URL}/api/leaderboard/player/points`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ uuid, totalPoints }),
@@ -32,7 +33,7 @@ export async function submitScore({ game, metric, points }: SubmitScorePayload):
   try {
     const { uuid, pseudo, avatarUrl }: Player = JSON.parse(stored);
 
-    const res = await fetch('http://localhost:3000/api/leaderboard', {
+    const res = await fetch(`${API_URL}/api/leaderboard`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ uuid, pseudo, avatarUrl, game, metric, points }),
