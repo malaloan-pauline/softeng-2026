@@ -144,6 +144,18 @@ export default function Quiz() {
           <span className="quiz-eyebrow">Are you and IT a match ?</span>
           <h1 className="intro-title">IT Match Quiz</h1>
           <h2>What's your ideal BINFO course match?</h2>
+          <img
+              src="/images/light/quiz.png"
+              alt=""
+              className="quiz-intro-img quiz-intro-img--light"
+              aria-hidden="true"
+          />
+          <img
+              src="/images/dark/quiz.png"
+              alt=""
+              className="quiz-intro-img quiz-intro-img--dark"
+              aria-hidden="true"
+          />
           <p className="intro-subtitle">
             Swipe right if you like it, left if you don't.<br />
             We'll match you to your perfect BINFO subjects.

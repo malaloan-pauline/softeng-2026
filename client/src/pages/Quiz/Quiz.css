@@ -1,3 +1,9 @@
+.intro-screen,
+.quiz-screen,
+.results-screen {
+  position: relative;
+  z-index: 1;
+}
 /* ── CONTAINER ── */
 
 .quiz-container {
@@ -167,6 +173,16 @@
   padding: 2.5rem 1.5rem;
 }
 
+.quiz-intro-img {
+  height: 300px;
+  width: auto;
+  object-fit: contain;
+}
+
+.quiz-intro-img--dark { display: none; }
+[data-theme="dark"] .quiz-intro-img--light { display: none; }
+[data-theme="dark"] .quiz-intro-img--dark  { display: block; }
+
 .quiz-eyebrow {
   display: inline-block;
   font-size: 0.75rem;
@@ -181,7 +197,7 @@
 }
 
 .intro-title {
-  font-family: var(--font-display);
+  font-family: "Stack Sans Notch";
   font-size: clamp(2.5rem, 6vw, 4rem);
   color: var(--c-title);
   letter-spacing: 0.02em;

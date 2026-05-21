@@ -45,27 +45,6 @@ body {
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Mickle';
-    src: url('/fonts/mickle.ttf') format('truetype');
-    font-weight: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Starborn';
-    src: url('/fonts/starborn.ttf') format('truetype');
-    font-weight: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'HeyComic';
-    src: url('/fonts/heycomic.ttf') format('truetype');
-    font-weight: normal;
-    font-display: swap;
-}
-
 /*-------animations--------*/
 
 /*-----screen shake----*/
