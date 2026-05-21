@@ -141,19 +141,14 @@
 }
  
 .leaderboard-root .pod .ring {
-  position: relative;
+  position: relative; 
   border-radius: var(--r-xl);
   background: var(--card);
   border: 3px solid var(--card-edge);
   box-shadow: var(--lb-shadow);
-  display: grid; place-items: center;
-  overflow: hidden;
-}
- 
-.leaderboard-root .pod .ring::after {
-  content: ""; position: absolute; inset: 0;
-  background: repeating-linear-gradient(45deg, transparent 0 10px, rgba(255,255,255,.06) 10px 20px);
-  pointer-events: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden; 
 }
  
 .leaderboard-root .pod .rank {
@@ -194,17 +189,6 @@
 .leaderboard-root .pod--2 .rank { font-size: 70px; }
 .leaderboard-root .pod--3 .ring { width: 106px; height: 106px; }
 .leaderboard-root .pod--3 .rank { font-size: 58px; }
- 
-.leaderboard-root .pod .medal {
-  position: absolute; top: -8px; right: -8px;
-  width: 36px; height: 36px; border-radius: var(--r-xl);
-  display: grid; place-items: center;
-  box-shadow: 0 4px 10px -2px rgba(0,0,0,.25);
-  z-index: 2;
-}
-.leaderboard-root .pod--1 .medal { background: var(--gold);   color: #5a3a00; }
-.leaderboard-root .pod--2 .medal { background: var(--silver); color: #3a3a3a; }
-.leaderboard-root .pod--3 .medal { background: var(--bronze); color: #fff; }
  
 .leaderboard-root .pod--1 { order: 2; }
 .leaderboard-root .pod--2 { order: 1; }
@@ -292,6 +276,24 @@
 .leaderboard-root .float-trophy .v {
   font-weight: 800; color: var(--c-primary);
   font-size: 11px; margin-top: 2px;
+}
+
+.leaderboard-root .pod-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--r-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.leaderboard-root .row-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--r-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .leaderboard-root footer {

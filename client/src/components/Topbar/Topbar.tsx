@@ -14,6 +14,13 @@ function readPseudo(): string | null {
   return stored ? (JSON.parse(stored) as { pseudo: string }).pseudo : null;
 }
 
+function readAvatarUrl(): string {
+  const stored = localStorage.getItem('matchit_player');
+  return stored
+    ? ((JSON.parse(stored) as { avatarUrl?: string }).avatarUrl ?? '/src/assets/users/default.png')
+    : '/src/assets/users/default.png';
+}
+
 export default function Topbar() {
   const navigate = useNavigate();
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
@@ -35,6 +42,7 @@ export default function Topbar() {
   }, []);
   
   const [pseudo, setPseudo] = useState<string | null>(readPseudo);
+  const [avatarUrl, setAvatarUrl] = useState<string>(readAvatarUrl);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const pillRef = useRef<HTMLButtonElement>(null);
 
@@ -51,7 +59,7 @@ export default function Topbar() {
   }, []);
 
   useEffect(() => {
-    const refresh = () => setPseudo(readPseudo());
+    const refresh = () => { setPseudo(readPseudo()); setAvatarUrl(readAvatarUrl()); };
     window.addEventListener('matchit:player-updated', refresh);
     return () => window.removeEventListener('matchit:player-updated', refresh);
   }, []);
@@ -146,8 +154,12 @@ export default function Topbar() {
               title="View profile"
               aria-label={`Logged in as ${pseudo}. Click to view profile.`}
             >
-              {/* Placeholder until profile picture feature */}
-              <span className="topbar-player-pill__icon">👤</span>
+              <img
+                src={avatarUrl}
+                alt={pseudo ?? 'avatar'}
+                style={{ width: 20, height: 20, borderRadius: '50%', objectFit: 'cover' }}
+                onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }}
+              />
               <span className="topbar-player-pill__name">{pseudo}</span>
             </button>
           )}

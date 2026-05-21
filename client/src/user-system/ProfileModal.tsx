@@ -14,6 +14,8 @@ interface ProfileModalProps {
 export default function ProfileModal({ onClose }: ProfileModalProps) {
   const stored = localStorage.getItem('matchit_player');
   const player: Player | null = stored ? JSON.parse(stored) : null;
+  const avatarUrl = player?.avatarUrl ?? '/src/assets/users/default.png';
+  console.log('avatarUrl:', avatarUrl);
 
   const [stats, setStats] = useState<PlayerStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -65,12 +67,13 @@ export default function ProfileModal({ onClose }: ProfileModalProps) {
           ✕
         </button>
 
-        {/* ─── Profile picture placeholder ────────────────────────────────────────
-            replace this div with an avatar <img> or <input type="file">.
-            Upload the file, get back a URL, and store it in avatarUrl on the Player
-            object in localStorage (see usePlayer.ts). Display it here as a round image.
-            ──────────────────────────────────────────────────────────────────────── */}
-        <div className="profile-modal__avatar" aria-hidden="true">👤</div>
+        <img
+          className="profile-modal__avatar"
+          src={avatarUrl}
+          alt=""
+          aria-hidden="true"
+          onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }}
+        />
 
         <h2 id="profile-modal-title" className="profile-modal__name">
           {player?.pseudo ?? 'Unknown player'}
