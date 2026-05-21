@@ -18,14 +18,14 @@ const GAMES = [
   },
   {
     title: 'Clicker',
-    description: 'Click as fast as you can and beat the high score! Clicking unlocks bonuses...',
+    description: 'Click as fast as you can and beat the high score! Clicking unlocks bonuses ;3c',
     route: '/games/clicker',
     path: 'clicker',
   },
 
   {
     title: 'One Stroke',
-    description: 'Draw each puzzle in a single continuous stroke without lifting your pen. Harder than you think...',
+    description: 'Draw each puzzle in a single continuous stroke. Harder than you think...',
     route: '/games/onestroke',
     path: 'onestroke',
   },
