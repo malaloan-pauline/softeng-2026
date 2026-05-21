@@ -54,6 +54,14 @@
   transition: background-color .35s ease, color .35s ease;
 }
  
+.leaderboard-root .chrome,
+.leaderboard-root main,
+.leaderboard-root footer,
+.leaderboard-root .float-trophy {
+  position: relative;
+  z-index: 1;
+}
+
 .leaderboard-root .chrome {
   position: sticky;
   top: var(--topbar-h, 54px); /* sits below the navbar */

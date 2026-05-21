@@ -15,6 +15,14 @@
 }
 
 
+.ttt-navbar,
+.ttt-main,
+.ttt-footer {
+    position: relative;
+    z-index: 1;
+}
+
+
 /* -------top nav bar-------- */
 
 .ttt-navbar {
