@@ -55,7 +55,6 @@ router.get("/", async (req, res) => {
   try {
     const players = await prisma.player.findMany({
       orderBy: { totalPoints: "desc" },
-      take: 3,
     });
     res.json(players);
   } catch (error) {
