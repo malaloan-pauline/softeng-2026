@@ -7,7 +7,7 @@ import iconDark from '../../assets/icon_light.png';
 import logoDark from '../../assets/name_logo_light.png';
 import sideIconDark from '../../assets/sidebar_dark.png';
 import sideIconLight from '../../assets/sidebar_light.png';
-import ChangeUsernameModal from '../../user-system/ChangeUsername';
+import ProfileModal from '../../user-system/ProfileModal';
 
 function readPseudo(): string | null {
   const stored = localStorage.getItem('matchit_player');
@@ -35,7 +35,8 @@ export default function Topbar() {
   }, []);
   
   const [pseudo, setPseudo] = useState<string | null>(readPseudo);
-  const [showChangeModal, setShowChangeModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const pillRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -55,14 +56,15 @@ export default function Topbar() {
     return () => window.removeEventListener('matchit:player-updated', refresh);
   }, []);
 
+  function closeProfile() {
+    setShowProfileModal(false);
+    pillRef.current?.focus();
+  }
+
   return (
     <>
-      {showChangeModal && pseudo !== null && (
-        <ChangeUsernameModal
-          currentPseudo={pseudo}
-          onSave={() => { setPseudo(readPseudo()); setShowChangeModal(false); }}
-          onCancel={() => setShowChangeModal(false)}
-        />
+      {showProfileModal && (
+        <ProfileModal onClose={closeProfile} />
       )}
 
       {/* SIDEBAR OVERLAY */}
@@ -90,7 +92,6 @@ export default function Topbar() {
           className="sidebar-item sidebar-item--primary"
           onClick={() => { navigate('/'); setSidebarOpen(false); }}
         >
-
           <span className="sidebar-item-icon">🏠</span>
           <span className="sidebar-item-title">Match IT</span>
           <span className="sidebar-item-sub">Home Page</span>
@@ -108,10 +109,10 @@ export default function Topbar() {
 
         <div className="sidebar-footer">
           <img
-              src={theme === 'dark' ? sideIconDark : sideIconLight}
-              alt=""
-              className="sidebar-footer-logo"
-              aria-hidden="true"
+            src={theme === 'dark' ? sideIconDark : sideIconLight}
+            alt=""
+            className="sidebar-footer-logo"
+            aria-hidden="true"
           />
         </div>
       </aside>
@@ -139,12 +140,13 @@ export default function Topbar() {
           <button className="topbar-btn" onClick={() => navigate('/leaderboard')}>Leaderboard</button>
           {pseudo !== null && (
             <button
+              ref={pillRef}
               className="topbar-player-pill"
-              onClick={() => setShowChangeModal(true)}
-              title="Change username"
-              aria-label={`Logged in as ${pseudo}. Click to change username.`}
+              onClick={() => setShowProfileModal(true)}
+              title="View profile"
+              aria-label={`Logged in as ${pseudo}. Click to view profile.`}
             >
-              {/*Placeholder until pfp*/}
+              {/* Placeholder until profile picture feature */}
               <span className="topbar-player-pill__icon">👤</span>
               <span className="topbar-player-pill__name">{pseudo}</span>
             </button>

@@ -1,6 +1,6 @@
 import { useState, type KeyboardEvent } from 'react';
 import { changeUsername } from './useChangeUsername';
-import './UsernameModal.css';
+import './index.css';
 
 interface ChangeUsernameModalProps {
   currentPseudo: string;
@@ -12,18 +12,18 @@ export default function ChangeUsernameModal({ currentPseudo, onSave, onCancel }:
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
 
-  function handleSave() {
+  async function handleSave() {
     const trimmed = value.trim();
     if (trimmed.length < 2) {
       setError('Username must be at least 2 characters.');
       return;
     }
-    changeUsername(trimmed);
+    await changeUsername(trimmed);
     onSave();
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') handleSave();
+    if (e.key === 'Enter') { void handleSave(); }
   }
 
   return (
@@ -51,7 +51,7 @@ export default function ChangeUsernameModal({ currentPseudo, onSave, onCancel }:
 
         <button
           className="username-modal__submit"
-          onClick={handleSave}
+          onClick={() => { void handleSave(); }}
           disabled={value.trim().length < 2}
         >
           Save
