@@ -1,58 +1,40 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
-
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// GET global leaderboard: top 3 players by total points
-router.get("/", async (req, res) => {
+// ── Specific routes first ──────────────────
+
+router.put('/player/points', async (req, res) => {
   try {
-    const players = await prisma.player.findMany({
-      orderBy: { totalPoints: "desc" },
-      take: 3,
-    });
-    res.json(players);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch leaderboard" });
-  }
-});
-
-// POST a new score: adds points to the player's total
-router.post("/", async (req, res) => {
-  try {
-    const { pseudo, uuid, game, metric, points, avatarUrl } = req.body;
-    const avatar = avatarUrl ?? '/src/assets/users/default.png';
-
-    let player = await prisma.player.findUnique({ where: { uuid } });
-    if (!player) {
-      player = await prisma.player.create({
-        data: { pseudo, uuid, avatarUrl: avatar },
-      });
-    } else {
-      player = await prisma.player.update({
-        where: { uuid },
-        data: { pseudo, avatarUrl: avatar },
-      });
-    }
-
-    const score = await prisma.score.create({
-      data: { playerId: player.id, game, metric },
-    });
-
-    player = await prisma.player.update({
+    const { uuid, totalPoints } = req.body;
+    const player = await prisma.player.update({
       where: { uuid },
-      data: { totalPoints: { increment: points } },
+      data: { totalPoints },
     });
-
-    res.json({ score, player });
+    res.json(player);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to save score" });
+    res.status(500).json({ error: 'Failed to update total points' });
   }
 });
 
-// GET player profile by uuid
+router.patch('/player', async (req, res) => {
+  try {
+    const { uuid, pseudo, avatarUrl } = req.body;
+    const data = { pseudo };
+    if (avatarUrl) data.avatarUrl = avatarUrl;
+    const player = await prisma.player.update({
+      where: { uuid },
+      data,
+    });
+    res.json(player);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update player' });
+  }
+});
+
 router.get('/player/:uuid', async (req, res) => {
   try {
     const player = await prisma.player.findUnique({
@@ -67,20 +49,47 @@ router.get('/player/:uuid', async (req, res) => {
   }
 });
 
-// PATCH -> update player pseudo and avatarUrl by uuid
-router.patch('/player', async (req, res) => {
+// ── Generic routes last ────────────────────
+
+router.get("/", async (req, res) => {
   try {
-    const { uuid, pseudo, avatarUrl } = req.body;
-    const data = { pseudo };
-    if (avatarUrl) data.avatarUrl = avatarUrl;
-    const player = await prisma.player.update({
-      where: { uuid },
-      data,
+    const players = await prisma.player.findMany({
+      orderBy: { totalPoints: "desc" },
+      take: 3,
     });
-    res.json(player);
+    res.json(players);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update player' });
+    res.status(500).json({ error: "Failed to fetch leaderboard" });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const { pseudo, uuid, game, metric, points, avatarUrl } = req.body;
+    const avatar = avatarUrl ?? '/src/assets/users/default.png';
+    let player = await prisma.player.findUnique({ where: { uuid } });
+    if (!player) {
+      player = await prisma.player.create({
+        data: { pseudo, uuid, avatarUrl: avatar },
+      });
+    } else {
+      player = await prisma.player.update({
+        where: { uuid },
+        data: { pseudo, avatarUrl: avatar },
+      });
+    }
+    const score = await prisma.score.create({
+      data: { playerId: player.id, game, metric },
+    });
+    player = await prisma.player.update({
+      where: { uuid },
+      data: { totalPoints: { increment: points } },
+    });
+    res.json({ score, player });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to save score" });
   }
 });
 
