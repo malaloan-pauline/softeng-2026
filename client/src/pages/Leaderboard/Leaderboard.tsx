@@ -32,13 +32,13 @@ const PodiumCard: React.FC<PodiumCardProps> = ({ place, player, isMe }) => (
   <div className={`pod pod--${place}`}>
     <div className="ring">
       <img
-        src={player.avatarUrl ?? '/src/assets/users/default.png'}
+        src={player.avatarUrl ?? '/images/users/default.png'}
         alt={player.pseudo}
         style={{
           width: '100%', height: '100%',
           objectFit: 'cover', borderRadius: '50%',
         }}
-        onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }}
+        onError={(e) => { e.currentTarget.src = '/images/users/default.png'; }}
       />
     </div>
     <div className="name">
@@ -63,10 +63,10 @@ const ListRow: React.FC<ListRowProps> = ({ place, player, isMe }) => (
     <div className="rank-num">{place}</div>
     <div className="avatar">
       <img
-        src={player.avatarUrl ?? '/src/assets/users/default.png'}
+        src={player.avatarUrl ?? '/images/users/default.png'}
         alt={player.pseudo}
         style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
-        onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }}
+        onError={(e) => { e.currentTarget.src = '/images/users/default.png'; }}
       />
     </div>
     <div>

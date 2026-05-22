@@ -17,8 +17,8 @@ function readPseudo(): string | null {
 function readAvatarUrl(): string {
   const stored = localStorage.getItem('matchit_player');
   return stored
-    ? ((JSON.parse(stored) as { avatarUrl?: string }).avatarUrl ?? '/src/assets/users/default.png')
-    : '/src/assets/users/default.png';
+    ? ((JSON.parse(stored) as { avatarUrl?: string }).avatarUrl ?? '/images/users/default.png')
+    : '/images/users/default.png';
 }
 
 export default function Topbar() {
@@ -158,7 +158,7 @@ export default function Topbar() {
                 src={avatarUrl}
                 alt={pseudo ?? 'avatar'}
                 style={{ width: 20, height: 20, borderRadius: '50%', objectFit: 'cover' }}
-                onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }}
+                onError={(e) => { e.currentTarget.src = '/images/users/default.png'; }}
               />
               <span className="topbar-player-pill__name">{pseudo}</span>
             </button>
