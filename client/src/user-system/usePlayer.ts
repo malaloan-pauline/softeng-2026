@@ -7,7 +7,7 @@ export interface Player {
 }
 
 const STORAGE_KEY = 'matchit_player';
-const DEFAULT_AVATAR = '/src/assets/users/default.png';
+const DEFAULT_AVATAR = '/images/users/default.png';
 
 export function usePlayer() {
   const [player, setPlayer] = useState<Player | null>(() => {

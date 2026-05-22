@@ -3,15 +3,15 @@ import { usePlayer } from './usePlayer';
 import './index.css';
 
 const AVATARS = [
-  '/src/assets/users/avatar1.png',
-  '/src/assets/users/avatar2.png',
-  '/src/assets/users/avatar3.png',
-  '/src/assets/users/avatar4.png',
-  '/src/assets/users/avatar5.png',
-  '/src/assets/users/avatar6.png',
+  '/images/users/avatar1.png',
+  '/images/users/avatar2.png',
+  '/images/users/avatar3.png',
+  '/images/users/avatar4.png',
+  '/images/users/avatar5.png',
+  '/images/users/avatar6.png',
 ];
 
-const DEFAULT_AVATAR = '/src/assets/users/default.png';
+const DEFAULT_AVATAR = '/images/users/default.png';
 
 interface UsernameModalProps {
   onClose: () => void;
@@ -61,7 +61,7 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
               aria-pressed={selectedAvatar === url}
               aria-label={`Avatar ${url.match(/avatar(\d+)/)?.[1]}`}
             >
-              <img src={url} alt="" className="username-modal__avatar-img" onError={(e) => { e.currentTarget.src = '/src/assets/users/default.png'; }} />
+              <img src={url} alt="" className="username-modal__avatar-img" onError={(e) => { e.currentTarget.src = '/images/users/default.png'; }} />
             </button>
           ))}
         </div>
