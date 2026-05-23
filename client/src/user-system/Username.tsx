@@ -7,7 +7,8 @@ const AVATAR_BG_COLORS = [
   { hex: '#b5c99a', label: 'Sage' },
   { hex: '#f4c97a', label: 'Amber' },
   { hex: '#9ec5d4', label: 'Sky' },
-  { hex: '#e8a0a0', label: 'Rose' },
+  { hex: '#ffb7c3', label: 'Rose' },
+  { hex: '#e78f8e', label: 'Red' },
   { hex: '#c3aee8', label: 'Lavender' },
   { hex: '#a8d4b8', label: 'Mint' },
 ];
@@ -66,7 +67,7 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
         <div className="username-modal__preview">
           <div
               className="username-modal__preview-circle"
-              style={{ backgroundColor: selectedIndex !== null ? selectedBg : 'transparent' }}
+              style={{ backgroundColor: selectedBg }}
           >
             <img
                 src={getSelectedAvatarUrl()}
@@ -77,7 +78,7 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
           </div>
         </div>
 
-        <div className="unsername-modal__section-label">Choose a head</div>
+        <div className="unsername-modal__section-label">What’s your mood today?</div>
         <div className="username-modal__avatar-grid" role="group" aria-label="Choose an avatar">
           {Array.from({ length: AVATAR_COUNT }, (_, i) => (
             <button
@@ -90,7 +91,7 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
             >
               <div
                 className="username-modal__avatar-thumb-wrap"
-                style={{backgroundColor : selectedIndex === i ? selectedBg : 'var(-cc-surface, #fdf8ee'}}
+                style={{ backgroundColor: selectedIndex === i ? selectedBg : 'var(--c-surface, #fdf8ee)' }}
                 >
               <img
                   src={getAvatarUrl(i, avatarVariant)}
@@ -102,7 +103,6 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
         </div>
         
         <div className="username-modal__variant-row" role="group" aria-label="Avatar style">
-          <div className="username-modal__section-label" style={{ marginBottom: 0 }}>Style</div>
           <div className="username-modal__variant-toggle">
             <button
                 type="button"
@@ -123,7 +123,6 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
           </div>
         </div>
 
-        <div className="username-modal__section-label">Background color</div>
         <div className="username-modal__bg-row" role="group" aria-label="Choose background color">
           {AVATAR_BG_COLORS.map(({ hex, label }) => (
               <button
