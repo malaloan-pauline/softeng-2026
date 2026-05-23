@@ -166,7 +166,7 @@ export default function Topbar() {
           <button
             className="theme-toggle"
             onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Swtich to dark mode'}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
