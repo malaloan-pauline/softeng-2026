@@ -167,3 +167,30 @@
   border-color: var(--c-muted, #6b6e5a);
   color: var(--c-text, #1c1f14);
 }
+
+.username-modal__bg-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.username-modal__bg-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, border-color 0.15s;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.username-modal__bg-swatch:hover {
+  transform: scale(1.12);
+}
+
+.username-modal__bg-swatch--selected {
+  border-color: var(--c-text, #1c1f14);
+  transform: scale(1.1);
+}
