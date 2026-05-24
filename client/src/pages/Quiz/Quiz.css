@@ -236,6 +236,7 @@
   cursor: pointer;
   border: none;
   transition: filter 0.15s ease, transform 0.15s ease;
+  margin-bottom: 0;
 }
 
 .start-btn:hover {
@@ -244,6 +245,12 @@
 
 .start-btn:active {
   transform: scale(0.98);
+}
+
+.quiz-back {
+  text-align: center;
+  padding: 0 0 32px;
+  margin-top: -0.75rem;
 }
 
 /* ── RESULTS SCREEN ── */
