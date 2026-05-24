@@ -110,8 +110,13 @@ export default function Topbar() {
           <span className="sidebar-item-title">QR Code</span>
           <span className="sidebar-item-sub">Scan to play</span>
           <div className="qr-placeholder" aria-label="QR Code">
-            {/* Replace with <QRCodeCanvas value={window.location.href} size={64} /> from qrcode.react */}
-            <div className="qr-mock" />
+            <img
+                src="/images/qr-code.png"
+                alt="QR Code - Scan to play"
+                width={64}
+                height={64}
+                style={{ borderRadius: 4 }}
+            />
           </div>
         </div>
 
