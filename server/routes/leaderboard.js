@@ -21,9 +21,10 @@ router.put('/player/points', async (req, res) => {
 
 router.patch('/player', async (req, res) => {
   try {
-    const { uuid, pseudo, avatarUrl } = req.body;
+    const { uuid, pseudo, avatarUrl, avatarBg } = req.body;
     const data = { pseudo };
     if (avatarUrl) data.avatarUrl = avatarUrl;
+    if (avatarBg) data.avatarBg = avatarBg;
     const player = await prisma.player.update({
       where: { uuid },
       data,
@@ -65,17 +66,17 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { pseudo, uuid, game, metric, points, avatarUrl } = req.body;
+    const { pseudo, uuid, game, metric, points, avatarUrl, avatarBg } = req.body;
     const avatar = avatarUrl ?? '/src/assets/users/default.png';
     let player = await prisma.player.findUnique({ where: { uuid } });
     if (!player) {
       player = await prisma.player.create({
-        data: { pseudo, uuid, avatarUrl: avatar },
+        data: { pseudo, uuid, avatarUrl: avatar, avatarBg: avatarBg ?? '#9ec5d4' },
       });
     } else {
       player = await prisma.player.update({
         where: { uuid },
-        data: { pseudo, avatarUrl: avatar },
+        data: { pseudo, avatarUrl: avatar, avatarBg: avatarBg ?? '#9ec5d4' },
       });
     }
     const score = await prisma.score.create({
