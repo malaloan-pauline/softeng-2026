@@ -13,7 +13,6 @@ model Player {
   pseudo      String
   uuid        String   @unique
   avatarUrl   String   @default("/src/assets/users/default.png")
-  avatarBg    String?
   totalPoints Int      @default(0)
   createdAt   DateTime @default(now())
   scores      Score[]

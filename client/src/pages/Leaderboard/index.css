@@ -149,13 +149,14 @@
 }
  
 .leaderboard-root .pod .ring {
-  position: relative;
+  position: relative; 
   border-radius: var(--r-xl);
-  border: 1px solid var(--card-edge);
+  background: var(--card);
+  border: 3px solid var(--card-edge);
   box-shadow: var(--lb-shadow);
   display: grid;
   place-items: center;
-  overflow: hidden;
+  overflow: hidden; 
 }
  
 .leaderboard-root .pod .rank {
@@ -231,6 +232,7 @@
  
 .leaderboard-root .row .avatar {
   width: 44px; height: 44px; border-radius: var(--r-xl);
+  background: var(--card);
   border: 2px solid var(--card-edge);
   position: relative; overflow: hidden;
   display: grid; place-items: center;

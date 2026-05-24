@@ -4,7 +4,6 @@ export interface Player {
   uuid: string;
   pseudo: string;
   avatarUrl?: string;
-  avatarBg?: string;
 }
 
 const STORAGE_KEY = 'matchit_player';
@@ -16,12 +15,11 @@ export function usePlayer() {
     return stored ? (JSON.parse(stored) as Player) : null;
   });
 
-  function savePlayer(pseudo: string, avatarUrl: string = DEFAULT_AVATAR, avatarBg?: string) {
+  function savePlayer(pseudo: string, avatarUrl: string = DEFAULT_AVATAR) {
     const newPlayer: Player = {
       uuid: crypto.randomUUID(),
       pseudo,
       avatarUrl,
-      avatarBg,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newPlayer));
     setPlayer(newPlayer);

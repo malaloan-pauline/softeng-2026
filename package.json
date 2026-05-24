@@ -4,5 +4,9 @@
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0"
-  }
+  },
+  "scripts": {
+  "start": "npx prisma generate && npx prisma migrate deploy && node index.js",
+  "dev": "npx prisma generate && npx prisma migrate deploy && node index.js"
+}
 }

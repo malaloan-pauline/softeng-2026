@@ -167,11 +167,6 @@ export default function Quiz() {
           >
             Let's Go →
           </button>
-          <div className="quiz-back">
-            <button className="back-btn" onClick={() => navigate('/')}>
-              ← Back to Home
-            </button>
-          </div>
         </div>
       </div>
     )
