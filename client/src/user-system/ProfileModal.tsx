@@ -16,7 +16,7 @@ export default function ProfileModal({ onClose }: ProfileModalProps) {
   const stored = localStorage.getItem('matchit_player');
   const player: Player | null = stored ? JSON.parse(stored) : null;
   const avatarUrl = player?.avatarUrl ?? '/images/users/default.png';
-  const avatarBg = player?.avatarBg;
+  console.log('avatarUrl:', avatarUrl);
 
   const [stats, setStats] = useState<PlayerStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -68,18 +68,13 @@ export default function ProfileModal({ onClose }: ProfileModalProps) {
           ✕
         </button>
 
-        <div
-            className="profile-modal__avatar-wrap"
-            style={{ backgroundColor: avatarBg ?? 'transparent' }}
-        >
-          <img
-            className="profile-modal__avatar"
-            src={avatarUrl}
-            alt=""
-            aria-hidden="true"
-            onError={(e) => { e.currentTarget.src = '/images/users/default.png'; }}
-          />
-        </div>
+        <img
+          className="profile-modal__avatar"
+          src={avatarUrl}
+          alt=""
+          aria-hidden="true"
+          onError={(e) => { e.currentTarget.src = '/images/users/default.png'; }}
+        />
 
         <h2 id="profile-modal-title" className="profile-modal__name">
           {player?.pseudo ?? 'Unknown player'}

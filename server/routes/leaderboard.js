@@ -34,7 +34,7 @@ router.post('/player', async (req, res) => {
   }
 });
 
-router.patch('/player', async (req, res) => {
+router.post('/player', async (req, res) => {
   try {
     const { uuid, pseudo, avatarUrl, avatarBg } = req.body;
     const data = { pseudo };
@@ -55,7 +55,7 @@ router.get('/player/:uuid', async (req, res) => {
   try {
     const player = await prisma.player.findUnique({
       where: { uuid: req.params.uuid },
-      select: { id: true, pseudo: true, uuid: true, avatarUrl: true, avatarBg: true, totalPoints: true, createdAt: true },
+      select: { id: true, pseudo: true, uuid: true, avatarUrl: true, totalPoints: true, createdAt: true },
     });
     if (!player) return res.status(404).json({ error: 'Player not found' });
     res.json(player);

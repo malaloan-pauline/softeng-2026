@@ -110,13 +110,8 @@ export default function Topbar() {
           <span className="sidebar-item-title">QR Code</span>
           <span className="sidebar-item-sub">Scan to play</span>
           <div className="qr-placeholder" aria-label="QR Code">
-            <img
-                src="/images/qr-code.png"
-                alt="QR Code - Scan to play"
-                width={64}
-                height={64}
-                style={{ borderRadius: 4 }}
-            />
+            {/* Replace with <QRCodeCanvas value={window.location.href} size={64} /> from qrcode.react */}
+            <div className="qr-mock" />
           </div>
         </div>
 
@@ -171,7 +166,7 @@ export default function Topbar() {
           <button
             className="theme-toggle"
             onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Swtich to dark mode'}
           >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
