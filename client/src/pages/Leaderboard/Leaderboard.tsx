@@ -8,6 +8,7 @@ export interface Player {
   pseudo: string;
   uuid: string;
   avatarUrl: string;
+  avatarBg?: string;
   totalPoints: number;
   createdAt: string;
 }
@@ -30,7 +31,7 @@ interface PodiumCardProps {
 
 const PodiumCard: React.FC<PodiumCardProps> = ({ place, player, isMe }) => (
   <div className={`pod pod--${place}`}>
-    <div className="ring">
+    <div className="ring" style={{ backgroundColor: player.avatarBg ?? 'var(--card)' }}>
       <img
         src={player.avatarUrl ?? '/images/users/default.png'}
         alt={player.pseudo}
@@ -61,7 +62,7 @@ interface ListRowProps {
 const ListRow: React.FC<ListRowProps> = ({ place, player, isMe }) => (
   <div className="row">
     <div className="rank-num">{place}</div>
-    <div className="avatar">
+    <div className="avatar" style={{ backgroundColor: player.avatarBg ?? 'var(--card)' }}>
       <img
         src={player.avatarUrl ?? '/images/users/default.png'}
         alt={player.pseudo}
