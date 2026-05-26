@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API_URL } from '../config/api';
 
 export interface Player {
   uuid: string;
@@ -16,7 +17,7 @@ export function usePlayer() {
     return stored ? (JSON.parse(stored) as Player) : null;
   });
 
-  function savePlayer(pseudo: string, avatarUrl: string = DEFAULT_AVATAR, avatarBg?: string) {
+  async function savePlayer(pseudo: string, avatarUrl: string = DEFAULT_AVATAR, avatarBg?: string) {
     const newPlayer: Player = {
       uuid: crypto.randomUUID(),
       pseudo,
@@ -26,6 +27,15 @@ export function usePlayer() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newPlayer));
     setPlayer(newPlayer);
     window.dispatchEvent(new Event('matchit:player-updated'));
+    try {
+      await fetch(`${API_URL}/api/leaderboard/player`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ uuid: newPlayer.uuid, pseudo, avatarUrl: newPlayer.avatarUrl, avatarBg }),
+      });
+    } catch (err) {
+      console.error('[savePlayer] failed to register player:', err);
+    }
   }
 
   return { player, savePlayer };

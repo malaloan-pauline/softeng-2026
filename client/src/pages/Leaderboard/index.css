@@ -102,6 +102,7 @@
   max-width: 860px;
   margin: 4px auto 120px;
   padding: 0 22px;
+  padding-top: calc(var(--topbar-h) + -1rem);
 }
  
 .leaderboard-root .title {
