@@ -2,14 +2,17 @@ import { useState, type KeyboardEvent } from 'react';
 import { usePlayer } from './usePlayer';
 import './index.css';
 
-const AVATARS = [
-  '/images/users/avatar1.png',
-  '/images/users/avatar2.png',
-  '/images/users/avatar3.png',
-  '/images/users/avatar4.png',
-  '/images/users/avatar5.png',
-  '/images/users/avatar6.png',
+const AVATAR_COUNT = 10;
+const AVATAR_BG_COLORS = [
+  { hex: '#b5c99a', label: 'Sage' },
+  { hex: '#f4c97a', label: 'Amber' },
+  { hex: '#9ec5d4', label: 'Sky' },
+  { hex: '#ffb7c3', label: 'Rose' },
+  { hex: '#e78f8e', label: 'Red' },
+  { hex: '#c3aee8', label: 'Lavender' },
+  { hex: '#a8d4b8', label: 'Mint' },
 ];
+
 
 const DEFAULT_AVATAR = '/images/users/default.png';
 
@@ -21,7 +24,18 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
   const { savePlayer } = usePlayer();
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [avatarVariant, setAvatarVariant] = useState<'light' | 'dark'>('light');
+  const [selectedBg, setSelectedBg] = useState<string>(AVATAR_BG_COLORS[0].hex);
+
+  function getAvatarUrl(index: number, variant: 'light' | 'dark') {
+    return `/images/users/${variant}/avatar${index + 1}.png`;
+  }
+
+  function getSelectedAvatarUrl() {
+    if (selectedIndex === null) return DEFAULT_AVATAR;
+    return getAvatarUrl(selectedIndex, avatarVariant);
+  }
 
   function handleSubmit() {
     const trimmed = value.trim();
@@ -29,8 +43,7 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
       setError('Username must be at least 2 characters.');
       return;
     }
-    console.log(selectedAvatar);
-    savePlayer(trimmed, selectedAvatar ?? DEFAULT_AVATAR);
+    savePlayer(trimmed, getSelectedAvatarUrl(), selectedIndex !== null ? selectedBg : undefined);
     onClose();
   }
 
@@ -51,18 +64,77 @@ export default function UsernameModal({ onClose }: UsernameModalProps) {
         <h2 id="modal-title" className="username-modal__title">Welcome to Match IT!</h2>
         <p className="username-modal__subtitle">Pick an avatar and choose a username.</p>
 
+        <div className="username-modal__preview">
+          <div
+              className="username-modal__preview-circle"
+              style={{ backgroundColor: selectedBg }}
+          >
+            <img
+                src={getSelectedAvatarUrl()}
+                alt="Your avatar preview"
+                className="username-modal__preview-img"
+                onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }}
+            />
+          </div>
+        </div>
+
+        <div className="unsername-modal__section-label">What’s your mood today?</div>
         <div className="username-modal__avatar-grid" role="group" aria-label="Choose an avatar">
-          {AVATARS.map((url) => (
+          {Array.from({ length: AVATAR_COUNT }, (_, i) => (
             <button
-              key={url}
+              key={i}
               type="button"
-              className={`username-modal__avatar-btn${selectedAvatar === url ? ' username-modal__avatar-btn--selected' : ''}`}
-              onClick={() => setSelectedAvatar(url)}
-              aria-pressed={selectedAvatar === url}
-              aria-label={`Avatar ${url.match(/avatar(\d+)/)?.[1]}`}
+              className={`username-modal__avatar-btn${selectedIndex === i ? ' username-modal__avatar-btn--selected' : ''}`}
+              onClick={() => setSelectedIndex(i)}
+              aria-pressed={selectedIndex === i}
+              aria-label={`Avatar ${i + 1}`}
             >
-              <img src={url} alt="" className="username-modal__avatar-img" onError={(e) => { e.currentTarget.src = '/images/users/default.png'; }} />
+              <div
+                className="username-modal__avatar-thumb-wrap"
+                style={{ backgroundColor: selectedIndex === i ? selectedBg : 'var(--c-surface, #fdf8ee)' }}
+                >
+              <img
+                  src={getAvatarUrl(i, avatarVariant)}
+                  alt="" className="username-modal__avatar-img"
+                  onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} />
+              </div>
             </button>
+          ))}
+        </div>
+        
+        <div className="username-modal__variant-row" role="group" aria-label="Avatar style">
+          <div className="username-modal__variant-toggle">
+            <button
+                type="button"
+                className={`username-modal__variant-btn${avatarVariant === 'light' ? ' username-modal__variant-btn--active' : ''}`}
+                onClick={() => setAvatarVariant('light')}
+                aria-pressed={avatarVariant === 'light'}
+            >
+              ☀ Light
+            </button>
+            <button
+                type="button"
+                className={`username-modal__variant-btn${avatarVariant === 'dark' ? ' username-modal__variant-btn--active' : ''}`}
+                onClick={() => setAvatarVariant('dark')}
+                aria-pressed={avatarVariant === 'dark'}
+            >
+              ☾ Dark
+            </button>
+          </div>
+        </div>
+
+        <div className="username-modal__bg-row" role="group" aria-label="Choose background color">
+          {AVATAR_BG_COLORS.map(({ hex, label }) => (
+              <button
+                  key={hex}
+                  type="button"
+                  className={`username-modal__bg-swatch${selectedBg === hex ? ' username-modal__bg-swatch--selected' : ''}`}
+                  style={{ backgroundColor: hex }}
+                  onClick={() => setSelectedBg(hex)}
+                  aria-pressed={selectedBg === hex}
+                  aria-label={label}
+                  title={label}
+              />
           ))}
         </div>
 
