@@ -101,17 +101,12 @@
 .sidebar-item-title { font-size: 13px; font-weight: 500; }
 .sidebar-item-sub   { font-size: 11px; opacity: 0.65; }
 
-.qr-placeholder {
-    margin-top: 8px;
-    align-content: center;
-}
-
-.qr-placeholder img {
-    width: 100%;
-    max-width: 170px;
-    height: auto;
+.qr-placeholder { margin-top: 8px; }
+.qr-mock {
+    width: 64px; height: 64px;
+    background: repeating-conic-gradient(var(--c-primary) 0% 25%, transparent 0% 50%) 0 0 / 8px 8px;
     border-radius: 4px;
-    display: block;
+    opacity: 0.35;
 }
 
 /* ============================================================

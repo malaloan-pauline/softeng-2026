@@ -31,12 +31,12 @@ export async function submitScore({ game, metric, points }: SubmitScorePayload):
   if (!stored) return;
 
   try {
-    const { uuid }: Player = JSON.parse(stored);
+    const { uuid, pseudo, avatarUrl }: Player = JSON.parse(stored);
 
     const res = await fetch(`${API_URL}/api/leaderboard`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ uuid, game, metric, points }),
+      body: JSON.stringify({ uuid, pseudo, avatarUrl, game, metric, points }),
     });
 
     if (!res.ok) console.error(`[submitScore] HTTP ${res.status}`);
