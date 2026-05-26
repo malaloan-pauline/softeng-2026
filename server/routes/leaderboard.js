@@ -19,6 +19,21 @@ router.put('/player/points', async (req, res) => {
   }
 });
 
+router.post('/player', async (req, res) => {
+  try {
+    const { uuid, pseudo, avatarUrl, avatarBg } = req.body;
+    const player = await prisma.player.upsert({
+      where: { uuid },
+      create: { uuid, pseudo, avatarUrl, ...(avatarBg && { avatarBg }) },
+      update: { pseudo, avatarUrl, ...(avatarBg && { avatarBg }) },
+    });
+    res.json(player);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to register player' });
+  }
+});
+
 router.patch('/player', async (req, res) => {
   try {
     const { uuid, pseudo, avatarUrl, avatarBg } = req.body;
@@ -66,19 +81,9 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { pseudo, uuid, game, metric, points, avatarUrl, avatarBg } = req.body;
-    const avatar = avatarUrl ?? '/src/assets/users/default.png';
+    const { uuid, game, metric, points } = req.body;
     let player = await prisma.player.findUnique({ where: { uuid } });
-    if (!player) {
-      player = await prisma.player.create({
-        data: { pseudo, uuid, avatarUrl: avatar, ...(avatarBg && { avatarBg }) },
-      });
-    } else {
-      player = await prisma.player.update({
-        where: { uuid },
-        data: { pseudo, avatarUrl: avatar, ...(avatarBg && { avatarBg }) },
-      });
-    }
+    if (!player) return res.status(404).json({ error: 'Player not found' });
     const score = await prisma.score.create({
       data: { playerId: player.id, game, metric },
     });
