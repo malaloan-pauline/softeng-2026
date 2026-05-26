@@ -11,9 +11,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.19.3",
+    "@prisma/language-server": "^6.19.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "prisma": "^5.22.0"
+    "prisma": "^6.19.3"
   }
 }

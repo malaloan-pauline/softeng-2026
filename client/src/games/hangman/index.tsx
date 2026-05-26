@@ -699,7 +699,10 @@ export default function Hangman(): React.JSX.Element {
           id="screen-end"
           style={{ display: activeScreen === "screen-end" ? "flex" : "none" }}
           className={`
-            flex flex-col items-center justify-center gap-6 min-h-screen px-8 py-10 transition-colors duration-500
+            flex flex-col items-center justify-start gap-3 px-8
+            min-h-screen
+            pt-[calc(var(--topbar-h)+2rem)] pb-10
+            transition-colors duration-500
             ${endResult === "win" ? "bg-[var(--c-primary)]" : "bg-[var(--c-accent)]"}
             ${shaking ? "juicy__screenshake" : ""}
           `}
@@ -709,7 +712,7 @@ export default function Hangman(): React.JSX.Element {
           {endResult === "win" ? "🎉 Success!" : "💀 Game Over"}
         </h1>
 
-        <div className="w-50 md:w-80 h-48 md:h-80 flex items-center justify-center">
+        <div className="w-40 md:w-56 h-40 md:h-56 flex items-center justify-center">
           {activeScreen === "screen-end" && (
               <img
                   src={`/images/${theme === 'dark' ? 'dark' : 'light'}/${endResult === 'win' ? 'success' : 'dead'}.png`}
@@ -743,7 +746,7 @@ export default function Hangman(): React.JSX.Element {
           {score} pts
         </div>
 
-        <div className="flex flex-col gap-3 w-full max-w-xs mt-4">
+        <div className="flex flex-col gap-3 w-full max-w-xs">
           {endResult === "win" && (
               <>
                 <button
